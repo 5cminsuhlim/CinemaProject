@@ -15,15 +15,6 @@ public class Cinema_Runner {
         ArrayList<Cinema> validCinemas = new ArrayList<>();
         validCinemas = u.cinemaInit();
 
-        //read in all cards
-        //gonna need to make changes for JSON
-        ArrayList<Cinema> validCinemas = new ArrayList<>();
-        validCinemas = u.cinemaInit();
-
-        //read in all cinemas
-        ArrayList<Cinema> validCinemas = new ArrayList<>();
-        validCinemas = u.cinemaInit();
-
         //reads in all cards
         //gonna need to make changes for JSON
         ArrayList<Card> validCards = new ArrayList<>();
