@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.math.BigDecimal;
 
 public class Movie {
+    private String name;
     private String synopsis; //plot
     private String rating; //rating
     private String releaseDate; //?
@@ -21,7 +22,8 @@ public class Movie {
     private BigDecimal basePrice; //need to gen this
     private BigDecimal ticketPrice; //0.8, 1.2, 1.6
 
-    public Movie(String synopsis, String rating, String releaseDate, ArrayList<String> cast, ArrayList<String> upcomingTimes, String screenSize, int f_seatsOpen, int f_seatsBooked, int m_seatsOpen, int m_seatsBooked, int r_seatsOpen, int r_seatsBooked, BigDecimal basePrice) {
+    public Movie(String name, String synopsis, String rating, String releaseDate, ArrayList<String> cast, ArrayList<String> upcomingTimes, String screenSize, int f_seatsOpen, int f_seatsBooked, int m_seatsOpen, int m_seatsBooked, int r_seatsOpen, int r_seatsBooked, BigDecimal basePrice) {
+        this.name = name;
         this.synopsis = synopsis;
         this.rating = rating;
         this.releaseDate = releaseDate;
@@ -36,6 +38,14 @@ public class Movie {
         this.r_seatsBooked = r_seatsBooked;
         this.basePrice = basePrice;
         setTicketPrice(this.screenSize);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSynopsis() {
@@ -156,6 +166,16 @@ public class Movie {
 
     public void setBasePrice(BigDecimal basePrice) {
         this.basePrice = basePrice;
+    }
+
+    public void getMovieDetails(){
+        System.out.println(getName() + '\n' +
+                            getSynopsis() + '\n' +
+                            getRating() + '\n' +
+                            getReleaseDate() + '\n' +
+                            getCast() + '\n' +
+                            getUpcomingTimes() + '\n' +
+                            getScreenSize());
     }
 
     protected static ArrayList<Movie> readMovies(String filename){
