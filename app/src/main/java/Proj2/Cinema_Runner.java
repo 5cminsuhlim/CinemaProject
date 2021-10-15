@@ -40,23 +40,28 @@ public class Cinema_Runner {
         Scanner cinemaInput = new Scanner(System.in);
         boolean running = true;
         boolean prompting = true;
+
+        //default page
         while(running){
-            while(prompting){
-                System.out.println("Welcome to the Genkins Movie Booking System!");
-                System.out.println("Movies");
-                for(Cinema c : validCinemas){
-                    System.out.println("-------------------------------------------------------");
-                    System.out.println(c.getName() + '\n' + c.getLocation());
-                    System.out.println("-------------------------------------------------------");
+            System.out.println("Welcome to the Genkins Movie Booking System!");
+            System.out.println("Movies");
+            for(Cinema c : validCinemas){
+                System.out.println("-------------------------------------------------------");
+                System.out.println(c.getName() + '\n' + c.getLocation());
+                System.out.println("-------------------------------------------------------");
 
-                    for(Movie m : c.getMovies()){
-                        System.out.println(m.getName());
+                for(Movie m : c.getMovies()){
+                    System.out.println(m.getName());
 
-                        for(String s : m.getUpcomingTimes()){
-                            System.out.println(s);
-                        }
+                    for(String s : m.getUpcomingTimes()){
+                        System.out.println(s);
                     }
                 }
+            }
+
+            //when prompting guest to login
+            while(prompting){
+
             }
         }
     }
