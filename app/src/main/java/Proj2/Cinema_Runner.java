@@ -43,10 +43,7 @@ public class Cinema_Runner {
 
                 for(Movie m : c.getMovies()){
                     System.out.println(m.getName());
-
-                    for(String s : m.getUpcomingTimes()){
-                        System.out.println(s);
-                    }
+                    System.out.println(m.getSchedule());
                 }
             }
 
