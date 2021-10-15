@@ -85,4 +85,21 @@ public class UserInput {
         }
         return validGiftCards;
     }
+
+    public String promptGuest(){
+        printStream.println("Options: " +
+                            "\n1: View Movie Details" +
+                            "\n2: Change Cinema");
+        return scanner.nextLine();
+    }
+
+    public String findMovie(){
+        printStream.println("Please enter the movie title:\n");
+        return scanner.nextLine();
+    }
+
+    public String findCinema(){
+        printStream.println("Please enter the cinema name:\n");
+        return scanner.nextLine();
+    }
 }
