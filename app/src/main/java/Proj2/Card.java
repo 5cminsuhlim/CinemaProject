@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+
 public class Card{
     private String cardNumber; //need to gen this
     private String cardHolderName; //need to gen this
@@ -33,10 +35,12 @@ public class Card{
         ArrayList<Card> cardList = new ArrayList<>();
 
         try{
+
             File file = new File(filename);
             Scanner input = new Scanner(file);
 
             while (input.hasNextLine()) { //reads all lines of the file
+
                 String[] line = input.nextLine().split(",");
 
                 //need to double check ordering
