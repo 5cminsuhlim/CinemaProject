@@ -11,7 +11,8 @@ public class Movie {
     private String rating; //rating
     private String releaseDate; //?
     private ArrayList<String> cast; //people
-    private ArrayList<String> upcomingTimes; //need to gen this
+    //private ArrayList<String> upcomingTimes; //need to gen this
+    private Schedule schedule;
     private String screenSize; //need to gen this
     private int f_seatsOpen;  //need to gen this
     private int f_seatsBooked;  //need to gen this
@@ -22,13 +23,17 @@ public class Movie {
     private BigDecimal basePrice; //need to gen this
     private BigDecimal ticketPrice; //0.8, 1.2, 1.6
 
-    public Movie(String name, String synopsis, String rating, String releaseDate, ArrayList<String> cast, ArrayList<String> upcomingTimes, String screenSize, int f_seatsOpen, int f_seatsBooked, int m_seatsOpen, int m_seatsBooked, int r_seatsOpen, int r_seatsBooked, BigDecimal basePrice) {
+    public Movie(String name, String synopsis, String rating, String releaseDate, ArrayList<String> cast, //ArrayList<String> upcomingTimes
+                 Schedule schedule, String screenSize, int f_seatsOpen,
+                 int f_seatsBooked, int m_seatsOpen, int m_seatsBooked,
+                 int r_seatsOpen, int r_seatsBooked, BigDecimal basePrice) {
         this.name = name;
         this.synopsis = synopsis;
         this.rating = rating;
         this.releaseDate = releaseDate;
         this.cast = cast;
-        this.upcomingTimes = upcomingTimes;
+        //this.upcomingTimes = upcomingTimes;
+        this.schedule = schedule;
         this.screenSize = screenSize;
         this.f_seatsOpen = f_seatsOpen;
         this.f_seatsBooked = f_seatsBooked;
@@ -80,12 +85,29 @@ public class Movie {
         this.cast = cast;
     }
 
+    /*
     public ArrayList<String> getUpcomingTimes() {
         return upcomingTimes;
     }
 
     public void setUpcomingTimes(ArrayList<String> upcomingTimes) {
         this.upcomingTimes = upcomingTimes;
+    }*/
+
+    public String getSchedule() {
+        String s = "";
+
+        s += schedule.getDay() + ":";
+
+        for (String time : schedule.getUpcomingTimes()) {
+            s += time + "\n";
+        }
+
+        return s;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     public String getScreenSize() {
@@ -174,8 +196,8 @@ public class Movie {
                             getRating() + '\n' +
                             getReleaseDate() + '\n' +
                             getCast() + '\n' +
-                            getUpcomingTimes() + '\n' +
-                            getScreenSize());
+                            getScreenSize() + '\n' +
+                            getSchedule());
     }
 
     protected static ArrayList<Movie> readMovies(String filename){
