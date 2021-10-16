@@ -40,7 +40,7 @@ public class GiftCard {
                 String[] line = input.nextLine().split(",");
 
                 //need to double check ordering
-                giftCardList.add(new GiftCard(line[0], line[1]));
+                giftCardList.add(new GiftCard(line[0], line[1].equals("1")));
             }
         }
         catch (Exception e) {
