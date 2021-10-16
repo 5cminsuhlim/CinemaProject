@@ -2,6 +2,7 @@ package Proj2;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.math.BigDecimal;
 
@@ -210,8 +211,17 @@ public class Movie {
             while (input.hasNextLine()) { //reads all lines of the file
                 String[] line = input.nextLine().split(",");
 
-                //need to double check ordering
-                movieList.add(new Movie(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8]));
+               //name,synopsis,rating,releaseDate,cast,schedule,screenSize, f_seatsOpen,
+                // f_seatsBooked,m_seatsOpen,m_seatsBooked,r_seatsOpen,r_seatsBooked,BasePrice
+                String[] castList = line[4].split(";");
+                ArrayList<String> cast = new ArrayList<>(Arrays.asList(castList));
+                Schedule schedule = new Schedule(
+                        "Monday", new ArrayList<>()); // needs to be implemented properly
+                movieList.add(new Movie(
+                        line[0], line[1], line[2], line[3], cast, schedule, line[6], Integer.parseInt(line[7]),
+                        Integer.parseInt(line[8]), Integer.parseInt(line[9]), Integer.parseInt(line[10]),
+                        Integer.parseInt(line[11]),Integer.parseInt(line[12]), new BigDecimal(line[13]))
+                );
             }
         }
         catch (Exception e) {
