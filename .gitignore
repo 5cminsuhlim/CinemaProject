@@ -3,3 +3,16 @@
 
 # Ignore Gradle build output directory
 build
+.project
+.settings/
+.idea/
+
+#Ignore Card Number Generator output
+__pycache__
+.DS_Store
+
+#Python made files
+cinemas.txt
+giftcards.txt
+movies.txt
+cards.txt

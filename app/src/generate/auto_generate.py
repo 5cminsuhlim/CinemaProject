@@ -60,17 +60,17 @@ def genGiftCards(card_count):
 
 #Main Function
 try:
-    path = sys.argv[1]
+    cardListPath = 'credit_cards.json'
     movie_count = int(sys.argv[2])
     cinema_count = int(sys.argv[3])
     card_count = int(sys.argv[4])
-    with open(path) as f:
+    with open(cardListPath) as f:
         jsonData = json.load(f)
         f.close()
-        parseCards(jsonData)
-        genMovies(movie_count)
-        genCinemas(cinema_count)
-        genGiftCards(card_count)
+    parseCards(jsonData)
+    genMovies(movie_count)
+    genCinemas(cinema_count)
+    genGiftCards(card_count)
 except Exception:
     print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
     sys.exit()
