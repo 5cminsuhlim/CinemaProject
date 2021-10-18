@@ -94,9 +94,19 @@ public class UserInput {
     }
 
     public String promptGuest(){
-        printStream.println("Options:\n" +
-                            "1: View Movie Details\n" +
-                            "2: Change Cinema\n");
+        printStream.println("Filter Options:\n" +
+                            "1: Movie\n" +
+                            "2: Cinema\n" +
+                            "3: Screen Size");
+        return scanner.nextLine();
+    }
+
+    public String promptCustomer(){
+        printStream.println("Filter Options:\n" +
+                            "1: Movie\n" +
+                            "2: Cinema\n" +
+                            "3: Screen Size\n" +
+                            "4: Log out");
         return scanner.nextLine();
     }
 
@@ -138,6 +148,11 @@ public class UserInput {
 
     public String findCinema(){
         printStream.println("Please enter the cinema name:\n");
+        return scanner.nextLine();
+    }
+
+    public String findScreen(){
+        printStream.println("Please enter the screen size:\n");
         return scanner.nextLine();
     }
 }

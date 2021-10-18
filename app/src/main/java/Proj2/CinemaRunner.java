@@ -62,7 +62,7 @@ public class CinemaRunner {
 
         //guest function
         while(isGuest && !isCustomer){
-            //prompt guest to search for movie or filter cinema
+            //prompt guest to filter by movie, cinema, or screen size
             input = u.promptGuest();
 
             switch(input){
@@ -76,7 +76,7 @@ public class CinemaRunner {
                             //if movie is found
                             if(m.getName().equals(input)){
                                 //print details
-                                m.getMovieDetails();
+                                System.out.println(m.getMovieDetails());
 
                                 //prompt guest if they want to book
                                 input = u.bookMovie();
@@ -109,20 +109,40 @@ public class CinemaRunner {
                             }
                         }
                     }
+
                 case "2":
-                    //prompt guest to filter by cinema
+                    //prompt guest to look up cinema
                     input = u.findCinema();
 
                     for(Cinema c : validCinemas) {
+                        //if cinema is found
                         if(c.getName().equals(input)){
                             for(Movie m : c.getMovies()){
+                                //print movie name
                                 System.out.println(m.getName());
-                                System.out.println(m.getSchedule());
                             }
                         }
                         else{
                             System.out.println("Cinema not found\n");
                         }
+                    }
+
+                case "3":
+                    //prompt guest to look up screen size
+                    input = u.findScreen();
+
+                    for(Cinema c : validCinemas) {
+                        for(Movie m : c.getMovies()){
+                            //if screen size is found
+                            if(m.getScreenSize().equals(input)){
+                                //print cinema name + location
+                                System.out.println(c.getName() + "\n" + c.getLocation());
+
+                                //print movie name
+                                System.out.println(m.getName());
+                            }
+                        }
+
                     }
 
                 default:
@@ -132,7 +152,88 @@ public class CinemaRunner {
 
             //customer function
             while(isCustomer){
+                //if user is a guest who has made an account to book a movie
+                if(isGuest){
+                    //finish booking
+                }
 
+                //prompt customer to filter by movie, cinema, or screen size
+                input = u.promptCustomer();
+
+                switch(input) {
+                    case "1":
+                        //prompt user to look up a movie
+                        input = u.findMovie();
+                        selectedMovie = input;
+
+                        for (Cinema c : validCinemas) {
+                            for (Movie m : c.getMovies()) {
+                                //if movie is found
+                                if (m.getName().equals(input)) {
+                                    //print details
+                                    System.out.println(m.getMovieDetails());
+
+                                    //prompt customer if they want to book
+                                    input = u.bookMovie();
+
+                                    switch (input) {
+                                        case "1":
+                                            //finish booking
+
+                                        case "2":
+                                            //don't book
+                                            break;
+
+                                        default:
+                                            System.out.println("Invalid Input, please try again.\n");
+                                    }
+                                } else {
+                                    System.out.println("Movie not found\n");
+                                }
+                            }
+                        }
+
+                    case "2":
+                        //prompt customer to look up cinema
+                        input = u.findCinema();
+
+                        for (Cinema c : validCinemas) {
+                            //if cinema is found
+                            if (c.getName().equals(input)) {
+                                for (Movie m : c.getMovies()) {
+                                    //print movie name
+                                    System.out.println(m.getName());
+                                }
+                            } else {
+                                System.out.println("Cinema not found\n");
+                            }
+                        }
+
+                    case "3":
+                        //prompt customer to look up screen size
+                        input = u.findScreen();
+
+                        for (Cinema c : validCinemas) {
+                            for (Movie m : c.getMovies()) {
+                                //if screen size is found
+                                if (m.getScreenSize().equals(input)) {
+                                    //print cinema name + location
+                                    System.out.println(c.getName() + "\n" + c.getLocation());
+
+                                    //print movie name
+                                    System.out.println(m.getName());
+                                }
+                            }
+
+                        }
+
+                    case "4":
+                        System.out.println("Logging out...\n");
+                        break;
+
+                    default:
+                        System.out.println("Invalid Input, please try again.\n");
+                }
 
             }
         }

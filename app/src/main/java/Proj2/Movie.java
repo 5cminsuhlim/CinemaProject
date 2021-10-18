@@ -191,14 +191,14 @@ public class Movie {
         this.basePrice = basePrice;
     }
 
-    public void getMovieDetails(){
-        System.out.println(getName() + '\n' +
-                            getSynopsis() + '\n' +
-                            getRating() + '\n' +
-                            getReleaseDate() + '\n' +
-                            getCast() + '\n' +
-                            getScreenSize() + '\n' +
-                            getSchedule());
+    public String getMovieDetails(){
+        return (getName() + '\n' +
+                getSynopsis() + '\n' +
+                getRating() + '\n' +
+                getReleaseDate() + '\n' +
+                getCast() + '\n' +
+                getScreenSize() + '\n' +
+                getSchedule());
     }
 
     protected static ArrayList<Movie> readMovies(String filename){
