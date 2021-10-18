@@ -43,5 +43,5 @@ tasks.named('test') {
 
 task generate(type:Exec) {
 	workingDir 'src/generate'
-	commandLine 'python3', 'auto_generate.py', '1000', '1000', '1000' //Generation numbers to be changed
+	commandLine 'python3', 'auto_generate.py', '100', '10', '1000' //Generation numbers to be changed
 }

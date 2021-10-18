@@ -21,6 +21,7 @@ def parseCards(jsonData):
 def genMovies(movie_count):
     f = open("../../../movies.txt", "w")
     i = 0
+    movie_list = []
     for i in range(0, movie_count):
         ratings = ["G", "PG", "M", "MA15+", "R18+"]
         rating = ratings[random.randint(0,4)]
@@ -41,19 +42,26 @@ def genMovies(movie_count):
         writeString = "{},synopsis,{},{},{},schedule,{},{},{},{},{},{},{},{}\n".format(
         "movie"+str(i+1),rating,releaseDate,cast,screenSize,front,100-front,m,100-m,r,100-r,price)
         f.write(writeString)
+        movie_list.append("movie"+str(i+1))
     f.close()
+    return movie_list
 
 def genCinemas(cinema_count):
     f = open("../../../cinemas.txt", "w")
+    i = 0
+    cinemas_list = []
     for i in range(0, cinema_count):
         names = ["Event", "Hoyts", "Palace", "Reading", "Village"]
         name = names[random.randint(0,4)]
         writeString = "{},{}\n".format(name,barnum.create_city_state_zip()[1])
         f.write(writeString)
+        cinemas_list.append(writeString.strip())
     f.close()
+    return cinemas_list
 
 def genGiftCards(card_count):
     f = open("../../../giftcards.txt", "w")
+    i = 0
     for i in range(0, card_count):
         writeString = "{},{}\n".format(random.randint(1000000000000000,9999999999999999), random.randint(0,1))
         f.write(writeString)
@@ -68,8 +76,9 @@ try:
         jsonData = json.load(f)
         f.close()
     parseCards(jsonData)
-    genMovies(movie_count)
-    genCinemas(cinema_count)
+    cinemas_list = genCinemas(cinema_count)
+    movie_list = genMovies(movie_count)
+    #genSchedules(cinemas_list, movie_list)
     genGiftCards(card_count)
 except Exception:
     print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
