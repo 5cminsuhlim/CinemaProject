@@ -76,7 +76,7 @@ public class CinemaRunner {
                             //if movie is found
                             if(m.getName().equals(input)){
                                 //print details
-                                m.getMovieDetails();
+                                System.out.println(m.getMovieDetails());
 
                                 //prompt guest if they want to book
                                 input = u.bookMovie();
