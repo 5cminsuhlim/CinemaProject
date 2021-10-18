@@ -44,7 +44,7 @@ public class Card{
                 String[] line = input.nextLine().split(",");
 
                 //need to double check ordering
-                cardList.add(new Card(line[0], line[1]));
+                cardList.add(new Card(line[1], line[0]));
             }
         }
         catch (Exception e) {
