@@ -62,7 +62,7 @@ public class CinemaRunner {
 
         //guest function
         while(isGuest && !isCustomer){
-            //prompt guest to search for movie or filter cinema
+            //prompt guest to filter by movie, cinema, or screen size
             input = u.promptGuest();
 
             switch(input){
@@ -109,20 +109,40 @@ public class CinemaRunner {
                             }
                         }
                     }
+
                 case "2":
-                    //prompt guest to filter by cinema
+                    //prompt guest to look up cinema
                     input = u.findCinema();
 
                     for(Cinema c : validCinemas) {
+                        //if cinema is found
                         if(c.getName().equals(input)){
                             for(Movie m : c.getMovies()){
+                                //print movie name
                                 System.out.println(m.getName());
-                                System.out.println(m.getSchedule());
                             }
                         }
                         else{
                             System.out.println("Cinema not found\n");
                         }
+                    }
+
+                case "3":
+                    //prompt guest to look up screen size
+                    input = u.findScreen();
+
+                    for(Cinema c : validCinemas) {
+                        for(Movie m : c.getMovies()){
+                            //if screen size is found
+                            if(m.getScreenSize().equals(input)){
+                                //print cinema name + location
+                                System.out.println(c.getName() + "\n" + c.getLocation());
+
+                                //print movie name
+                                System.out.println(m.getName());
+                            }
+                        }
+
                     }
 
                 default:
