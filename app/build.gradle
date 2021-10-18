@@ -40,3 +40,8 @@ tasks.named('test') {
     useJUnitPlatform()
     test.finalizedBy jacocoTestReport // report is always generated after tests run
 }
+
+task generate(type:Exec) {
+	workingDir 'src/generate'
+	commandLine 'python3', 'auto_generate.py', '1000', '1000', '1000' //Generation numbers to be changed
+}

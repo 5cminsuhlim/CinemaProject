@@ -61,9 +61,9 @@ def genGiftCards(card_count):
 #Main Function
 try:
     cardListPath = 'credit_cards.json'
-    movie_count = int(sys.argv[2])
-    cinema_count = int(sys.argv[3])
-    card_count = int(sys.argv[4])
+    movie_count = int(sys.argv[1])
+    cinema_count = int(sys.argv[2])
+    card_count = int(sys.argv[3])
     with open(cardListPath) as f:
         jsonData = json.load(f)
         f.close()
