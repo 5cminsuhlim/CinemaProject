@@ -112,6 +112,16 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public String enterUsername(){
+        printStream.println("Please enter your desired username:\n");
+        return scanner.nextLine();
+    }
+
+    public String enterPassword(){ //need to somehow hide password with *****
+        printStream.println("Please enter your desired password:\n");
+        return scanner.nextLine();
+    }
+
     public String findCinema(){
         printStream.println("Please enter the cinema name:\n");
         return scanner.nextLine();
