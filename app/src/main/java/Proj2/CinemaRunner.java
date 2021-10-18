@@ -27,11 +27,6 @@ public class CinemaRunner {
 
         System.out.println("Completed Genkins System Initialization.");
 
-
-        Scanner cinemaInput = new Scanner(System.in);
-        boolean running = true;
-        boolean prompting = true;
-
         //default page
         System.out.println("Welcome to the Genkins Movie Booking System!");
         System.out.println("Movies");
@@ -46,9 +41,26 @@ public class CinemaRunner {
             }
         }
 
+        boolean isGuest = false;
+        boolean isCustomer = false;
+
+        //check if guest or customer
+        String userChoice = u.checkUser();
+
+        switch(userChoice){
+            case "1":
+                isGuest = true;
+
+            case "2":
+                isCustomer = true;
+
+            default:
+                System.out.println("Invalid Input, please try again.\n");
+        }
+
 
         //guest function
-        while(running){
+        while(isGuest){
             //prompt guest to search for movie or filter cinema
             String guestChoice = u.promptGuest();
 
@@ -69,8 +81,8 @@ public class CinemaRunner {
 
                                 switch(guestChoice){
                                     case "1":
-                                        //prompt guest to make an account / log in
-                                        System.out.println("To proceed with booking, please make an account or log in.\n");
+                                        //prompt guest to make an account
+                                        System.out.println("To proceed with booking, please make an account.\n");
 
                                     case "2":
                                         //don't book
@@ -105,8 +117,9 @@ public class CinemaRunner {
             }
 
 
-            //when prompting guest to login (customer function)
-            while(prompting){
+            //customer function
+            while(isCustomer){
+
 
             }
         }
