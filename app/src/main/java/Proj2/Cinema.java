@@ -8,11 +8,13 @@ public class Cinema {
     private String name; //need to gen this
     private String location; //need to gen this
     private ArrayList<Movie> movies;
+    private int transactionNo;
 
     public Cinema(String name, String location, ArrayList<Movie> movies) {
         this.name = name;
         this.location = location;
         this.movies = movies;
+        this.transactionNo = 0;
     }
 
     public String getName() {
