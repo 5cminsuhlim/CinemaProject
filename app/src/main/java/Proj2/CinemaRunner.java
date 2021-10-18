@@ -43,11 +43,12 @@ public class CinemaRunner {
 
         boolean isGuest = false;
         boolean isCustomer = false;
+        String selectedMovie = "";
 
         //check if guest or customer
-        String userChoice = u.checkUser();
+        String input = u.checkUser();
 
-        switch(userChoice){
+        switch(input){
             case "1":
                 isGuest = true;
 
@@ -60,29 +61,40 @@ public class CinemaRunner {
 
 
         //guest function
-        while(isGuest){
+        while(isGuest && !isCustomer){
             //prompt guest to search for movie or filter cinema
-            String guestChoice = u.promptGuest();
+            input = u.promptGuest();
 
-            switch(guestChoice){
+            switch(input){
                 case "1":
                     //prompt guest to look up a movie
-                    guestChoice = u.findMovie();
+                    input = u.findMovie();
+                    selectedMovie = input;
 
                     for(Cinema c : validCinemas) {
                         for(Movie m : c.getMovies()){
                             //if movie is found
-                            if(m.getName().equals(guestChoice)){
+                            if(m.getName().equals(input)){
                                 //print details
                                 m.getMovieDetails();
 
                                 //prompt guest if they want to book
-                                guestChoice = u.bookMovie();
+                                input = u.bookMovie();
 
-                                switch(guestChoice){
+                                switch(input){
                                     case "1":
                                         //prompt guest to make an account
                                         System.out.println("To proceed with booking, please make an account.\n");
+
+
+                                        //INCOMPLETE
+                                        //NEED TO IMPLEMENT: if username is already taken, reprompt
+                                        input = u.enterUsername();
+
+                                        input = u.enterPassword();
+
+                                        isCustomer = true;
+                                        break;
 
                                     case "2":
                                         //don't book
@@ -99,10 +111,10 @@ public class CinemaRunner {
                     }
                 case "2":
                     //prompt guest to filter by cinema
-                    guestChoice = u.findCinema();
+                    input = u.findCinema();
 
                     for(Cinema c : validCinemas) {
-                        if(c.getName().equals(guestChoice)){
+                        if(c.getName().equals(input)){
                             for(Movie m : c.getMovies()){
                                 System.out.println(m.getName());
                                 System.out.println(m.getSchedule());
@@ -112,6 +124,7 @@ public class CinemaRunner {
                             System.out.println("Cinema not found\n");
                         }
                     }
+
                 default:
                     System.out.println("Invalid Input, please try again.\n");
             }
