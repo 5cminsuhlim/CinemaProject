@@ -27,11 +27,6 @@ public class CinemaRunner {
 
         System.out.println("Completed Genkins System Initialization.");
 
-
-        Scanner cinemaInput = new Scanner(System.in);
-        boolean running = true;
-        boolean prompting = true;
-
         //default page
         System.out.println("Welcome to the Genkins Movie Booking System!");
         System.out.println("Movies");
@@ -46,40 +41,98 @@ public class CinemaRunner {
             }
         }
 
+        boolean isGuest = false;
+        boolean isCustomer = false;
+        String selectedMovie = "";
+
+        //check if guest or customer
+        String input = u.checkUser();
+
+        switch(input){
+            case "1":
+                isGuest = true;
+
+            case "2":
+                isCustomer = true;
+
+            default:
+                System.out.println("Invalid Input, please try again.\n");
+        }
+
 
         //guest function
-        while(running){
-            String guestChoice = u.promptGuest();
+        while(isGuest && !isCustomer){
+            //prompt guest to search for movie or filter cinema
+            input = u.promptGuest();
 
-            switch(guestChoice){
+            switch(input){
                 case "1":
-                    String guestMovie = u.findMovie();
+                    //prompt guest to look up a movie
+                    input = u.findMovie();
+                    selectedMovie = input;
 
                     for(Cinema c : validCinemas) {
                         for(Movie m : c.getMovies()){
-                            if(m.getName().equals(guestMovie)){
+                            //if movie is found
+                            if(m.getName().equals(input)){
+                                //print details
                                 m.getMovieDetails();
+
+                                //prompt guest if they want to book
+                                input = u.bookMovie();
+
+                                switch(input){
+                                    case "1":
+                                        //prompt guest to make an account
+                                        System.out.println("To proceed with booking, please make an account.\n");
+
+
+                                        //INCOMPLETE
+                                        //NEED TO IMPLEMENT: if username is already taken, reprompt
+                                        input = u.enterUsername();
+
+                                        input = u.enterPassword();
+
+                                        isCustomer = true;
+                                        break;
+
+                                    case "2":
+                                        //don't book
+                                        break;
+
+                                    default:
+                                        System.out.println("Invalid Input, please try again.\n");
+                                }
+                            }
+                            else{
+                                System.out.println("Movie not found\n");
                             }
                         }
                     }
                 case "2":
-                    String guestCinema = u.findCinema();
+                    //prompt guest to filter by cinema
+                    input = u.findCinema();
 
                     for(Cinema c : validCinemas) {
-                        if(c.getName().equals(guestCinema)){
+                        if(c.getName().equals(input)){
                             for(Movie m : c.getMovies()){
                                 System.out.println(m.getName());
                                 System.out.println(m.getSchedule());
                             }
                         }
+                        else{
+                            System.out.println("Cinema not found\n");
+                        }
                     }
+
                 default:
                     System.out.println("Invalid Input, please try again.\n");
             }
 
 
-            //when prompting guest to login (customer function)
-            while(prompting){
+            //customer function
+            while(isCustomer){
+
 
             }
         }

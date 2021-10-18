@@ -86,16 +86,54 @@ public class UserInput {
         return validGiftCards;
     }
 
+    public String checkUser(){
+        printStream.println("Are you a guest or returning user?\n" +
+                "1: Guest\n" +
+                "2: Returning User\n");
+        return scanner.nextLine();
+    }
+
     public String promptGuest(){
-        printStream.println("Options: " +
-                            "\n1: View Movie Details" +
-                            "\n2: Change Cinema");
+        printStream.println("Options:\n" +
+                            "1: View Movie Details\n" +
+                            "2: Change Cinema\n");
         return scanner.nextLine();
     }
 
     public String findMovie(){
         printStream.println("Please enter the movie title:\n");
         return scanner.nextLine();
+    }
+
+    public String bookMovie(){
+        printStream.println("Would you like to book this movie?\n" +
+                            "1: Yes\n" +
+                            "2: No\n");
+        return scanner.nextLine();
+    }
+
+    public String enterUsername(){
+        printStream.println("Please enter your desired username:\n");
+        return scanner.nextLine();
+    }
+
+    public String enterPassword(){ //need to somehow hide password with *****
+        boolean isValid = false;
+        String pw = "";
+
+        while(!isValid){
+            printStream.println("Please enter your desired password (at least 6 characters):\n");
+            pw = scanner.nextLine();
+
+            if(pw.length() < 6){
+                printStream.println("Insufficient password length. Please try again.");
+            }
+            else{
+                isValid = true;
+            }
+        }
+
+        return pw;
     }
 
     public String findCinema(){
