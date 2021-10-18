@@ -118,8 +118,22 @@ public class UserInput {
     }
 
     public String enterPassword(){ //need to somehow hide password with *****
-        printStream.println("Please enter your desired password:\n");
-        return scanner.nextLine();
+        boolean isValid = false;
+        String pw = "";
+
+        while(!isValid){
+            printStream.println("Please enter your desired password (at least 6 characters):\n");
+            pw = scanner.nextLine();
+
+            if(pw.length() < 6){
+                printStream.println("Insufficient password length. Please try again.");
+            }
+            else{
+                isValid = true;
+            }
+        }
+
+        return pw;
     }
 
     public String findCinema(){
