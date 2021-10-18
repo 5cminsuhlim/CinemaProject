@@ -101,6 +101,15 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public String promptCustomer(){
+        printStream.println("Filter Options:\n" +
+                            "1: Movie\n" +
+                            "2: Cinema\n" +
+                            "3: Screen Size\n" +
+                            "4: Log out");
+        return scanner.nextLine();
+    }
+
     public String findMovie(){
         printStream.println("Please enter the movie title:\n");
         return scanner.nextLine();
