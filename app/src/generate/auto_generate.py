@@ -12,14 +12,14 @@ def leadingZero(value):
     return str(value)
 
 def parseCards(jsonData):
-    f = open("cards.txt", "w")
+    f = open("../../../cards.txt", "w")
     for pair in jsonData:
         writeString = pair['name'] + "," + pair['number'] + "\n"
         f.write(writeString)
     f.close()
 
 def genMovies(movie_count):
-    f = open("movies.txt", "w")
+    f = open("../../../movies.txt", "w")
     i = 0
     for i in range(0, movie_count):
         ratings = ["G", "PG", "M", "MA15+", "R18+"]
@@ -44,7 +44,7 @@ def genMovies(movie_count):
     f.close()
 
 def genCinemas(cinema_count):
-    f = open("cinemas.txt", "w")
+    f = open("../../../cinemas.txt", "w")
     for i in range(0, cinema_count):
         names = ["Event", "Hoyts", "Palace", "Reading", "Village"]
         name = names[random.randint(0,4)]
@@ -53,7 +53,7 @@ def genCinemas(cinema_count):
     f.close()
 
 def genGiftCards(card_count):
-    f = open("giftcards.txt", "w")
+    f = open("../../../giftcards.txt", "w")
     for i in range(0, card_count):
         writeString = "{},{}\n".format(random.randint(1000000000000000,9999999999999999), random.randint(0,1))
         f.write(writeString)
