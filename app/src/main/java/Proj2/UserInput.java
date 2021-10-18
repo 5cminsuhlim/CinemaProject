@@ -86,6 +86,13 @@ public class UserInput {
         return validGiftCards;
     }
 
+    public String checkUser(){
+        printStream.println("Are you a guest or returning user?\n" +
+                "1: Guest\n" +
+                "2: Returning User\n");
+        return scanner.nextLine();
+    }
+
     public String promptGuest(){
         printStream.println("Options:\n" +
                             "1: View Movie Details\n" +
