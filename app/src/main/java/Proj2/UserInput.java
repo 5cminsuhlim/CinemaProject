@@ -87,14 +87,21 @@ public class UserInput {
     }
 
     public String promptGuest(){
-        printStream.println("Options: " +
-                            "\n1: View Movie Details" +
-                            "\n2: Change Cinema");
+        printStream.println("Options:\n" +
+                            "1: View Movie Details\n" +
+                            "2: Change Cinema\n");
         return scanner.nextLine();
     }
 
     public String findMovie(){
         printStream.println("Please enter the movie title:\n");
+        return scanner.nextLine();
+    }
+
+    public String bookMovie(){
+        printStream.println("Would you like to book this movie?\n" +
+                            "1: Yes\n" +
+                            "2: No\n");
         return scanner.nextLine();
     }
 
