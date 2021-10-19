@@ -27,7 +27,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'Proj2.App'
+    mainClass = 'Proj2.CinemaRunner'
 }
 
 run{
