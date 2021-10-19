@@ -74,7 +74,7 @@ def genSchedule(movie_list):
 def rngMovieList(movie_list):
     length = len(movie_list)
     if(length > 2):
-        length = math.floor(length*0.9)
+        length = math.floor(length*0.8)
     results_list = []
     while(length > 0):
         current_movie = random.choice(movie_list)
