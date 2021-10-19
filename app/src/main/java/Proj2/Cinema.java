@@ -2,6 +2,8 @@ package Proj2;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Cinema {
@@ -52,9 +54,14 @@ public class Cinema {
 
             while (input.hasNextLine()) { //reads all lines of the file
                 String[] line = input.nextLine().split(",");
-
+                // String[] line_movies = line[2].split(";");
                 //need to double check ordering
-                cinemaList.add(new Cinema(line[0], line[1], line[2]));
+                ArrayList<Movie> input_movies = new ArrayList<Movie>();
+                
+                ArrayList<Customer> customers = new ArrayList<Customer>();
+                //Implement fucntionality to create/read movie objects and customers objects
+
+                cinemaList.add(new Cinema(line[0], line[1], input_movies, customers));
             }
         }
         catch (Exception e) {
