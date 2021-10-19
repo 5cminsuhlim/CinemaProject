@@ -26,14 +26,14 @@ public class CinemaRunner {
         validGiftCards = u.giftCardInit();
 
 
-        System.out.println("Completed Genkins System Initialization.");
+        System.out.println("Completed Fancy Cinemas System Initialization.");
 
         //default page
-        System.out.println("Welcome to the Genkins Movie Booking System!");
+        System.out.println("Welcome to the Fancy Cinemas Movie Booking System!");
         System.out.println("Movies");
         for(Cinema c : validCinemas){
             System.out.println("-------------------------------------------------------");
-            System.out.println(c.getName() + '\n' + c.getLocation());
+            System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
             System.out.println("-------------------------------------------------------");
             for(Movie m : c.getMovies()){
                 System.out.println(m.getName());
@@ -76,7 +76,7 @@ public class CinemaRunner {
                     for(Cinema c : validCinemas) {
                         for(Movie m : c.getMovies()){
                             //if movie is found
-                            if(m.getName().equals(input)){
+                            if(m.getName().toLowerCase().equals(input.toLowerCase())){
                                 found = true;
                                 //print details
                                 System.out.println(m.getMovieDetails());
@@ -120,7 +120,6 @@ public class CinemaRunner {
                                     case "2":
                                         //don't book
                                         break;
-
                                     default:
                                         System.out.println("Invalid Input, please try again.\n");
                                 }
@@ -135,37 +134,43 @@ public class CinemaRunner {
                 case "2":
                     //prompt guest to look up cinema
                     input = u.findCinema();
+                    found = false;
 
                     for(Cinema c : validCinemas) {
                         //if cinema is found
-                        if(c.getName().equals(input)){
-                            for(Movie m : c.getMovies()){
+                        if(c.getName().toLowerCase().equals(input.toLowerCase())) {
+                            for (Movie m : c.getMovies()) {
                                 //print movie name
                                 System.out.println(m.getName());
+                                found = true;
                             }
                         }
-                        else{
-                            System.out.println("Cinema not found\n");
-                        }
+                    }
+                    if(found = false){
+                        System.out.println("Cinema not found\n");
                     }
                     break;
 
                 case "3":
                     //prompt guest to look up screen size
                     input = u.findScreen();
+                    found = false;
 
                     for(Cinema c : validCinemas) {
                         for(Movie m : c.getMovies()){
                             //if screen size is found
-                            if(m.getScreenSize().equals(input)){
+                            if(m.getScreenSize().toLowerCase().equals(input.toLowerCase())){
                                 //print cinema name + location
-                                System.out.println(c.getName() + "\n" + c.getLocation());
+                                System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
 
                                 //print movie name
                                 System.out.println(m.getName());
+                                found = true;
                             }
                         }
-
+                    }
+                    if(found = false){
+                        System.out.println("Invalid screen size\n");
                     }
                     break;
 

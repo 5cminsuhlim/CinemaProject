@@ -56,7 +56,7 @@ public class UserInput {
 
 
         while (!cardSuccess) {
-            printStream.println("Enter credit-card file name: ");
+            printStream.println("Enter credit card file name: ");
             String filename = scanner.nextLine();
             validCards = Card.readCards(filename);
 
@@ -74,7 +74,7 @@ public class UserInput {
 
 
         while (!giftCardSuccess) {
-            printStream.println("Enter gift-card file name: ");
+            printStream.println("Enter gift card file name: ");
             String filename = scanner.nextLine();
             validGiftCards = GiftCard.readGiftCards(filename);
 
