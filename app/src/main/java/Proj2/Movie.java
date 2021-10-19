@@ -191,7 +191,7 @@ public class Movie {
         this.basePrice = basePrice;
     }
 
-    public String getMovieDetails(){
+    public String getMovieDetails() {
         return (getName() + '\n' +
                 getSynopsis() + '\n' +
                 getRating() + '\n' +

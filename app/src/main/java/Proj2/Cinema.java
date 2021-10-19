@@ -25,6 +25,16 @@ public class Cinema {
         return name;
     }
 
+    public static Movie searchMovie(String search_name, ArrayList<Movie> movieslist){
+        for (Movie mov: movieslist){
+            String retname = mov.getName();
+            if(search_name.equalsIgnoreCase(search_name)){
+                return mov;
+            }
+        }
+        return null;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
