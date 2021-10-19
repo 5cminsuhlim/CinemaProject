@@ -110,6 +110,12 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public String promptAccount(){
+        printStream.println("1: Make New Account\n" +
+                            "2: Return\n");
+        return scanner.nextLine();
+    }
+
     public String findMovie(){
         printStream.println("Please enter the movie title:\n");
         return scanner.nextLine();
