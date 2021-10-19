@@ -141,17 +141,19 @@ public class CinemaRunner {
                     case "2":
                         //prompt guest to look up cinema
                         input = u.findCinema();
-
+                        boolean foundCinema = false;
                         for (Cinema c : validCinemas) {
                             //if cinema is found
                             if (c.getName().equals(input)) {
+                                foundCinema = true;
                                 for (Movie m : c.getMovies()) {
                                     //print movie name
                                     System.out.println(m.getName());
                                 }
-                            } else {
-                                System.out.println("Cinema not found\n");
                             }
+                        }
+                        if (!foundCinema){
+                            System.out.println("Cinema not found\n");
                         }
                         break;
 
@@ -233,17 +235,19 @@ public class CinemaRunner {
                         case "2":
                             //prompt customer to look up cinema
                             input = u.findCinema();
-
+                            boolean foundCinema = false;
                             for (Cinema c : validCinemas) {
                                 //if cinema is found
                                 if (c.getName().equals(input)) {
+                                    foundCinema = true;
                                     for (Movie m : c.getMovies()) {
                                         //print movie name
                                         System.out.println(m.getName());
                                     }
-                                } else {
-                                    System.out.println("Cinema not found\n");
                                 }
+                            }
+                            if (!foundCinema){
+                                System.out.println("Cinema not found\n");
                             }
                             break;
 
