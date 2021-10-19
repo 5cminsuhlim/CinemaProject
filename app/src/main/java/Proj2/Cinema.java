@@ -54,7 +54,9 @@ public class Cinema {
                 String[] line = input.nextLine().split(",");
 
                 //need to double check ordering
-                cinemaList.add(new Cinema(line[0], line[1], line[2]));
+                //Convert list input string to ArrayList
+                List<String> input_data = new ArrayList<String>(Arrays.asList(line[2].split(";")));
+                cinemaList.add(new Cinema(line[0], line[1], input_data));
             }
         }
         catch (Exception e) {
