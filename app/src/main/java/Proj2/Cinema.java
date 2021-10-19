@@ -64,14 +64,19 @@ public class Cinema {
 
             while (input.hasNextLine()) { //reads all lines of the file
                 String[] line = input.nextLine().split(",");
-                // String[] line_movies = line[2].split(";");
+                String[] movieArr = line[2].split(";");
+                ArrayList<Movie> movieList = new ArrayList<>();
                 //need to double check ordering
-                ArrayList<Movie> input_movies = new ArrayList<Movie>();
+
+                for(String movie : movieArr){
+                    Movie mov = searchMovie(movie, CinemaRunner.validMovies);
+                    movieList.add(mov);
+                }
                 
-                ArrayList<Customer> customers = new ArrayList<Customer>();
+                ArrayList<Customer> customers = new ArrayList<>();
                 //Implement fucntionality to create/read movie objects and customers objects
 
-                cinemaList.add(new Cinema(line[0], line[1], input_movies, customers));
+                cinemaList.add(new Cinema(line[0], line[1], movieList, customers));
             }
         }
         catch (Exception e) {
