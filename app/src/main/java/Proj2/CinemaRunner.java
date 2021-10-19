@@ -3,12 +3,12 @@ package Proj2;
 import java.util.*;
 
 public class CinemaRunner {
+    public static ArrayList<Movie> validMovies;
     public static void main(String[] args){
         UserInput u = new UserInput(System.in, System.out);
         System.out.println("Initialising Cinema System...");
 
         //reads in all movies
-        ArrayList<Movie> validMovies = new ArrayList<>();
         validMovies = u.movieInit();
 
         //read in all cinemas
