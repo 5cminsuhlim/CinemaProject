@@ -2,3 +2,8 @@
 
 
 Coming Soon
+
+
+Pip Requirements
+  - Faker
+  - 
