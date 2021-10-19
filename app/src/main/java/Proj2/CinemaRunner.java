@@ -5,7 +5,7 @@ import java.util.*;
 public class CinemaRunner {
     public static ArrayList<Movie> validMovies;
     public static HashMap<String, String> users = new HashMap<>();
-    public static void main(String[] args){
+    public static void main(String[] args) {
         UserInput u = new UserInput(System.in, System.out);
         System.out.println("Initialising Cinema System...");
 
@@ -31,11 +31,11 @@ public class CinemaRunner {
         //default page
         System.out.println("Welcome to the Fancy Cinemas Movie Booking System!");
         System.out.println("Movies");
-        for(Cinema c : validCinemas){
+        for (Cinema c : validCinemas) {
             System.out.println("-------------------------------------------------------");
             System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
             System.out.println("-------------------------------------------------------");
-            for(Movie m : c.getMovies()){
+            for (Movie m : c.getMovies()) {
                 System.out.println(m.getName());
                 System.out.println(m.getSchedule());
             }
@@ -48,7 +48,7 @@ public class CinemaRunner {
         //check if guest or customer
         String input = u.checkUser();
 
-        switch(input){
+        switch (input) {
             case "1":
                 isGuest = true;
                 break;
@@ -62,21 +62,21 @@ public class CinemaRunner {
 
 
         //guest function
-        while(isGuest && !isCustomer){
+        while (isGuest && !isCustomer) {
             //prompt guest to filter by movie, cinema, or screen size
             input = u.promptGuest();
 
-            switch(input){
+            switch (input) {
                 case "1":
                     //prompt guest to look up a movie
                     input = u.findMovie();
                     selectedMovie = input;
                     boolean found = false;
 
-                    for(Cinema c : validCinemas) {
-                        for(Movie m : c.getMovies()){
+                    for (Cinema c : validCinemas) {
+                        for (Movie m : c.getMovies()) {
                             //if movie is found
-                            if(m.getName().toLowerCase().equals(input.toLowerCase())){
+                            if (m.getName().toLowerCase().equals(input.toLowerCase())) {
                                 found = true;
                                 //print details
                                 System.out.println(m.getMovieDetails());
@@ -84,16 +84,16 @@ public class CinemaRunner {
                                 //prompt guest if they want to book
                                 input = u.bookMovie();
 
-                                switch(input){
+                                switch (input) {
                                     case "1":
                                         //prompt guest to make an account
                                         System.out.println("To proceed with booking, please make an account.\n");
                                         input = u.promptAccount();
-                                        switch(input) {
+                                        switch (input) {
                                             case "1":
                                                 boolean signedUp = false;
                                                 //prompt guest to make a new account
-                                                while(!signedUp) {
+                                                while (!signedUp) {
                                                     //INCOMPLETE
                                                     //NEED TO IMPLEMENT: if username is already taken, reprompt
                                                     input = u.enterUsername();
@@ -101,7 +101,7 @@ public class CinemaRunner {
                                                         break;
                                                     } else if (users.containsKey(input)) {
                                                         System.out.println("Username taken. Please use another username\n");
-                                                    } else{
+                                                    } else {
                                                         String username = input;
                                                         input = u.enterPassword();
                                                         users.put(username, input);
@@ -126,7 +126,7 @@ public class CinemaRunner {
                             }
                         }
                     }
-                    if(!found){
+                    if (!found) {
                         System.out.println("Movie not found\n");
                     }
                     break;
@@ -136,9 +136,9 @@ public class CinemaRunner {
                     input = u.findCinema();
                     found = false;
 
-                    for(Cinema c : validCinemas) {
+                    for (Cinema c : validCinemas) {
                         //if cinema is found
-                        if(c.getName().toLowerCase().equals(input.toLowerCase())) {
+                        if (c.getName().toLowerCase().equals(input.toLowerCase())) {
                             for (Movie m : c.getMovies()) {
                                 //print movie name
                                 System.out.println(m.getName());
@@ -146,7 +146,7 @@ public class CinemaRunner {
                             }
                         }
                     }
-                    if(found = false){
+                    if (found = false) {
                         System.out.println("Cinema not found\n");
                     }
                     break;
@@ -156,10 +156,10 @@ public class CinemaRunner {
                     input = u.findScreen();
                     found = false;
 
-                    for(Cinema c : validCinemas) {
-                        for(Movie m : c.getMovies()){
+                    for (Cinema c : validCinemas) {
+                        for (Movie m : c.getMovies()) {
                             //if screen size is found
-                            if(m.getScreenSize().toLowerCase().equals(input.toLowerCase())){
+                            if (m.getScreenSize().toLowerCase().equals(input.toLowerCase())) {
                                 //print cinema name + location
                                 System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
 
@@ -169,7 +169,7 @@ public class CinemaRunner {
                             }
                         }
                     }
-                    if(found = false){
+                    if (found = false) {
                         System.out.println("Invalid screen size\n");
                     }
                     break;
@@ -178,103 +178,95 @@ public class CinemaRunner {
                     System.out.println("Invalid Input, please try again.\n");
                     break;
             }
-
-
-            //customer function
-            while(isCustomer){
-                //if user is a guest who has made an account to book a movie
-                if(isGuest){
-                    //finish booking
-                }
-
-                //prompt customer to filter by movie, cinema, or screen size
-                input = u.promptCustomer();
-
-                switch(input) {
-                    case "1":
-                        //prompt user to look up a movie
-                        input = u.findMovie();
-                        selectedMovie = input;
-                        boolean found = false;
-                        for (Cinema c : validCinemas) {
-                            for (Movie m : c.getMovies()) {
-                                //if movie is found
-                                if (m.getName().equals(input)) {
-                                    found = true;
-                                    //print details
-                                    System.out.println(m.getMovieDetails());
-
-                                    //prompt customer if they want to book
-                                    input = u.bookMovie();
-
-                                    switch (input) {
-                                        case "1":
-                                            //finish booking
-                                            break;
-
-                                        case "2":
-                                            //don't book
-                                            break;
-
-                                        default:
-                                            System.out.println("Invalid Input, please try again.\n");
-                                            break;
-                                    }
-                                }
-                            }
-                        }
-                        if(!found){
-                            System.out.println("Movie not found\n");
-                        }
-                        break;
-
-                    case "2":
-                        //prompt customer to look up cinema
-                        input = u.findCinema();
-
-                        for (Cinema c : validCinemas) {
-                            //if cinema is found
-                            if (c.getName().equals(input)) {
-                                for (Movie m : c.getMovies()) {
-                                    //print movie name
-                                    System.out.println(m.getName());
-                                }
-                            } else {
-                                System.out.println("Cinema not found\n");
-                            }
-                        }
-                        break;
-
-                    case "3":
-                        //prompt customer to look up screen size
-                        input = u.findScreen();
-
-                        for (Cinema c : validCinemas) {
-                            for (Movie m : c.getMovies()) {
-                                //if screen size is found
-                                if (m.getScreenSize().equals(input)) {
-                                    //print cinema name + location
-                                    System.out.println(c.getName() + "\n" + c.getLocation());
-
-                                    //print movie name
-                                    System.out.println(m.getName());
-                                }
-                            }
-
-                        }
-                        break;
-
-                    case "4":
-                        System.out.println("Logging out...\n");
-                        isCustomer = false;
-                        break;
-
-                    default:
-                        System.out.println("Invalid Input, please try again.\n");
-                        break;
-                }
-
+        }
+        //customer function
+        while (isCustomer) {
+            //if user is a guest who has made an account to book a movie
+            if (isGuest) {
+                //finish booking
             }
+
+            //prompt customer to filter by movie, cinema, or screen size
+            input = u.promptCustomer();
+
+            switch (input) {
+                case "1":
+                    //prompt user to look up a movie
+                    input = u.findMovie();
+                    selectedMovie = input;
+                    boolean found = false;
+                    for (Cinema c : validCinemas) {
+                        for (Movie m : c.getMovies()) {
+                            //if movie is found
+                            if (m.getName().toLowerCase().equals(input.toLowerCase())) {
+                                found = true;
+                                //print details
+                                System.out.println(m.getMovieDetails());
+
+                                //prompt customer if they want to book
+                                input = u.bookMovie();
+
+                                switch (input) {
+                                    case "1":
+                                        //finish booking
+                                        break;
+                                    case "2":
+                                        //don't book
+                                        break;
+                                    default:
+                                        System.out.println("Invalid Input, please try again.\n");
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    if (!found) {
+                        System.out.println("Movie not found\n");
+                    }
+                    break;
+                case "2":
+                    //prompt customer to look up cinema
+                    input = u.findCinema();
+
+                    for (Cinema c : validCinemas) {
+                        //if cinema is found
+                        if (c.getName().toLowerCase().equals(input.toLowerCase())) {
+                            for (Movie m : c.getMovies()) {
+                                //print movie name
+                                System.out.println(m.getName());
+                            }
+                        } else {
+                            System.out.println("Cinema not found\n");
+                        }
+                    }
+                    break;
+                case "3":
+                    //prompt customer to look up screen size
+                    input = u.findScreen();
+
+                    for (Cinema c : validCinemas) {
+                        for (Movie m : c.getMovies()) {
+                            //if screen size is found
+                            if (m.getScreenSize().toLowerCase().equals(input.toLowerCase())) {
+                                //print cinema name + location
+                                System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
+
+                                //print movie name
+                                System.out.println(m.getName());
+                            }
+                        }
+
+                    }
+                    break;
+                case "4":
+                    System.out.println("Logging out...\n");
+                    isCustomer = false;
+                    break;
+                default:
+                    System.out.println("Invalid Input, please try again.\n");
+                    break;
+            }
+
         }
     }
 }
