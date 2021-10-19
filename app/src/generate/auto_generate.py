@@ -2,7 +2,7 @@ import random
 import sys
 import json
 import names
-import barnum
+from faker import Faker
 
 def leadingZero(value):
     value = int(value)
@@ -46,14 +46,15 @@ def genMovies(movie_count):
     f.close()
     return movie_list
 
-def genCinemas(cinema_count):
+def genCinemas(cinema_count, movie_list):
     f = open("../../../cinemas.txt", "w")
     i = 0
     cinemas_list = []
     for i in range(0, cinema_count):
         names = ["Event", "Hoyts", "Palace", "Reading", "Village"]
         name = names[random.randint(0,4)]
-        writeString = "{},{}\n".format(name,barnum.create_city_state_zip()[1])
+        random_movies = random.sample(movie_list, int(4*round(len(movie_list)/5)))
+        writeString = "{},{},{}\n".format(name,Faker().unique.city(), ";".join(str(a) for a in random_movies))
         f.write(writeString)
         cinemas_list.append(writeString.strip())
     f.close()
@@ -68,18 +69,19 @@ def genGiftCards(card_count):
 
 #Main Function
 try:
-    cardListPath = 'credit_cards.json'
-    movie_count = int(sys.argv[1])
-    cinema_count = int(sys.argv[2])
-    card_count = int(sys.argv[3])
+    cardListPath = sys.argv[1]
+    movie_count = int(sys.argv[2])
+    cinema_count = int(sys.argv[3])
+    card_count = int(sys.argv[4])
     with open(cardListPath) as f:
         jsonData = json.load(f)
         f.close()
     parseCards(jsonData)
-    cinemas_list = genCinemas(cinema_count)
     movie_list = genMovies(movie_count)
+    cinemas_list = genCinemas(cinema_count, movie_list)
     #genSchedules(cinemas_list, movie_list)
     genGiftCards(card_count)
-except Exception:
+except Exception as e:
     print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
+    print(e)
     sys.exit()

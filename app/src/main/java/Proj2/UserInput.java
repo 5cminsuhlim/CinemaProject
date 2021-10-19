@@ -38,7 +38,7 @@ public class UserInput {
 
 
         while (!cinemaSuccess) {
-            printStream.println("Enter movie file name: ");
+            printStream.println("Enter cinema file name: ");
             String filename = scanner.nextLine();
             validCinemas = Cinema.readCinemas(filename);
 
@@ -56,7 +56,7 @@ public class UserInput {
 
 
         while (!cardSuccess) {
-            printStream.println("Enter movie file name: ");
+            printStream.println("Enter credit-card file name: ");
             String filename = scanner.nextLine();
             validCards = Card.readCards(filename);
 
@@ -74,7 +74,7 @@ public class UserInput {
 
 
         while (!giftCardSuccess) {
-            printStream.println("Enter movie file name: ");
+            printStream.println("Enter gift-card file name: ");
             String filename = scanner.nextLine();
             validGiftCards = GiftCard.readGiftCards(filename);
 
@@ -117,7 +117,7 @@ public class UserInput {
     }
 
     public String findMovie(){
-        printStream.println("Please enter the movie title:\n");
+        printStream.println("Please enter the movie title:");
         return scanner.nextLine();
     }
 
@@ -129,7 +129,7 @@ public class UserInput {
     }
 
     public String enterUsername(){
-        printStream.println("Please enter your desired username:\n");
+        printStream.println("Please enter your desired username (enter 'cancel' to exit):\n");
         return scanner.nextLine();
     }
 

@@ -28,7 +28,7 @@ public class Cinema {
     public static Movie searchMovie(String search_name, ArrayList<Movie> movieslist){
         for (Movie mov: movieslist){
             String retname = mov.getName();
-            if(search_name.equalsIgnoreCase(search_name)){
+            if(search_name.equalsIgnoreCase(retname)){
                 return mov;
             }
         }
@@ -66,7 +66,6 @@ public class Cinema {
                 String[] line = input.nextLine().split(",");
                 String[] movieArr = line[2].split(";");
                 ArrayList<Movie> movieList = new ArrayList<>();
-                //need to double check ordering
 
                 for(String movie : movieArr){
                     Movie mov = searchMovie(movie, CinemaRunner.validMovies);

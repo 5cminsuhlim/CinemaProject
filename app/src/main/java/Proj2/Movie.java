@@ -192,13 +192,13 @@ public class Movie {
     }
 
     public String getMovieDetails() {
-        return (getName() + '\n' +
-                getSynopsis() + '\n' +
-                getRating() + '\n' +
-                getReleaseDate() + '\n' +
-                getCast() + '\n' +
-                getScreenSize() + '\n' +
-                getSchedule());
+        return ("\n" + getName() + '\n' +
+                "Synopsis: " + getSynopsis() + '\n' +
+                "Rating: " + getRating() + '\n' +
+                "Release Date: " + getReleaseDate() + '\n' +
+                "Cast: " + String.join(", ", getCast()) + "\n" +
+                "Screen Size: " + getScreenSize() + '\n' +
+                "Next Showing: " + getSchedule()) + "\n";
     }
 
     protected static ArrayList<Movie> readMovies(String filename){
