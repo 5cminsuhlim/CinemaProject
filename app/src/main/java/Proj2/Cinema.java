@@ -2,7 +2,8 @@ package Proj2;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Cinema {
@@ -56,8 +57,9 @@ public class Cinema {
 
                 //need to double check ordering
                 //Convert list input string to ArrayList
-                List<String> input_data = new ArrayList<String>(Arrays.asList(line[2].split(";")));
-                cinemaList.add(new Cinema(line[0], line[1], input_data));
+                ArrayList<Movie> input_movies = new ArrayList<Movie>();
+                ArrayList<Customer> input_cinemas = new ArrayList<Customer>(); //FIX THIS LINE - NOT READING THE RIGHT DATA
+                cinemaList.add(new Cinema(line[0], line[1], input_movies, input_cinemas));
             }
         }
         catch (Exception e) {
