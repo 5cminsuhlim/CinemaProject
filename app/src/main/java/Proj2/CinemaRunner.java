@@ -4,6 +4,7 @@ import java.util.*;
 
 public class CinemaRunner {
     public static ArrayList<Movie> validMovies;
+    public static HashMap<String, String> users = new HashMap<>();
     public static void main(String[] args){
         UserInput u = new UserInput(System.in, System.out);
         System.out.println("Initialising Cinema System...");
@@ -12,7 +13,7 @@ public class CinemaRunner {
         validMovies = u.movieInit();
 
         //read in all cinemas
-        ArrayList<Cinema> validCinemas = new ArrayList<>();
+        ArrayList<Cinema> validCinemas;
         validCinemas = u.cinemaInit();
 
         //reads in all cards
@@ -34,7 +35,6 @@ public class CinemaRunner {
             System.out.println("-------------------------------------------------------");
             System.out.println(c.getName() + '\n' + c.getLocation());
             System.out.println("-------------------------------------------------------");
-
             for(Movie m : c.getMovies()){
                 System.out.println(m.getName());
                 System.out.println(m.getSchedule());
@@ -51,12 +51,13 @@ public class CinemaRunner {
         switch(input){
             case "1":
                 isGuest = true;
-
+                break;
             case "2":
                 isCustomer = true;
-
+                break;
             default:
                 System.out.println("Invalid Input, please try again.\n");
+                break;
         }
 
 
@@ -70,11 +71,13 @@ public class CinemaRunner {
                     //prompt guest to look up a movie
                     input = u.findMovie();
                     selectedMovie = input;
+                    boolean found = false;
 
                     for(Cinema c : validCinemas) {
                         for(Movie m : c.getMovies()){
                             //if movie is found
                             if(m.getName().equals(input)){
+                                found = true;
                                 //print details
                                 System.out.println(m.getMovieDetails());
 
@@ -88,15 +91,25 @@ public class CinemaRunner {
                                         input = u.promptAccount();
                                         switch(input) {
                                             case "1":
+                                                boolean signedUp = false;
                                                 //prompt guest to make a new account
+                                                while(!signedUp) {
+                                                    //INCOMPLETE
+                                                    //NEED TO IMPLEMENT: if username is already taken, reprompt
+                                                    input = u.enterUsername();
+                                                    if (input.equals("cancel")) {
+                                                        break;
+                                                    } else if (users.containsKey(input)) {
+                                                        System.out.println("Username taken. Please use another username\n");
+                                                    } else{
+                                                        String username = input;
+                                                        input = u.enterPassword();
+                                                        users.put(username, input);
+                                                        signedUp = true;
+                                                        isCustomer = true;
 
-                                                //INCOMPLETE
-                                                //NEED TO IMPLEMENT: if username is already taken, reprompt
-                                                input = u.enterUsername();
-
-                                                input = u.enterPassword();
-
-                                                isCustomer = true;
+                                                    }
+                                                }
                                                 break;
                                             case "2":
                                                 //return guest to default page
@@ -112,11 +125,12 @@ public class CinemaRunner {
                                         System.out.println("Invalid Input, please try again.\n");
                                 }
                             }
-                            else{
-                                System.out.println("Movie not found\n");
-                            }
                         }
                     }
+                    if(!found){
+                        System.out.println("Movie not found\n");
+                    }
+                    break;
 
                 case "2":
                     //prompt guest to look up cinema
@@ -134,6 +148,7 @@ public class CinemaRunner {
                             System.out.println("Cinema not found\n");
                         }
                     }
+                    break;
 
                 case "3":
                     //prompt guest to look up screen size
@@ -152,9 +167,11 @@ public class CinemaRunner {
                         }
 
                     }
+                    break;
 
                 default:
                     System.out.println("Invalid Input, please try again.\n");
+                    break;
             }
 
 
@@ -173,11 +190,12 @@ public class CinemaRunner {
                         //prompt user to look up a movie
                         input = u.findMovie();
                         selectedMovie = input;
-
+                        boolean found = false;
                         for (Cinema c : validCinemas) {
                             for (Movie m : c.getMovies()) {
                                 //if movie is found
                                 if (m.getName().equals(input)) {
+                                    found = true;
                                     //print details
                                     System.out.println(m.getMovieDetails());
 
@@ -187,6 +205,7 @@ public class CinemaRunner {
                                     switch (input) {
                                         case "1":
                                             //finish booking
+                                            break;
 
                                         case "2":
                                             //don't book
@@ -194,12 +213,15 @@ public class CinemaRunner {
 
                                         default:
                                             System.out.println("Invalid Input, please try again.\n");
+                                            break;
                                     }
-                                } else {
-                                    System.out.println("Movie not found\n");
                                 }
                             }
                         }
+                        if(!found){
+                            System.out.println("Movie not found\n");
+                        }
+                        break;
 
                     case "2":
                         //prompt customer to look up cinema
@@ -216,6 +238,7 @@ public class CinemaRunner {
                                 System.out.println("Cinema not found\n");
                             }
                         }
+                        break;
 
                     case "3":
                         //prompt customer to look up screen size
@@ -234,13 +257,16 @@ public class CinemaRunner {
                             }
 
                         }
+                        break;
 
                     case "4":
                         System.out.println("Logging out...\n");
+                        isCustomer = false;
                         break;
 
                     default:
                         System.out.println("Invalid Input, please try again.\n");
+                        break;
                 }
 
             }
