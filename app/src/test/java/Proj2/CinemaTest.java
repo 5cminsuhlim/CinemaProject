@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,6 +38,35 @@ class CinemaTest {
     }*/
 
     @Test
+    public void testNameSearch(){
+        String name = "Steve Buscemi 10 Hour Compilation";
+        String synopsis = "As above"; //plot
+        String rating = "10"; //rating
+        String releaseDate = "10/10/10"; //?
+        ArrayList<String> cast = new ArrayList<String>(); //people
+        //private ArrayList<String> upcomingTimes; //need to gen this
+        Schedule schedule = null;
+        String screenSize = ""; //need to gen this
+        int f_seatsOpen = 0;  //need to gen this
+        int f_seatsBooked = 0;  //need to gen this
+        int m_seatsOpen = 0;  //need to gen this
+        int m_seatsBooked = 0;  //need to gen this
+        int r_seatsOpen = 0;  //need to gen this
+        int r_seatsBooked = 0;  //need to gen this
+        BigDecimal basePrice = new BigDecimal(0); //need to gen this
+        BigDecimal ticketPrice = new BigDecimal(0); //0.8, 1.2, 1.6
+        Movie plsman = new Movie(name, synopsis, rating, releaseDate, cast, //ArrayList<String> upcomingTimes
+                schedule, screenSize, f_seatsOpen,
+        f_seatsBooked, m_seatsOpen,m_seatsBooked,
+        r_seatsOpen, r_seatsBooked, basePrice);
+
+        ArrayList<Movie> movv = new ArrayList<Movie>();
+        movv.add(plsman);
+        Movie foundmov = Cinema.searchMovie("Steve Buscemi 10 Hour Compilation",movv);
+        assertEquals(plsman,foundmov,"Movies are not Equal");
+    }
+    /*
+    @Test
     public void userInputTestEverythingFIne() {
         //mimic userinput
         ByteArrayInputStream inputStream = new ByteArrayInputStream("3\n4\n".getBytes());
@@ -54,5 +87,5 @@ class CinemaTest {
         //assert actual return = expect
 
     }
-
+    */
 }
