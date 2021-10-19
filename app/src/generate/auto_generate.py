@@ -33,7 +33,7 @@ def genMovies(movie_count):
             cast += names.get_full_name()+";"
             k += 1
         cast += names.get_full_name()
-        screenSizes = ["bronze", "silver", "gold"]
+        screenSizes = ["Bronze", "Silver", "Gold"]
         screenSize = screenSizes[random.randint(0,2)]
         front = random.randint(0,100)
         m = random.randint(0,100)
