@@ -85,17 +85,25 @@ public class CinemaRunner {
                                     case "1":
                                         //prompt guest to make an account
                                         System.out.println("To proceed with booking, please make an account.\n");
+                                        input = u.promptAccount();
+                                        switch(input) {
+                                            case "1":
+                                                //prompt guest to make a new account
 
+                                                //INCOMPLETE
+                                                //NEED TO IMPLEMENT: if username is already taken, reprompt
+                                                input = u.enterUsername();
 
-                                        //INCOMPLETE
-                                        //NEED TO IMPLEMENT: if username is already taken, reprompt
-                                        input = u.enterUsername();
+                                                input = u.enterPassword();
 
-                                        input = u.enterPassword();
-
-                                        isCustomer = true;
-                                        break;
-
+                                                isCustomer = true;
+                                                break;
+                                            case "2":
+                                                //return guest to default page
+                                                break;
+                                            default:
+                                                System.out.println("Invalid Input, please try again.\n");
+                                        }
                                     case "2":
                                         //don't book
                                         break;
