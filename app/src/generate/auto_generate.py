@@ -67,6 +67,22 @@ def genGiftCards(card_count):
         writeString = "{},{}\n".format(random.randint(1000000000000000,9999999999999999), random.randint(0,1))
         f.write(writeString)
 
+def genSchedule(movie_list):
+    print(rngMovieList(movie_list))
+    return
+
+def rngMovieList(movie_list):
+    length = len(movie_list)
+    if(length > 2):
+        length = math.floor(length*0.9)
+    results_list = []
+    while(length > 0):
+        current_movie = random.choice(movie_list)
+        results_list.append(current_movie)
+        movie_list.remove(current_movie)
+        length -= 1
+    return results_list
+
 #Main Function
 try:
     cardListPath = sys.argv[1]
@@ -79,7 +95,7 @@ try:
     parseCards(jsonData)
     movie_list = genMovies(movie_count)
     cinemas_list = genCinemas(cinema_count, movie_list)
-    #genSchedules(cinemas_list, movie_list)
+    #genSchedules(movie_list)
     genGiftCards(card_count)
 except Exception as e:
     print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
