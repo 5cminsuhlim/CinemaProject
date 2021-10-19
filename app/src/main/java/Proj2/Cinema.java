@@ -54,12 +54,14 @@ public class Cinema {
 
             while (input.hasNextLine()) { //reads all lines of the file
                 String[] line = input.nextLine().split(",");
-
+                // String[] line_movies = line[2].split(";");
                 //need to double check ordering
-                //Convert list input string to ArrayList
                 ArrayList<Movie> input_movies = new ArrayList<Movie>();
-                ArrayList<Customer> input_cinemas = new ArrayList<Customer>(); //FIX THIS LINE - NOT READING THE RIGHT DATA
-                cinemaList.add(new Cinema(line[0], line[1], input_movies, input_cinemas));
+                
+                ArrayList<Customer> customers = new ArrayList<Customer>();
+                //Implement fucntionality to create/read movie objects and customers objects
+
+                cinemaList.add(new Cinema(line[0], line[1], input_movies, customers));
             }
         }
         catch (Exception e) {
