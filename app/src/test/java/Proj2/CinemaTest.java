@@ -9,8 +9,11 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.math.BigDecimal;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -115,5 +118,17 @@ class CinemaTest {
         assertEquals(testGiftCard.isRedeemed(),false, "Gift card is considered to be redeemed, yet it has not been");
         testGiftCard.setRedeemed(true);
         assertEquals(testGiftCard.isRedeemed(),true, "Gift card is considered to not be redeemed, yet it has been");
+    }
+
+    @Test
+    public void getUserTest(){
+        String input = "Broskin\n"       // "Wrong number, try again."
+                + "YOYO\n";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        HashMap<String, String> customer = new HashMap<String, String>();
+        customer.put("Broskin","YOYO");
+        assertEquals(u.login_func(customer),true);
+
     }
 }

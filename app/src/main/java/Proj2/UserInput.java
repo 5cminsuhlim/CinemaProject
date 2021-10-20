@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class UserInput {
     private Scanner scanner;
@@ -12,6 +13,24 @@ public class UserInput {
     public UserInput(InputStream inputStream, PrintStream printStream) {
         this.scanner = new Scanner(inputStream);
         this.printStream = printStream;
+    }
+
+    public boolean login_func(HashMap<String, String> customers){
+        printStream.println("Hello! Welcome Back! \n Please Enter your Login Deatil Below!");
+        printStream.print("Username: ");
+        String username = scanner.nextLine();
+        printStream.print("Password: ");
+        String password = scanner.nextLine();
+        if (customers.containsKey(username)){
+            if (customers.get(username).equalsIgnoreCase(password)){
+                return true;
+            }
+            printStream.println("You have entered the incorrect password: ");
+            return false;
+        }
+        printStream.println("You have entered a username that does not exist.");
+        return true;
+
     }
 
     public ArrayList<Movie> movieInit() {
