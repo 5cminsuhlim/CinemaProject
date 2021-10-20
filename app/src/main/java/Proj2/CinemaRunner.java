@@ -4,7 +4,9 @@ import java.util.*;
 
 public class CinemaRunner {
     public static ArrayList<Movie> validMovies;
-    public static HashMap<String, String> users = new HashMap<>();
+    public static HashMap<String, String> customers = new HashMap<>();
+
+
     public static void main(String[] args) {
         UserInput u = new UserInput(System.in, System.out);
         System.out.println("Initialising Cinema System...");
@@ -54,6 +56,7 @@ public class CinemaRunner {
                 break;
             case "2":
                 isCustomer = true;
+                boolean loggedin = u.login_func(customers);
                 break;
             default:
                 System.out.println("Invalid Input, please try again.\n");
@@ -62,7 +65,7 @@ public class CinemaRunner {
 
 
         //guest function
-        while (isGuest && !isCustomer) {
+        while(isGuest && !isCustomer){
             //prompt guest to filter by movie, cinema, or screen size
             input = u.promptGuest();
 
@@ -99,12 +102,12 @@ public class CinemaRunner {
                                                     input = u.enterUsername();
                                                     if (input.equals("cancel")) {
                                                         break;
-                                                    } else if (users.containsKey(input)) {
+                                                    } else if (customers.containsKey(input)) {
                                                         System.out.println("Username taken. Please use another username\n");
                                                     } else {
                                                         String username = input;
                                                         input = u.enterPassword();
-                                                        users.put(username, input);
+                                                        customers.put(username, input);
                                                         signedUp = true;
                                                         isCustomer = true;
 
