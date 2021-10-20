@@ -88,4 +88,21 @@ class CinemaTest {
 
     }
     */
+
+    @Test
+    public void cardTest(){
+        String cardNumber = "12345";
+        String cardHolderName = "TestName";
+
+        Card testCard = new Card(cardNumber, cardHolderName);
+        assertEquals(testCard.getCardNumber(), "12345", "Card number returned is incorrect");
+        testCard.setCardNumber("54321");
+        assertEquals(testCard.getCardNumber(), "54321", "Card number returned is incorrect");
+        assertEquals(testCard.getCardHolderName(), "TestName", "Card holder name returned is incorrect");
+        testCard.setCardNumber("New TestName");
+        assertEquals(testCard.getCardNumber(), "New TestName", "Card holder name returned is incorrect");
+    }
+
+    @Test
+    pi
 }
