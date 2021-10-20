@@ -88,4 +88,32 @@ class CinemaTest {
 
     }
     */
+
+    @Test
+    public void cardTest(){
+        String cardNumber = "12345";
+        String cardHolderName = "TestName";
+
+        Card testCard = new Card(cardNumber, cardHolderName);
+        assertEquals(testCard.getCardNumber(), "12345", "Card number returned is incorrect");
+        testCard.setCardNumber("54321");
+        assertEquals(testCard.getCardNumber(), "54321", "Card number returned is incorrect");
+        assertEquals(testCard.getCardHolderName(), "TestName", "Card holder name returned is incorrect");
+        testCard.setCardNumber("New TestName");
+        assertEquals(testCard.getCardNumber(), "New TestName", "Card holder name returned is incorrect");
+    }
+
+    @Test
+    public void giftcardTest(){
+        String giftCardNumber = "1875890093350513";
+        boolean redeemed = false;
+
+        GiftCard testGiftCard = new GiftCard(giftCardNumber, redeemed);
+        assertEquals(testGiftCard.getGiftCardNumber(),"1875890093350513", "Gift card number returned is incorrect");
+        testGiftCard.setGiftCardNumber("1875890093351111");
+        assertEquals(testGiftCard.getGiftCardNumber(),"1875890093351111", "Gift card number returned is incorrect");
+        assertEquals(testGiftCard.isRedeemed(),false, "Gift card is considered to be redeemed, yet it has not been");
+        testGiftCard.setRedeemed(true);
+        assertEquals(testGiftCard.isRedeemed(),true, "Gift card is considered to not be redeemed, yet it has been");
+    }
 }
