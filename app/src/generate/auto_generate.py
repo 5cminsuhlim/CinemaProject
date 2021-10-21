@@ -82,14 +82,24 @@ def genSchedule(cinemas_list):
     movie_runtime = 2
     min_break = 0.5
     for cinema in cinemas_list:
-        current_hours = total_hours_max
+        current_hours_left = total_hours_max
         current_days = days
+        final_schedule = []
+        current_hours = 0
         #ARRAY POS
         #0: ID, 1: NAME, 2: LOCATION, 3: MOIES SHOWING (ARRAY)
-        print(cinema[3])
-        while current_hours > 0:
-            current_movie = random.sample(cinema[3], 1)
-            print(current_movie)
+        while len(current_days) > 0:
+            while current_hours_left > 0:
+                current_movie = random.sample(cinema[3], 1)
+                final_schedule.append([days[0], current_hours, current_movie[0]])
+                current_hours += movie_runtime+min_break
+                current_hours_left -= (current_hours)
+            current_days.pop(0)
+            current_hours_left = total_hours_max
+            current_hours = 0
+        print(final_schedule)
+        print("\n")
+            
 
 
     return
@@ -118,7 +128,6 @@ try:
     parseCards(jsonData)
     movie_list = genMovies(movie_count)
     cinemas_list = genCinemas(cinema_count, movie_list)
-    print(cinemas_list)
     genSchedule(cinemas_list)
     genGiftCards(card_count)
 except Exception as e:
