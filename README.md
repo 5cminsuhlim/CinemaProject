@@ -3,7 +3,7 @@
 
 Coming Soon
 
-
-Pip Requirements
+Python 3 Dependencies
   - Faker
-  - 
+  - names
+  - json
