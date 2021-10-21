@@ -47,7 +47,7 @@ public class CinemaRunner {
         boolean isCustomer = false;
         String selectedMovie = "";
 
-        //check if guest or customer
+        //check if guest or customerSO
         String input = u.checkUser();
 
         switch (input) {
@@ -230,7 +230,7 @@ public class CinemaRunner {
                 case "2":
                     //prompt customer to look up cinema
                     input = u.findCinema();
-
+                    found = false;
                     for (Cinema c : validCinemas) {
                         //if cinema is found
                         if (c.getName().toLowerCase().equals(input.toLowerCase())) {
@@ -238,9 +238,11 @@ public class CinemaRunner {
                                 //print movie name
                                 System.out.println(m.getName());
                             }
-                        } else {
-                            System.out.println("Cinema not found\n");
+                            found = true;
                         }
+                    }
+                    if (found = false) {
+                        System.out.println("Cinema not found\n");
                     }
                     break;
                 case "3":
