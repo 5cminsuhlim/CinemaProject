@@ -53,10 +53,15 @@ def genCinemas(cinema_count, movie_list):
     for i in range(0, cinema_count):
         names = ["Event", "Hoyts", "Palace", "Reading", "Village"]
         name = names[random.randint(0,4)]
-        random_movies = random.sample(movie_list, int(4*round(len(movie_list)/5)))
-        writeString = "{},{},{}\n".format(name,Faker().unique.city(), ";".join(str(a) for a in random_movies))
+        if (len(movie_list) > 1):
+            random_movies = random.sample(movie_list, int(4*round(len(movie_list)/5)))
+        else:
+            random_movies = movie_list
+        current_city = Faker().unique.city()
+        # writeString = "{},{},{},{}\n".format(i+1, name,current_city, ";".join(str(a) for a in random_movies))  NEW LINE TO BE IMPLEMENTED PENDING JAVA CHANGE
+        writeString = "{},{},{}\n".format(name,current_city, ";".join(str(a) for a in random_movies))
         f.write(writeString)
-        cinemas_list.append(writeString.strip())
+        cinemas_list.append([i+1, name,current_city, random_movies])
     f.close()
     return cinemas_list
 
@@ -67,21 +72,39 @@ def genGiftCards(card_count):
         writeString = "{},{}\n".format(random.randint(1000000000000000,9999999999999999), random.randint(0,1))
         f.write(writeString)
 
-def genSchedule(movie_list):
-    print(rngMovieList(movie_list))
+def genSchedule(cinemas_list):
+    open_time = 9
+    close_time = 21
+    total_hours = close_time-open_time
+    days = ["Monday" , "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    len_days = len(days)
+    total_hours_max = len_days*total_hours
+    movie_runtime = 2
+    min_break = 0.5
+    for cinema in cinemas_list:
+        current_hours = total_hours_max
+        current_days = days
+        #ARRAY POS
+        #0: ID, 1: NAME, 2: LOCATION, 3: MOIES SHOWING (ARRAY)
+        print(cinema[3])
+        while current_hours > 0:
+            current_movie = random.sample(cinema[3], 1)
+            print(current_movie)
+
+
     return
 
-def rngMovieList(movie_list):
-    length = len(movie_list)
-    if(length > 2):
-        length = math.floor(length*0.8)
-    results_list = []
-    while(length > 0):
-        current_movie = random.choice(movie_list)
-        results_list.append(current_movie)
-        movie_list.remove(current_movie)
-        length -= 1
-    return results_list
+# def rngMovieList(movie_list):
+#     length = len(movie_list)
+#     if(length > 2):
+#         length = math.floor(length*0.8)
+#     results_list = []
+#     while(length > 0):
+#         current_movie = random.choice(movie_list)
+#         results_list.append(current_movie)
+#         movie_list.remove(current_movie)
+#         length -= 1
+#     return results_list
 
 #Main Function
 try:
@@ -95,7 +118,8 @@ try:
     parseCards(jsonData)
     movie_list = genMovies(movie_count)
     cinemas_list = genCinemas(cinema_count, movie_list)
-    #genSchedules(movie_list)
+    print(cinemas_list)
+    genSchedule(cinemas_list)
     genGiftCards(card_count)
 except Exception as e:
     print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
