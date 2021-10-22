@@ -158,23 +158,20 @@ public class UserInput {
         return scanner.nextLine();
     }
 
-    public String enterPassword(){ //need to somehow hide password with *****
-        boolean isValid = false;
-        String pw = "";
+    public String enterPassword(){
+        Console cnsl = System.console();
 
-        while(!isValid){
-            printStream.println("Please enter your desired password (at least 6 characters):\n");
-            pw = scanner.nextLine();
+        char[] pw = cnsl.readPassword("Password: ");
+        String password = String.valueOf(pw);
 
-            if(pw.length() < 6){
-                printStream.println("Insufficient password length. Please try again.");
-            }
-            else{
-                isValid = true;
-            }
+        while(password.length() < 6){
+            printStream.println("Insufficient password length. Please try again.");
+
+            pw = cnsl.readPassword("Password: ");
+            password = String.valueOf(pw);
         }
 
-        return pw;
+        return password;
     }
 
     public String findCinema(){
