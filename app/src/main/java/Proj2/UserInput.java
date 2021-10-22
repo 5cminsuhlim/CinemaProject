@@ -35,7 +35,7 @@ public class UserInput {
             return false;
         }
         printStream.println("You have entered a username that does not exist.");
-        return true;
+        return false;
 
     }
 
