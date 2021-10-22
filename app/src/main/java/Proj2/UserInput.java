@@ -5,7 +5,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.HashMap;
-import java.io.Console;
 
 public class UserInput {
     private Scanner scanner;
@@ -16,17 +15,12 @@ public class UserInput {
         this.printStream = printStream;
     }
 
-    public boolean promptLogin(HashMap<String, String> customers){
-        Console cnsl = System.console();
-
-        printStream.println("Hello! Welcome Back! \n Please Enter your Login Details Below!");
-
+    public boolean login_func(HashMap<String, String> customers){
+        printStream.println("Hello! Welcome Back! \n Please Enter your Login Deatil Below!");
         printStream.print("Username: ");
         String username = scanner.nextLine();
-
-        char[] pw = cnsl.readPassword("Password: ");
-        String password = String.valueOf(pw);
-
+        printStream.print("Password: ");
+        String password = scanner.nextLine();
         if (customers.containsKey(username)){
             if (customers.get(username).equalsIgnoreCase(password)){
                 return true;
@@ -35,7 +29,7 @@ public class UserInput {
             return false;
         }
         printStream.println("You have entered a username that does not exist.");
-        return false;
+        return true;
 
     }
 
@@ -158,20 +152,23 @@ public class UserInput {
         return scanner.nextLine();
     }
 
-    public String enterPassword(){
-        Console cnsl = System.console();
+    public String enterPassword(){ //need to somehow hide password with *****
+        boolean isValid = false;
+        String pw = "";
 
-        char[] pw = cnsl.readPassword("Password: ");
-        String password = String.valueOf(pw);
+        while(!isValid){
+            printStream.println("Please enter your desired password (at least 6 characters):\n");
+            pw = scanner.nextLine();
 
-        while(password.length() < 6){
-            printStream.println("Insufficient password length. Please try again.");
-
-            pw = cnsl.readPassword("Password: ");
-            password = String.valueOf(pw);
+            if(pw.length() < 6){
+                printStream.println("Insufficient password length. Please try again.");
+            }
+            else{
+                isValid = true;
+            }
         }
 
-        return password;
+        return pw;
     }
 
     public String findCinema(){

@@ -45,10 +45,9 @@ public class CinemaRunner {
 
         boolean isGuest = false;
         boolean isCustomer = false;
-        boolean loggedIn = false;
         String selectedMovie = "";
 
-        //check if guest or customer
+        //check if guest or customerSO
         String input = u.checkUser();
 
         switch (input) {
@@ -56,16 +55,8 @@ public class CinemaRunner {
                 isGuest = true;
                 break;
             case "2":
-                loggedIn = u.promptLogin(customers);
-
-                //if log in was successful
-                if(loggedIn){
-                    isCustomer = true;
-                }
-                else{
-                    isCustomer = false;
-                }
-
+                isCustomer = true;
+                boolean loggedin = u.login_func(customers);
                 break;
             default:
                 System.out.println("Invalid Input, please try again.\n");
@@ -88,7 +79,7 @@ public class CinemaRunner {
                     for (Cinema c : validCinemas) {
                         for (Movie m : c.getMovies()) {
                             //if movie is found
-                            if (m.getName().equalsIgnoreCase(input)) {
+                            if (m.getName().toLowerCase().equals(input.toLowerCase())) {
                                 found = true;
                                 //print details
                                 System.out.println(m.getMovieDetails());
@@ -106,12 +97,13 @@ public class CinemaRunner {
                                                 boolean signedUp = false;
                                                 //prompt guest to make a new account
                                                 while (!signedUp) {
+                                                    //INCOMPLETE
+                                                    //NEED TO IMPLEMENT: if username is already taken, reprompt
                                                     input = u.enterUsername();
-
-                                                    if (input.equalsIgnoreCase("cancel")) {
+                                                    if (input.equals("cancel")) {
                                                         break;
                                                     } else if (customers.containsKey(input)) {
-                                                        System.out.println("Username taken. Please use another username.\n");
+                                                        System.out.println("Username taken. Please use another username\n");
                                                     } else {
                                                         String username = input;
                                                         input = u.enterPassword();
@@ -149,7 +141,7 @@ public class CinemaRunner {
 
                     for (Cinema c : validCinemas) {
                         //if cinema is found
-                        if (c.getName().equalsIgnoreCase(input)) {
+                        if (c.getName().toLowerCase().equals(input.toLowerCase())) {
                             for (Movie m : c.getMovies()) {
                                 //print movie name
                                 System.out.println(m.getName());
@@ -157,7 +149,7 @@ public class CinemaRunner {
                             }
                         }
                     }
-                    if (!found) {
+                    if (found = false) {
                         System.out.println("Cinema not found\n");
                     }
                     break;
@@ -170,7 +162,7 @@ public class CinemaRunner {
                     for (Cinema c : validCinemas) {
                         for (Movie m : c.getMovies()) {
                             //if screen size is found
-                            if (m.getScreenSize().equalsIgnoreCase(input)) {
+                            if (m.getScreenSize().toLowerCase().equals(input.toLowerCase())) {
                                 //print cinema name + location
                                 System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
 
@@ -180,7 +172,7 @@ public class CinemaRunner {
                             }
                         }
                     }
-                    if (!found) {
+                    if (found = false) {
                         System.out.println("Invalid screen size\n");
                     }
                     break;
@@ -209,7 +201,7 @@ public class CinemaRunner {
                     for (Cinema c : validCinemas) {
                         for (Movie m : c.getMovies()) {
                             //if movie is found
-                            if (m.getName().equalsIgnoreCase(input)) {
+                            if (m.getName().toLowerCase().equals(input.toLowerCase())) {
                                 found = true;
                                 //print details
                                 System.out.println(m.getMovieDetails());
@@ -241,7 +233,7 @@ public class CinemaRunner {
                     found = false;
                     for (Cinema c : validCinemas) {
                         //if cinema is found
-                        if (c.getName().equalsIgnoreCase(input)) {
+                        if (c.getName().toLowerCase().equals(input.toLowerCase())) {
                             for (Movie m : c.getMovies()) {
                                 //print movie name
                                 System.out.println(m.getName());
@@ -249,7 +241,7 @@ public class CinemaRunner {
                             found = true;
                         }
                     }
-                    if (!found) {
+                    if (found = false) {
                         System.out.println("Cinema not found\n");
                     }
                     break;
@@ -260,7 +252,7 @@ public class CinemaRunner {
                     for (Cinema c : validCinemas) {
                         for (Movie m : c.getMovies()) {
                             //if screen size is found
-                            if (m.getScreenSize().equalsIgnoreCase(input)) {
+                            if (m.getScreenSize().toLowerCase().equals(input.toLowerCase())) {
                                 //print cinema name + location
                                 System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
 
