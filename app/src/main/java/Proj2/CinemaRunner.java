@@ -45,6 +45,7 @@ public class CinemaRunner {
 
         boolean isGuest = false;
         boolean isCustomer = false;
+        boolean loggedIn = false;
         String selectedMovie = "";
 
         //check if guest or customerSO
@@ -56,7 +57,7 @@ public class CinemaRunner {
                 break;
             case "2":
                 isCustomer = true;
-                boolean loggedin = u.login_func(customers);
+                loggedIn = u.promptLogin(customers);
                 break;
             default:
                 System.out.println("Invalid Input, please try again.\n");
@@ -105,6 +106,7 @@ public class CinemaRunner {
                                                     } else if (customers.containsKey(input)) {
                                                         System.out.println("Username taken. Please use another username\n");
                                                     } else {
+                                                        //NEED TO IMPLEMENT: password hiding with astericks
                                                         String username = input;
                                                         input = u.enterPassword();
                                                         customers.put(username, input);
@@ -149,7 +151,7 @@ public class CinemaRunner {
                             }
                         }
                     }
-                    if (found = false) {
+                    if (!found) {
                         System.out.println("Cinema not found\n");
                     }
                     break;
@@ -172,7 +174,7 @@ public class CinemaRunner {
                             }
                         }
                     }
-                    if (found = false) {
+                    if (!found) {
                         System.out.println("Invalid screen size\n");
                     }
                     break;
@@ -241,7 +243,7 @@ public class CinemaRunner {
                             found = true;
                         }
                     }
-                    if (found = false) {
+                    if (!found) {
                         System.out.println("Cinema not found\n");
                     }
                     break;
