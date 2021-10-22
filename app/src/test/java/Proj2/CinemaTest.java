@@ -128,7 +128,7 @@ class CinemaTest {
         UserInput u = new UserInput(is, System.out);
         HashMap<String, String> customer = new HashMap<String, String>();
         customer.put("Broskin","YOYO");
-        assertEquals(u.login_func(customer),true);
+        assertEquals(u.promptLogin(customer),true);
 
     }
 }
