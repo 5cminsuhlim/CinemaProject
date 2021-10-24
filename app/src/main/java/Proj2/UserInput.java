@@ -167,7 +167,7 @@ public class UserInput {
                             "1: Movie\n" +
                             "2: Cinema\n" +
                             "3: Screen Size\n" +
-                            "4: Log out\n");
+                            "4: Return\n");
         return scanner.nextLine();
     }
 
@@ -283,6 +283,8 @@ public class UserInput {
         String desiredUsername = "";
 
         while(!isValid){
+            exists = false;
+
             printStream.println("Please enter your desired username (enter 'cancel' to exit):\n");
 
             desiredUsername = scanner.nextLine();
