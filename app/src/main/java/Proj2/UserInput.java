@@ -108,25 +108,17 @@ public class UserInput {
     public String checkUser(){
         printStream.println("Are you a guest or returning user?\n" +
                 "1: Guest\n" +
-                "2: Returning User\n");
+                "2: Returning User\n" +
+                "3: Exit\n");
         return scanner.nextLine();
     }
 
-    public String promptGuest(){
+    public String promptUser(){
         printStream.println("Filter Options:\n" +
                             "1: Movie\n" +
                             "2: Cinema\n" +
                             "3: Screen Size\n" +
-                            "4: Logout\n");
-        return scanner.nextLine();
-    }
-
-    public String promptCustomer(){
-        printStream.println("Filter Options:\n" +
-                            "1: Movie\n" +
-                            "2: Cinema\n" +
-                            "3: Screen Size\n" +
-                            "4: Log out");
+                            "4: Log out\n");
         return scanner.nextLine();
     }
 
