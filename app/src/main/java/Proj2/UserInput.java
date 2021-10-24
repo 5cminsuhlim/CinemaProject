@@ -277,9 +277,23 @@ public class UserInput {
         return scanner.nextLine();
     }
 
-    public String enterUsernameGuest(){
+    public String enterUsernameGuest(ArrayList<Customer> customers){
+        boolean isValid = false;
+        String desiredUsername = "";
+
         printStream.println("Please enter your desired username (enter 'cancel' to exit):\n");
-        return scanner.nextLine();
+
+        while(!isValid){
+            desiredUsername = scanner.nextLine();
+
+            for(Customer c : customers){
+                if(c.getUsername().equalsIgnoreCase(desiredUsername)){
+                    printStream.println("Username taken. Please use another username.\n");
+                }
+            }
+        }
+
+        return desiredUsername;
     }
 
     public String enterPasswordGuest(){ //need to somehow hide password with *****
