@@ -277,12 +277,12 @@ public class UserInput {
         return scanner.nextLine();
     }
 
-    public String enterUsername(){
+    public String enterUsernameGuest(){
         printStream.println("Please enter your desired username (enter 'cancel' to exit):\n");
         return scanner.nextLine();
     }
 
-    public String enterPassword(){ //need to somehow hide password with *****
+    public String enterPasswordGuest(){ //need to somehow hide password with *****
         boolean isValid = false;
         String pw = "";
 
