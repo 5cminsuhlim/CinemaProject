@@ -279,17 +279,25 @@ public class UserInput {
 
     public String enterUsernameGuest(ArrayList<Customer> customers){
         boolean isValid = false;
+        boolean exists = false;
         String desiredUsername = "";
 
-        printStream.println("Please enter your desired username (enter 'cancel' to exit):\n");
-
         while(!isValid){
+            printStream.println("Please enter your desired username (enter 'cancel' to exit):\n");
+
             desiredUsername = scanner.nextLine();
 
             for(Customer c : customers){
                 if(c.getUsername().equalsIgnoreCase(desiredUsername)){
-                    printStream.println("Username taken. Please use another username.\n");
+                    exists = true;
                 }
+            }
+
+            if(exists){
+                printStream.println("Username taken. Please use another username.\n");
+            }
+            else{
+                isValid = true;
             }
         }
 
