@@ -20,11 +20,10 @@ def parseCards(jsonData):
     i = 0
     for pair in jsonData:
         writeString = pair['name'] + "," + pair['number'] + "\n"
-        if(i < 2):
-            return_string.append(pair['number'])
-        i += 1
+        return_string.append(pair['number'])
         f.write(writeString)
     f.close()
+    random.shuffle(return_string)
     return return_string
 
 def genMovies(movie_count):
