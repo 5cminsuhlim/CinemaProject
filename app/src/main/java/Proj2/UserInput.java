@@ -141,6 +141,24 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public int getNumPeople(){
+        int count = 0;
+
+        printStream.println("Please enter the number of children (under 12 years old):");
+        count += Integer.parseInt(scanner.nextLine());
+
+        printStream.println("Please enter the number of students:");
+        count += Integer.parseInt(scanner.nextLine());
+
+        printStream.println("Please enter the number of adults:");
+        count += Integer.parseInt(scanner.nextLine());
+
+        printStream.println("Please enter the number of seniors / pensioners:");
+        count += Integer.parseInt(scanner.nextLine());
+
+        return count;
+    }
+
     public String bookMovie(){
         printStream.println("Would you like to book this movie?\n" +
                             "1: Yes\n" +
