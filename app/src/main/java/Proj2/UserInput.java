@@ -167,7 +167,7 @@ public class UserInput {
                             "1: Movie\n" +
                             "2: Cinema\n" +
                             "3: Screen Size\n" +
-                            "4: Log out\n");
+                            "4: Return\n");
         return scanner.nextLine();
     }
 
