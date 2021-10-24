@@ -28,7 +28,7 @@ def genMovies(movie_count):
     for i in range(0, movie_count):
         ratings = ["G", "PG", "M", "MA15+", "R18+"]
         rating = ratings[random.randint(0,4)]
-        releaseDate = leadingZero(str(random.randint(1,31))) + "/" + leadingZero(str(random.randint(1,12))) + "/" + str(random.randint(2021,2022)) ###ADD DAY AS WELL######
+        releaseDate = leadingZero(str(random.randint(1,31))) + "/" + leadingZero(str(random.randint(1,12))) + "/" + str(random.randint(2021,2022))
         j = random.randint(3,8)
         k = 0
         cast = ""
