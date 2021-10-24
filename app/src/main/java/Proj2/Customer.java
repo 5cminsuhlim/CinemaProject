@@ -78,7 +78,7 @@ public class Customer {
                     }
                 }
 
-                String[] ticketList = line[4].split(";");
+                String[] ticketList = line[3].split(";");
                 ArrayList<String> tickets = new ArrayList<>(Arrays.asList(ticketList));
               
                 //public Customer(int id, String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets)
