@@ -108,25 +108,17 @@ public class UserInput {
     public String checkUser(){
         printStream.println("Are you a guest or returning user?\n" +
                 "1: Guest\n" +
-                "2: Returning User\n");
+                "2: Returning User\n" +
+                "3: Exit\n");
         return scanner.nextLine();
     }
 
-    public String promptGuest(){
+    public String promptUser(){
         printStream.println("Filter Options:\n" +
                             "1: Movie\n" +
                             "2: Cinema\n" +
                             "3: Screen Size\n" +
-                            "4: Logout\n");
-        return scanner.nextLine();
-    }
-
-    public String promptCustomer(){
-        printStream.println("Filter Options:\n" +
-                            "1: Movie\n" +
-                            "2: Cinema\n" +
-                            "3: Screen Size\n" +
-                            "4: Log out");
+                            "4: Log out\n");
         return scanner.nextLine();
     }
 
@@ -139,6 +131,39 @@ public class UserInput {
     public String findMovie(){
         printStream.println("Please enter the movie title:");
         return scanner.nextLine();
+    }
+
+    public int getNumPeople(){
+        int count = 0;
+
+        printStream.println("Please enter the number of children (under 12 years old):");
+        count += Integer.parseInt(scanner.nextLine());
+
+        printStream.println("Please enter the number of students:");
+        count += Integer.parseInt(scanner.nextLine());
+
+        printStream.println("Please enter the number of adults:");
+        count += Integer.parseInt(scanner.nextLine());
+
+        printStream.println("Please enter the number of seniors / pensioners:");
+        count += Integer.parseInt(scanner.nextLine());
+
+        return count;
+    }
+
+    public int promptFSeats(){
+        printStream.println("Please enter the number of front seats to book:");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public int promptMSeats(){
+        printStream.println("Please enter the number of middle seats to book:");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public int promptRSeats(){
+        printStream.println("Please enter the number of rear seats to book:");
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public String bookMovie(){
