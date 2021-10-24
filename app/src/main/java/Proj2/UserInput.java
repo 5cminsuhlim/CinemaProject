@@ -159,6 +159,21 @@ public class UserInput {
         return count;
     }
 
+    public int promptFSeats(){
+        printStream.println("Please enter the number of front seats to book:");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public int promptMSeats(){
+        printStream.println("Please enter the number of middle seats to book:");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public int promptRSeats(){
+        printStream.println("Please enter the number of rear seats to book:");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
     public String bookMovie(){
         printStream.println("Would you like to book this movie?\n" +
                             "1: Yes\n" +
