@@ -8,6 +8,10 @@ build
 .idea/
 app/bin/
 app/build/
+app/.classpath
+app/.project
+app/.settings
+
 
 #Ignore Card Number Generator output
 __pycache__
