@@ -49,11 +49,11 @@ public class CinemaRunner {
         boolean loggedIn = false;
         String selectedMovie = "";
 
-        boolean whilerunning = true;
-        while(whilerunning) {
+        boolean running = true;
+        while(running) {
             //check if guest or customer
             String input = u.checkUser();
-            boolean notquit = true;
+            boolean notQuit = true;
             switch (input) {
                 case "1":
                     isGuest = true;
@@ -71,13 +71,13 @@ public class CinemaRunner {
 
                     break;
                 default:
-                    notquit = false;
+                    notQuit = false;
                     System.out.println("Invalid Input, please try again.\n");
                     break;
             }
 
             //guest function
-            while (notquit) {
+            while (notQuit) {
 
                 //prompt USER to filter by movie, cinema, or screen size
                 input = u.promptGuest();
@@ -100,7 +100,14 @@ public class CinemaRunner {
                                     //prompt guest if they want to book
                                     if (isCustomer) {
                                         System.out.println("Placeholder Print for Customer Fucntionality");
-                                    } else {
+                                        int numPeople = u.getNumPeople();
+
+                                        //NEED TO DISPLAY NUMBER OF SEATS AVAILABLE FOR EACH
+                                        int numF = u.promptFSeats();
+                                        int numM = u.promptMSeats();
+                                        int numR = u.promptRSeats();
+                                    }
+                                    else {
                                         input = u.bookMovie();
 
                                         switch (input) {
@@ -195,7 +202,7 @@ public class CinemaRunner {
                         }
                         break;
                     case "4":
-                        notquit = false;
+                        notQuit = false;
                         break;
 
                     default:
