@@ -2,6 +2,7 @@ package Proj2;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.HashMap;
@@ -103,6 +104,46 @@ public class UserInput {
 
         }
         return validGiftCards;
+    }
+
+    public void giftCardSave(ArrayList<GiftCard> cards) {
+        boolean saveSuccess = false;
+        while(!saveSuccess) {
+            printStream.println("Enter gift card file name to save ur stuff!!: ");
+            String filename = scanner.nextLine();
+            if (GiftCard.saveGiftCards(filename, cards) == 1){
+                saveSuccess = true;
+            }
+        }
+    }
+
+    public ArrayList<Customer> customerInit(ArrayList<Card> cards) {
+        boolean customerSuccess = false;
+        ArrayList<Customer> validCustomers = new ArrayList<>();
+
+
+        while (!customerSuccess) {
+            printStream.println("Enter customer file name: ");
+            String filename = scanner.nextLine();
+            validCustomers = Customer.readCustomers(filename,cards);
+
+            if(validCustomers != null){
+                customerSuccess = true;
+            }
+
+        }
+        return validCustomers;
+    }
+
+    public void customerSave(ArrayList<Customer> customers) {
+        boolean saveSuccess = false;
+        while(!saveSuccess) {
+            printStream.println("Enter customer file name to save ur stuff!!: ");
+            String filename = scanner.nextLine();
+            if (Customer.saveCustomers(filename, customers) == 1){
+                saveSuccess = true;
+            }
+        }
     }
 
     public String checkUser(){

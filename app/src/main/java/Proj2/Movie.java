@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.math.BigDecimal;
 
 public class Movie {
+    private final int id;
     private String name;
     private String synopsis; //plot
     private String rating; //rating
@@ -24,10 +25,11 @@ public class Movie {
     private BigDecimal basePrice; //need to gen this
     private BigDecimal ticketPrice; //0.8, 1.2, 1.6
 
-    public Movie(String name, String synopsis, String rating, String releaseDate, ArrayList<String> cast, //ArrayList<String> upcomingTimes
+    public Movie(int id, String name, String synopsis, String rating, String releaseDate, ArrayList<String> cast, //ArrayList<String> upcomingTimes
                  Schedule schedule, String screenSize, int f_seatsOpen,
                  int f_seatsBooked, int m_seatsOpen, int m_seatsBooked,
                  int r_seatsOpen, int r_seatsBooked, BigDecimal basePrice) {
+        this.id = id;
         this.name = name;
         this.synopsis = synopsis;
         this.rating = rating;
@@ -96,15 +98,15 @@ public class Movie {
     }*/
 
     public String getSchedule() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
 
-        s += schedule.getDay() + ":";
+        s.append(schedule.getDay()).append(":");
 
         for (String time : schedule.getUpcomingTimes()) {
-            s += time + "\n";
+            s.append(time).append("\n");
         }
 
-        return s;
+        return s.toString();
     }
 
     public void setSchedule(Schedule schedule) {
@@ -213,14 +215,14 @@ public class Movie {
 
                //name,synopsis,rating,releaseDate,cast,schedule,screenSize, f_seatsOpen,
                 // f_seatsBooked,m_seatsOpen,m_seatsBooked,r_seatsOpen,r_seatsBooked,BasePrice
-                String[] castList = line[4].split(";");
+                String[] castList = line[5].split(";");
                 ArrayList<String> cast = new ArrayList<>(Arrays.asList(castList));
                 Schedule schedule = new Schedule(
                         "Monday", new ArrayList<>()); // needs to be implemented properly
-                movieList.add(new Movie(
-                        line[0], line[1], line[2], line[3], cast, schedule, line[6], Integer.parseInt(line[7]),
-                        Integer.parseInt(line[8]), Integer.parseInt(line[9]), Integer.parseInt(line[10]),
-                        Integer.parseInt(line[11]),Integer.parseInt(line[12]), new BigDecimal(line[13]))
+                movieList.add(new Movie(Integer.parseInt(line[0]),
+                        line[1], line[2], line[3], line[4], cast, schedule, line[7], Integer.parseInt(line[8]),
+                        Integer.parseInt(line[9]), Integer.parseInt(line[10]), Integer.parseInt(line[11]),
+                        Integer.parseInt(line[12]),Integer.parseInt(line[13]), new BigDecimal(line[14]))
                 );
             }
         }
@@ -232,4 +234,7 @@ public class Movie {
         return movieList;
     }
 
+    public int getId() {
+        return id;
+    }
 }
