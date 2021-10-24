@@ -9,26 +9,16 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Customer {
-    private int id;
     private String username;
     private String password;
     private ArrayList<Card> cards;
     private ArrayList<Integer> tickets;
 
-    public Customer(int id, String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets) {
-        this.id = id;
+    public Customer(String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets) {
         this.username = username;
         this.password = password;
         this.cards = cards;
         this.tickets = tickets;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -74,7 +64,7 @@ public class Customer {
             while (input.hasNextLine()) { //reads all lines of the file
 
                 String[] line = input.nextLine().split(",");
-                String[] cardArr = line[3].split(";");
+                String[] cardArr = line[2].split(";");
                 ArrayList<Card> cards = new ArrayList<>();
 
                 List<String> cardList = Arrays.asList(cardArr);
@@ -84,15 +74,15 @@ public class Customer {
                     }
                 }
 
-                String[] ticketList = line[4].split(";");
+                String[] ticketList = line[3].split(";");
                 ArrayList<Integer> tickets = new ArrayList<>();
                 for(String ticket : ticketList){
                     tickets.add(Integer.parseInt(ticket));
                 }
 
                 //public Customer(int id, String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets)
-                customerList.add(new Customer(Integer.parseInt(line[0]), line[1],
-                        line[2], cards, tickets)); //ADD STUFF HERE
+                customerList.add(new Customer(line[0],
+                        line[1], cards, tickets)); //ADD STUFF HERE
             }
         }
         catch (Exception e) {
@@ -113,7 +103,7 @@ public class Customer {
                     String tickets = c.getTickets().stream().map(Object::toString).collect(Collectors.joining(";"));
                     String cards = c.getCards().stream().map(Card::getCardNumber).collect(Collectors.joining(";"));
                     //public Customer(int id, String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets)
-                    writer.write(c.getId() + "," + c.getUsername() + "," + c.getPassword() + "," + cards + "," + tickets + "\n");
+                    writer.write(c.getUsername() + "," + c.getPassword() + "," + cards + "," + tickets + "\n");
                 }
             }
             catch(Exception e){

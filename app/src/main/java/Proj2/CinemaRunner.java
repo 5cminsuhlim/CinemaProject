@@ -126,7 +126,7 @@ public class CinemaRunner {
                                             switch(input){
                                                 case "1":
                                                     //FIX ACCORDINGLY
-                                                    m.bookCustomer(customer, input, numPeople, numF, numM, numR);
+                                                    //m.bookCustomer(customer, input, numPeople, numF, numM, numR);
                                                 case "2":
                                                     break;
                                                 default:

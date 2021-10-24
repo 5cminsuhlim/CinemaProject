@@ -207,9 +207,9 @@ public class Movie {
                 "Next Showing: " + getSchedule()) + "\n";
     }
 
-    public int bookCustomer(Customer c, String time, int numPeople, int numF, int numM, int numR){
+    //public int bookCustomer(Customer c, String time, int numPeople, int numF, int numM, int numR){
 
-    }
+    //}
 
     protected static ArrayList<Movie> readMovies(String filename){
         ArrayList<Movie> movieList = new ArrayList<>();

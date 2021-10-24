@@ -29,7 +29,7 @@ public class Cinema {
 
     public static Movie searchMovie(String search_name, ArrayList<Movie> movieslist){
         for (Movie mov: movieslist){
-            String retname = mov.getName();
+            String retname = String.valueOf(mov.getId());
             if(search_name.equalsIgnoreCase(retname)){
                 return mov;
             }
@@ -70,18 +70,19 @@ public class Cinema {
                 ArrayList<Movie> movieList = new ArrayList<>();
 
                 for(String movie : movieArr){
+
                     Movie mov = searchMovie(movie, CinemaRunner.validMovies);
                     movieList.add(mov);
                 }
                 
                 ArrayList<Customer> customers = new ArrayList<>();
                 //Implement fucntionality to create/read movie objects and customers objects
-
                 cinemaList.add(new Cinema(Integer.parseInt(line[0]), line[1], line[2], movieList, customers));
             }
         }
         catch (Exception e) {
             System.out.println("Error reading cinema file. Please try again.\n");
+
             return null;
         }
 
