@@ -283,6 +283,8 @@ public class UserInput {
         String desiredUsername = "";
 
         while(!isValid){
+            exists = false;
+
             printStream.println("Please enter your desired username (enter 'cancel' to exit):\n");
 
             desiredUsername = scanner.nextLine();
