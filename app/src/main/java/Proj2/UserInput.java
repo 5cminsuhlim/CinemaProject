@@ -15,7 +15,7 @@ public class UserInput {
         this.printStream = printStream;
     }
 
-    public boolean login_func(HashMap<String, String> customers){
+    public boolean promptLogin(HashMap<String, String> customers){
         printStream.println("Hello! Welcome Back! \n Please Enter your Login Deatil Below!");
         printStream.print("Username: ");
         String username = scanner.nextLine();
@@ -116,7 +116,8 @@ public class UserInput {
         printStream.println("Filter Options:\n" +
                             "1: Movie\n" +
                             "2: Cinema\n" +
-                            "3: Screen Size");
+                            "3: Screen Size\n" +
+                            "4: Logout\n");
         return scanner.nextLine();
     }
 
