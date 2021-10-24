@@ -71,11 +71,9 @@ public class CinemaRunner {
                     loggedIn = u.promptLogin(username, password, validCustomers);
 
                     //if log in was successful
-
                     if (loggedIn) {
                         isCustomer = true;
 
-                        //MAKE CUSTOMER OBJECT FROM CORRESPONDING CUSTOMER FROM CUSTOMERS FILE
                         for(Customer c : validCustomers){
                             if(c.getUsername().equalsIgnoreCase(username)) {
                                 if (c.getPassword().equalsIgnoreCase(password)) {
@@ -100,7 +98,6 @@ public class CinemaRunner {
 
             //guest function
             while (notQuit) {
-
                 //prompt USER to filter by movie, cinema, or screen size
                 input = u.promptUser();
 
@@ -124,7 +121,6 @@ public class CinemaRunner {
                                         System.out.println("Placeholder Print for Customer Fucntionality");
                                         int numPeople = u.getNumPeople();
 
-                                        //NEED TO DISPLAY NUMBER OF SEATS AVAILABLE FOR EACH
                                         int numF = u.promptFSeats(m.getF_seatsOpen());
                                         int numM = u.promptMSeats(m.getM_seatsOpen());
                                         int numR = u.promptRSeats(m.getR_seatsOpen());
@@ -136,7 +132,6 @@ public class CinemaRunner {
 
                                             switch(input){
                                                 case "1":
-                                                    //FIX ACCORDINGLY
                                                     m.bookCustomer(customer, c, input, numPeople, numF, numM, numR);
                                                 case "2":
                                                     break;
@@ -243,7 +238,9 @@ public class CinemaRunner {
                             System.out.println("Invalid screen size\n");
                         }
                         break;
+
                     case "4":
+                        //return to default page
                         notQuit = false;
                         break;
 
