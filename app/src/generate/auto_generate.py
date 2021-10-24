@@ -16,10 +16,16 @@ def leadingZero(value):
 
 def parseCards(jsonData):
     f = open("../../../cards.txt", "w")
+    return_string = []
+    i = 0
     for pair in jsonData:
         writeString = pair['name'] + "," + pair['number'] + "\n"
+        if(i < 2):
+            return_string.append(pair['number'])
+        i += 1
         f.write(writeString)
     f.close()
+    return return_string
 
 def genMovies(movie_count):
     f = open("../../../movies.txt", "w")
@@ -112,6 +118,12 @@ def genSchedule(cinemas_list):
     f.close()
     return
 
+def genCustomers(cards):
+    output_string = "admin,password,{};{},1;2;3;4".format(cards[0], cards[1])
+    f = open("../../../customers.txt", "w")
+    f.write(str(output_string))
+    f.close()
+
 #Main Function
 try:
     cardListPath = sys.argv[1]
@@ -121,11 +133,12 @@ try:
     with open(cardListPath) as f:
         jsonData = json.load(f)
         f.close()
-    parseCards(jsonData)
+    cards_list = parseCards(jsonData)
     movie_list = genMovies(movie_count)
     cinemas_list = genCinemas(cinema_count, movie_list)
     genSchedule(cinemas_list)
     genGiftCards(card_count)
+    genCustomers(cards_list)
 except Exception as e:
     print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
     sys.exit()
