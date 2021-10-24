@@ -52,6 +52,7 @@ public class CinemaRunner {
         boolean isCustomer = false;
         boolean loggedIn;
         String selectedMovie = "";
+        Customer customer = null;
 
         boolean running = true;
         while(running) {
@@ -64,7 +65,10 @@ public class CinemaRunner {
                     isCustomer = false;
                     break;
                 case "2":
-                    loggedIn = u.promptLogin(customers);
+                    String username = u.getUsername();
+                    String password = u.getPassword();
+
+                    loggedIn = u.promptLogin(username, password, validCustomers);
 
                     //if log in was successful
 
@@ -72,8 +76,15 @@ public class CinemaRunner {
                         isCustomer = true;
 
                         //MAKE CUSTOMER OBJECT FROM CORRESPONDING CUSTOMER FROM CUSTOMERS FILE
-                        Customer customer;
-                    } else {
+                        for(Customer c : validCustomers){
+                            if(c.getUsername().equalsIgnoreCase(username)) {
+                                if (c.getPassword().equalsIgnoreCase(password)) {
+                                    customer = c;
+                                }
+                            }
+                        }
+                    }
+                    else {
                         isCustomer = false;
                     }
                 
@@ -126,7 +137,7 @@ public class CinemaRunner {
                                             switch(input){
                                                 case "1":
                                                     //FIX ACCORDINGLY
-                                                    //m.bookCustomer(customer, input, numPeople, numF, numM, numR);
+                                                    m.bookCustomer(customer, c, input, numPeople, numF, numM, numR);
                                                 case "2":
                                                     break;
                                                 default:
@@ -149,16 +160,18 @@ public class CinemaRunner {
                                                         boolean signedUp = false;
                                                         //prompt guest to make a new account
                                                         while (!signedUp) {
-                                                            input = u.enterUsername();
+                                                            input = u.enterUsernameGuest(validCustomers);
 
                                                             if (input.equalsIgnoreCase("cancel")) {
                                                                 break;
-                                                            } else if (customers.containsKey(input)) {
-                                                                System.out.println("Username taken. Please use another username.\n");
-                                                            } else {
+                                                            }
+                                                            else {
                                                                 String username = input;
-                                                                input = u.enterPassword();
-                                                                customers.put(username, input);
+
+                                                                input = u.enterPasswordGuest();
+
+                                                                Customer newCustomer = new Customer(username, input, null, null);
+                                                                validCustomers.add(newCustomer);
                                                                 signedUp = true;
                                                                 isCustomer = true;
 
