@@ -6,6 +6,8 @@ build
 .project
 .settings/
 .idea/
+app/bin/
+app/build/
 
 #Ignore Card Number Generator output
 __pycache__
