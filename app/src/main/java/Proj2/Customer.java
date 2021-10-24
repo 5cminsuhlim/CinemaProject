@@ -13,9 +13,9 @@ public class Customer {
     private String username;
     private String password;
     private ArrayList<Card> cards;
-    private ArrayList<Integer> tickets;
+    private ArrayList<String> tickets;
 
-    public Customer(int id, String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets) {
+    public Customer(int id, String username, String password, ArrayList<Card> cards, ArrayList<String> tickets) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -55,11 +55,11 @@ public class Customer {
         this.cards = cards;
     }
 
-    public ArrayList<Integer> getTickets() {
+    public ArrayList<String> getTickets() {
         return tickets;
     }
 
-    public void setTransactionNo(ArrayList<Integer> tickets) {
+    public void setTransactionNo(ArrayList<String> tickets) {
         this.tickets = tickets;
     }
 
@@ -85,10 +85,7 @@ public class Customer {
                 }
 
                 String[] ticketList = line[4].split(";");
-                ArrayList<Integer> tickets = new ArrayList<>();
-                for(String ticket : ticketList){
-                    tickets.add(Integer.parseInt(ticket));
-                }
+                ArrayList<String> tickets = new ArrayList<>(Arrays.asList(ticketList));
 
                 //public Customer(int id, String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets)
                 customerList.add(new Customer(Integer.parseInt(line[0]), line[1],
