@@ -7,13 +7,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Cinema {
+    private final int id;
     private String name; //need to gen this
     private String location; //need to gen this
     private ArrayList<Movie> movies;
     private int transactionNo;
     private ArrayList<Customer> customers;
 
-    public Cinema(String name, String location, ArrayList<Movie> movies, ArrayList<Customer> customers) {
+    public Cinema(int id, String name, String location, ArrayList<Movie> movies, ArrayList<Customer> customers) {
+        this.id = id;
         this.name = name;
         this.location = location;
         this.movies = movies;
@@ -64,7 +66,7 @@ public class Cinema {
 
             while (input.hasNextLine()) { //reads all lines of the file
                 String[] line = input.nextLine().split(",");
-                String[] movieArr = line[2].split(";");
+                String[] movieArr = line[3].split(";");
                 ArrayList<Movie> movieList = new ArrayList<>();
 
                 for(String movie : movieArr){
@@ -75,7 +77,7 @@ public class Cinema {
                 ArrayList<Customer> customers = new ArrayList<>();
                 //Implement fucntionality to create/read movie objects and customers objects
 
-                cinemaList.add(new Cinema(line[0], line[1], movieList, customers));
+                cinemaList.add(new Cinema(Integer.parseInt(line[0]), line[1], line[2], movieList, customers));
             }
         }
         catch (Exception e) {
@@ -84,5 +86,9 @@ public class Cinema {
         }
 
         return cinemaList;
+    }
+
+    public int getId() {
+        return id;
     }
 }
