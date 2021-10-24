@@ -67,8 +67,16 @@ public class CinemaRunner {
                     loggedIn = u.promptLogin(customers);
 
                     //if log in was successful
-                    isCustomer = loggedIn;
 
+                    if (loggedIn) {
+                        isCustomer = true;
+
+                        //MAKE CUSTOMER OBJECT FROM CORRESPONDING CUSTOMER FROM CUSTOMERS FILE
+                        Customer customer;
+                    } else {
+                        isCustomer = false;
+                    }
+                
                     break;
                 case "3":
                     running = false;
@@ -106,9 +114,27 @@ public class CinemaRunner {
                                         int numPeople = u.getNumPeople();
 
                                         //NEED TO DISPLAY NUMBER OF SEATS AVAILABLE FOR EACH
-                                        int numF = u.promptFSeats();
-                                        int numM = u.promptMSeats();
-                                        int numR = u.promptRSeats();
+                                        int numF = u.promptFSeats(m.getF_seatsOpen());
+                                        int numM = u.promptMSeats(m.getM_seatsOpen());
+                                        int numR = u.promptRSeats(m.getR_seatsOpen());
+
+                                        Schedule s = m.getScheduleObj();
+
+                                        for(String time : s.getUpcomingTimes()){
+                                            input = u.promptTime(time);
+
+                                            switch(input){
+                                                case "1":
+                                                    //FIX ACCORDINGLY
+                                                    m.bookCustomer(customer, input, numPeople, numF, numM, numR);
+                                                case "2":
+                                                    break;
+                                                default:
+                                                    System.out.println("Invalid Input, please try again.\n");
+                                            }
+
+
+                                        }
                                     }
                                     else {
                                         input = u.bookMovie();
