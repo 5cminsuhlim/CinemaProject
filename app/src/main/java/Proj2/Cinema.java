@@ -27,6 +27,12 @@ public class Cinema {
         return name;
     }
 
+    public String getTicketReceipt(){
+        transactionNo++;
+
+        return String.valueOf(id) + String.valueOf(transactionNo);
+    }
+
     public static Movie searchMovie(String search_name, ArrayList<Movie> movieslist){
         for (Movie mov: movieslist){
             String retname = String.valueOf(mov.getId());

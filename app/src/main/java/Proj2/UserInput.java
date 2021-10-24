@@ -16,22 +16,30 @@ public class UserInput {
         this.printStream = printStream;
     }
 
-    public boolean promptLogin(HashMap<String, String> customers){
-        printStream.println("Hello! Welcome Back! \n Please Enter your Login Deatil Below!");
-        printStream.print("Username: ");
-        String username = scanner.nextLine();
-        printStream.print("Password: ");
-        String password = scanner.nextLine();
-        if (customers.containsKey(username)){
-            if (customers.get(username).equalsIgnoreCase(password)){
-                return true;
+    public String getUsername(){
+        printStream.print("Please enter your username:\n");
+        return scanner.nextLine();
+    }
+
+    public String getPassword(){
+        printStream.print("Please enter your password:\n");
+        return scanner.nextLine();
+    }
+
+    public boolean promptLogin(String username, String password, ArrayList<Customer> customers){
+        for(Customer c : customers){
+            if(c.getUsername().equalsIgnoreCase(username)){
+                if(c.getPassword().equalsIgnoreCase(password)){
+                    return true;
+                }
+                else{
+                    printStream.println("You have entered the incorrect password: ");
+                    return false;
+                }
             }
-            printStream.println("You have entered the incorrect password: ");
-            return false;
         }
         printStream.println("You have entered a username that does not exist.");
-        return true;
-
+        return false;
     }
 
     public ArrayList<Movie> movieInit() {
@@ -269,12 +277,12 @@ public class UserInput {
         return scanner.nextLine();
     }
 
-    public String enterUsername(){
+    public String enterUsernameGuest(){
         printStream.println("Please enter your desired username (enter 'cancel' to exit):\n");
         return scanner.nextLine();
     }
 
-    public String enterPassword(){ //need to somehow hide password with *****
+    public String enterPasswordGuest(){ //need to somehow hide password with *****
         boolean isValid = false;
         String pw = "";
 

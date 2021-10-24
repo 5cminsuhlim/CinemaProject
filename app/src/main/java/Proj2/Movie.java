@@ -207,9 +207,19 @@ public class Movie {
                 "Next Showing: " + getSchedule()) + "\n";
     }
 
-    //public int bookCustomer(Customer c, String time, int numPeople, int numF, int numM, int numR){
 
-    //}
+    public void bookCustomer(Customer customer, Cinema cinema, String time, int numPeople, int numF, int numM, int numR){
+        this.setF_seatsBooked(this.getF_seatsBooked() + numF);
+        this.setF_seatsOpen(this.getF_seatsOpen() - numF);
+
+        this.setM_seatsBooked(this.getM_seatsBooked() + numM);
+        this.setM_seatsOpen(this.getM_seatsOpen() - numM);
+
+        this.setR_seatsBooked(this.getR_seatsBooked() + numR);
+        this.setR_seatsOpen(this.getR_seatsOpen() - numR);
+
+        customer.addTicket(cinema.getTicketReceipt());
+    }
 
     protected static ArrayList<Movie> readMovies(String filename){
         ArrayList<Movie> movieList = new ArrayList<>();

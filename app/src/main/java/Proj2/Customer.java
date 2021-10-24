@@ -12,7 +12,7 @@ public class Customer {
     private String username;
     private String password;
     private ArrayList<Card> cards;
-    private ArrayList<Integer> tickets;
+    private ArrayList<String> tickets;
 
     public Customer(String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets) {
         this.username = username;
@@ -45,12 +45,16 @@ public class Customer {
         this.cards = cards;
     }
 
-    public ArrayList<Integer> getTickets() {
+    public ArrayList<String> getTickets() {
         return tickets;
     }
 
-    public void setTransactionNo(ArrayList<Integer> tickets) {
+    public void setTickets(ArrayList<String> tickets) {
         this.tickets = tickets;
+    }
+
+    public void addTicket(String ticket){
+        tickets.add(ticket);
     }
 
     protected static ArrayList<Customer> readCustomers(String filename, ArrayList<Card> validCards){
@@ -74,12 +78,9 @@ public class Customer {
                     }
                 }
 
-                String[] ticketList = line[3].split(";");
-                ArrayList<Integer> tickets = new ArrayList<>();
-                for(String ticket : ticketList){
-                    tickets.add(Integer.parseInt(ticket));
-                }
-
+                String[] ticketList = line[4].split(";");
+                ArrayList<String> tickets = new ArrayList<>(Arrays.asList(ticketList));
+              
                 //public Customer(int id, String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets)
                 customerList.add(new Customer(line[0],
                         line[1], cards, tickets)); //ADD STUFF HERE
