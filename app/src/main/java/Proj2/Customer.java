@@ -59,8 +59,12 @@ public class Customer {
         return tickets;
     }
 
-    public void setTransactionNo(ArrayList<String> tickets) {
+    public void setTickets(ArrayList<String> tickets) {
         this.tickets = tickets;
+    }
+
+    public void addTicket(String ticket){
+        tickets.add(ticket);
     }
 
     protected static ArrayList<Customer> readCustomers(String filename, ArrayList<Card> validCards){
