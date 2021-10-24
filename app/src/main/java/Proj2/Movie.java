@@ -107,6 +107,10 @@ public class Movie {
         return s;
     }
 
+    public Schedule getScheduleObj(){
+        return schedule;
+    }
+
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
@@ -199,6 +203,10 @@ public class Movie {
                 "Cast: " + String.join(", ", getCast()) + "\n" +
                 "Screen Size: " + getScreenSize() + '\n' +
                 "Next Showing: " + getSchedule()) + "\n";
+    }
+
+    public int bookCustomer(Customer c, String time, int numPeople, int numF, int numM, int numR){
+
     }
 
     protected static ArrayList<Movie> readMovies(String filename){
