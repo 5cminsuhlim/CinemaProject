@@ -16,22 +16,28 @@ public class UserInput {
         this.printStream = printStream;
     }
 
-    public boolean promptLogin(HashMap<String, String> customers){
-        printStream.println("Hello! Welcome Back! \n Please Enter your Login Deatil Below!");
+    public boolean promptLogin(ArrayList<Customer> customers){
+        printStream.println("Hello! Welcome Back! \n Please Enter your Login Details Below!");
+
         printStream.print("Username: ");
         String username = scanner.nextLine();
+
         printStream.print("Password: ");
         String password = scanner.nextLine();
-        if (customers.containsKey(username)){
-            if (customers.get(username).equalsIgnoreCase(password)){
-                return true;
+
+        for(Customer c : customers){
+            if(c.getUsername().equalsIgnoreCase(username)){
+                if(c.getPassword().equalsIgnoreCase(password)){
+                    return true;
+                }
+                else{
+                    printStream.println("You have entered the incorrect password: ");
+                    return false;
+                }
             }
-            printStream.println("You have entered the incorrect password: ");
-            return false;
         }
         printStream.println("You have entered a username that does not exist.");
-        return true;
-
+        return false;
     }
 
     public ArrayList<Movie> movieInit() {
