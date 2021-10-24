@@ -14,7 +14,7 @@ public class Customer {
     private ArrayList<Card> cards;
     private ArrayList<String> tickets;
 
-    public Customer(String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets) {
+    public Customer(String username, String password, ArrayList<Card> cards, ArrayList<String> tickets) {
         this.username = username;
         this.password = password;
         this.cards = cards;
