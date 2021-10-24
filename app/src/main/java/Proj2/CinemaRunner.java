@@ -21,12 +21,16 @@ public class CinemaRunner {
 
         //reads in all cards
         //gonna need to make changes for JSON
-        ArrayList<Card> validCards = new ArrayList<>();
+        ArrayList<Card> validCards;
         validCards = u.cardInit();
 
         //read in all gift cards
-        ArrayList<GiftCard> validGiftCards = new ArrayList<>();
+        ArrayList<GiftCard> validGiftCards;
         validGiftCards = u.giftCardInit();
+
+        //read in all customers
+        ArrayList<Customer> validCustomers;
+        validCustomers = u.customerInit(validCards);
 
 
         System.out.println("Completed Fancy Cinemas System Initialization.");
@@ -46,7 +50,7 @@ public class CinemaRunner {
 
         boolean isGuest = false;
         boolean isCustomer = false;
-        boolean loggedIn = false;
+        boolean loggedIn;
         String selectedMovie = "";
 
         boolean running = true;
@@ -63,6 +67,7 @@ public class CinemaRunner {
                     loggedIn = u.promptLogin(customers);
 
                     //if log in was successful
+
                     if (loggedIn) {
                         isCustomer = true;
 
@@ -71,7 +76,7 @@ public class CinemaRunner {
                     } else {
                         isCustomer = false;
                     }
-
+                
                     break;
                 case "3":
                     running = false;
@@ -236,6 +241,7 @@ public class CinemaRunner {
             }
 
         }
-
+        u.giftCardSave(validGiftCards);
+        u.customerSave(validCustomers);
     }
 }
