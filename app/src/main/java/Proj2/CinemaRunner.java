@@ -70,6 +70,9 @@ public class CinemaRunner {
                     }
 
                     break;
+                case "3":
+                    running = false;
+                    break;
                 default:
                     notQuit = false;
                     System.out.println("Invalid Input, please try again.\n");
@@ -80,7 +83,7 @@ public class CinemaRunner {
             while (notQuit) {
 
                 //prompt USER to filter by movie, cinema, or screen size
-                input = u.promptGuest();
+                input = u.promptUser();
 
                 switch (input) {
                     case "1":
