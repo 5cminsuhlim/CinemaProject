@@ -16,15 +16,17 @@ public class UserInput {
         this.printStream = printStream;
     }
 
-    public boolean promptLogin(ArrayList<Customer> customers){
-        printStream.println("Hello! Welcome Back! \n Please Enter your Login Details Below!");
+    public String getUsername(){
+        printStream.print("Please enter your username:\n");
+        return scanner.nextLine();
+    }
 
-        printStream.print("Username: ");
-        String username = scanner.nextLine();
+    public String getPassword(){
+        printStream.print("Please enter your password:\n");
+        return scanner.nextLine();
+    }
 
-        printStream.print("Password: ");
-        String password = scanner.nextLine();
-
+    public boolean promptLogin(String username, String password, ArrayList<Customer> customers){
         for(Customer c : customers){
             if(c.getUsername().equalsIgnoreCase(username)){
                 if(c.getPassword().equalsIgnoreCase(password)){
