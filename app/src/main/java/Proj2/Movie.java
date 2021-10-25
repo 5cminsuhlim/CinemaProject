@@ -248,8 +248,8 @@ public class Movie {
         customer.addTicket(cinema.getTicketReceipt());
 
         //if using giftcard
-        //giftcard.setRedeemed(true);
-        //validGiftCards.remove(giftcard);
+        //set giftcard to redeemed
+        giftCard.setRedeemed(true);
     }
 
     protected static ArrayList<Movie> readMovies(String filename){
