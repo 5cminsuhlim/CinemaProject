@@ -271,7 +271,7 @@ public class UserInput {
     }
 
     public String promptPayment(){
-        printStream.println("Please select a payment method:\n" +
+        printStream.println("Please select a payment method (enter 'cancel' to exit):\n" +
                             "1: Card\n" +
                             "2: Gift Card\n");
         return scanner.nextLine();
