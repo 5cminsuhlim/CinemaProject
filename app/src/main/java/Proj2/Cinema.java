@@ -35,7 +35,7 @@ public class Cinema {
 
     public static Movie searchMovie(String search_name, ArrayList<Movie> movieslist){
         for (Movie mov: movieslist){
-            String retname = String.valueOf(mov.getId());
+            String retname = String.valueOf(mov.getName());
             if(search_name.equalsIgnoreCase(retname)){
                 return mov;
             }
