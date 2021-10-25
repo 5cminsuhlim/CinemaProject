@@ -51,7 +51,7 @@ def genMovies(movie_count):
         writeString = "{},{},synopsis,{},{},{},schedule,{},{},{},{},{},{},{},{}\n".format(
         i+1, "movie"+str(i+1),rating,releaseDate,cast,screenSize,front,100-front,m,100-m,r,100-r,price)
         f.write(writeString)
-        movie_list.append(i+1)
+        movie_list.append("movie"+str(i+1))
     f.close()
     return movie_list
 
