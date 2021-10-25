@@ -45,6 +45,10 @@ public class Customer {
         this.cards = cards;
     }
 
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
     public ArrayList<String> getTickets() {
         return tickets;
     }
