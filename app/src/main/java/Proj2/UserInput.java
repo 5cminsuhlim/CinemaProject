@@ -287,6 +287,11 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public String getGiftCard(){
+        printStream.println("Please enter the gift card code:\n");
+        return scanner.nextLine();
+    }
+
     public String bookMovie(){
         printStream.println("Would you like to book this movie?\n" +
                             "1: Yes\n" +
