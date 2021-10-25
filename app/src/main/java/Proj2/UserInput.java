@@ -270,6 +270,13 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public String promptPayment(){
+        printStream.println("Please select a payment method:\n" +
+                            "1: Card\n" +
+                            "2: Gift Card\n");
+        return scanner.nextLine();
+    }
+
     public String bookMovie(){
         printStream.println("Would you like to book this movie?\n" +
                             "1: Yes\n" +
