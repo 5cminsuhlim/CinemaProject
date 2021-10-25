@@ -127,12 +127,78 @@ public class CinemaRunner {
 
                                         Schedule s = m.getScheduleObj();
 
-                                        for(String time : s.getUpcomingTimes()){
-                                            input = u.promptTime(time);
+                                        for(String t : s.getUpcomingTimes()){
+                                            input = u.promptTime(t);
+                                            String time = input;
 
                                             switch(input){
                                                 case "1":
-                                                    m.bookCustomer(customer, c, input, numPeople, numF, numM, numR);
+                                                    //prompt card vs. gift card
+                                                    input = u.promptPayment();
+
+                                                    switch(input){
+                                                        case "1":
+                                                            //pay by card
+                                                            input = u.getCard();
+                                                            String cardNo = input;
+
+                                                            boolean cardFound = false;
+
+                                                            for(Card card : validCards){
+                                                                if(card.getCardNumber().equalsIgnoreCase(input)){
+                                                                    cardFound = true;
+                                                                }
+
+                                                                if(cardFound){
+                                                                    input = u.getName();
+                                                                    String name = input;
+
+                                                                    Card paymentCard = new Card(cardNo, name);
+
+                                                                    if(card.getCardHolderName().equalsIgnoreCase(name)){
+                                                                        m.bookCustomerCard(customer, c, time, paymentCard, numPeople, numF, numM, numR);
+                                                                        break;
+                                                                    }
+                                                                    else{
+                                                                        System.out.println("Invalid name. Exiting payment...\n");
+                                                                        break;
+                                                                    }
+
+                                                                }
+
+                                                                if(!cardFound){
+                                                                    System.out.println("Card not found. Exiting payment...\n");
+                                                                    break;
+                                                                }
+                                                            }
+
+                                                        case "2":
+                                                            //pay by gc
+                                                            input = u.getGiftCard();
+                                                            boolean giftCardFound = false;
+
+                                                            for(GiftCard g : validGiftCards){
+                                                                //if found and not redeemed
+                                                                if(g.getGiftCardNumber().equalsIgnoreCase(input) && !g.isRedeemed()){
+                                                                    giftCardFound = true;
+
+                                                                    if(giftCardFound){
+                                                                        m.bookCustomerGiftCard(customer, c, time, g, numPeople, numF, numM, numR);
+                                                                        break;
+                                                                    }
+                                                                }
+                                                                else if(g.getGiftCardNumber().equalsIgnoreCase(input) && g.isRedeemed()){
+                                                                    System.out.println("This gift card has already been redeemed. Exiting payment...\n");
+                                                                    break;
+                                                                }
+                                                            }
+
+                                                        case "cancel":
+                                                            break;
+                                                        default:
+                                                            System.out.println("Invalid Input, please try again.\n");
+                                                    }
+
                                                 case "2":
                                                     break;
                                                 default:
