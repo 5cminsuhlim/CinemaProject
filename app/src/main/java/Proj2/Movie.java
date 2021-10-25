@@ -207,17 +207,49 @@ public class Movie {
                 "Next Showing: " + getSchedule()) + "\n";
     }
 
-    public void bookCustomer(Customer customer, Cinema cinema, String time, int numPeople, int numF, int numM, int numR){
+    public void updateSeatsBooked(int numF, int numM, int numR){
         this.setF_seatsBooked(this.getF_seatsBooked() + numF);
-        this.setF_seatsOpen(this.getF_seatsOpen() - numF);
-
         this.setM_seatsBooked(this.getM_seatsBooked() + numM);
-        this.setM_seatsOpen(this.getM_seatsOpen() - numM);
-
         this.setR_seatsBooked(this.getR_seatsBooked() + numR);
+    }
+
+    public void updateSeatsOpen(int numF, int numM, int numR){
+        this.setF_seatsOpen(this.getF_seatsOpen() - numF);
+        this.setM_seatsOpen(this.getM_seatsOpen() - numM);
         this.setR_seatsOpen(this.getR_seatsOpen() - numR);
+    }
+
+    public void bookCustomerCard(Customer customer, Cinema cinema, String time, Card card, int numPeople, int numF, int numM, int numR){
+        this.updateSeatsBooked(numF, numM, numR);
+        this.updateSeatsOpen(numF, numM, numR);
 
         customer.addTicket(cinema.getTicketReceipt());
+
+        //if using card
+        boolean found = false;
+
+        //if a customer's card is found, don't save
+        for(Card c : customer.getCards()){
+            if(c.getCardNumber().equalsIgnoreCase(card.getCardNumber())){
+                found = true;
+                break;
+            }
+        }
+        //if not found, save
+        if(!found){
+            customer.addCard(card);
+        }
+    }
+
+    public void bookCustomerGiftCard(Customer customer, Cinema cinema, String time, GiftCard giftCard, int numPeople, int numF, int numM, int numR){
+        this.updateSeatsBooked(numF, numM, numR);
+        this.updateSeatsOpen(numF, numM, numR);
+
+        customer.addTicket(cinema.getTicketReceipt());
+
+        //if using giftcard
+        //giftcard.setRedeemed(true);
+        //validGiftCards.remove(giftcard);
     }
 
     protected static ArrayList<Movie> readMovies(String filename){
