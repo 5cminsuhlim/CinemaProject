@@ -277,6 +277,16 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public String getCard(){
+        printStream.println("Please enter your card number:\n");
+        return scanner.nextLine();
+    }
+
+    public String getName(){
+        printStream.println("Please enter your name associated with the card:\n");
+        return scanner.nextLine();
+    }
+
     public String bookMovie(){
         printStream.println("Would you like to book this movie?\n" +
                             "1: Yes\n" +
