@@ -207,6 +207,18 @@ public class Movie {
                 "Next Showing: " + getSchedule()) + "\n";
     }
 
+    public boolean checkGiftCard(String gc){
+        String nums = gc.substring(0, 16);
+        String gcSuffix = gc.substring(16);
+
+        for(char c : nums.toCharArray()){
+            if(!Character.isDigit(c)){
+                return false;
+            }
+        }
+
+        return gcSuffix.equalsIgnoreCase("gc");
+    }
 
     public void bookCustomer(Customer customer, Cinema cinema, String time, int numPeople, int numF, int numM, int numR){
         this.setF_seatsBooked(this.getF_seatsBooked() + numF);
