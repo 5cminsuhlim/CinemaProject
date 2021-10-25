@@ -30,6 +30,17 @@ public class GiftCard {
         this.redeemed = redeemed;
     }
 
+    public boolean isValid(String gc, ArrayList<GiftCard> validGiftCards){
+        for(GiftCard g : validGiftCards){
+            //if found and not redeemed
+            if(g.getGiftCardNumber().equalsIgnoreCase(gc) && !g.isRedeemed()){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     protected static ArrayList<GiftCard> readGiftCards(String filename){
         ArrayList<GiftCard> giftCardList = new ArrayList<>();
 
