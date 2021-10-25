@@ -126,9 +126,13 @@ class CinemaTest {
                 + "YOYO\n";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
-        HashMap<String, String> customer = new HashMap<>();
-        customer.put("Broskin","YOYO");
-        assertTrue(u.promptLogin(customer));
+        ArrayList<Customer> customers = new ArrayList<Customer>();
+        Customer g = new Customer("Broskin", "YOYO", null,null);
+        customers.add(g);
+
+        assertTrue(u.promptLogin("Broskin","YOYO",customers));
 
     }
+
+
 }
