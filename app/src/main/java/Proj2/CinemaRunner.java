@@ -89,6 +89,7 @@ public class CinemaRunner {
                     break;
                 case "3":
                     running = false;
+                    notQuit = false;
                     break;
                 default:
                     notQuit = false;
