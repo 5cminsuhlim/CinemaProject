@@ -46,7 +46,7 @@ class CinemaTest {
         String synopsis = "As above"; //plot
         String rating = "10"; //rating
         String releaseDate = "10/10/10"; //?
-        ArrayList<String> cast = new ArrayList<String>(); //people
+        ArrayList<String> cast = new ArrayList<>(); //people
         //private ArrayList<String> upcomingTimes; //need to gen this
         Schedule schedule = null;
         String screenSize = ""; //need to gen this
@@ -58,12 +58,12 @@ class CinemaTest {
         int r_seatsBooked = 0;  //need to gen this
         BigDecimal basePrice = new BigDecimal(0); //need to gen this
         BigDecimal ticketPrice = new BigDecimal(0); //0.8, 1.2, 1.6
-        Movie plsman = new Movie(name, synopsis, rating, releaseDate, cast, //ArrayList<String> upcomingTimes
+        Movie plsman = new Movie(1, name, synopsis, rating, releaseDate, cast, //ArrayList<String> upcomingTimes
                 schedule, screenSize, f_seatsOpen,
         f_seatsBooked, m_seatsOpen,m_seatsBooked,
         r_seatsOpen, r_seatsBooked, basePrice);
 
-        ArrayList<Movie> movv = new ArrayList<Movie>();
+        ArrayList<Movie> movv = new ArrayList<>();
         movv.add(plsman);
         Movie foundmov = Cinema.searchMovie("Steve Buscemi 10 Hour Compilation",movv);
         assertEquals(plsman,foundmov,"Movies are not Equal");
@@ -115,9 +115,9 @@ class CinemaTest {
         assertEquals(testGiftCard.getGiftCardNumber(),"1875890093350513", "Gift card number returned is incorrect");
         testGiftCard.setGiftCardNumber("1875890093351111");
         assertEquals(testGiftCard.getGiftCardNumber(),"1875890093351111", "Gift card number returned is incorrect");
-        assertEquals(testGiftCard.isRedeemed(),false, "Gift card is considered to be redeemed, yet it has not been");
+        assertFalse(testGiftCard.isRedeemed(), "Gift card is considered to be redeemed, yet it has not been");
         testGiftCard.setRedeemed(true);
-        assertEquals(testGiftCard.isRedeemed(),true, "Gift card is considered to not be redeemed, yet it has been");
+        assertTrue(testGiftCard.isRedeemed(), "Gift card is considered to not be redeemed, yet it has been");
     }
 
     @Test
@@ -126,58 +126,13 @@ class CinemaTest {
                 + "YOYO\n";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
-        HashMap<String, String> customer = new HashMap<String, String>();
-        customer.put("Broskin","YOYO");
-        assertEquals(u.login_func(customer),true);
-    }
+        ArrayList<Customer> customers = new ArrayList<Customer>();
+        Customer g = new Customer("Broskin", "YOYO", null,null);
+        customers.add(g);
 
-    @Test
-    public void movieTest(){
-        String name = "Movie";
-        String synopsis = "Synopsis";
-        String rating = "G";
-        String releaseDate = "10/10/2010";
-        String actor1 = "Matt Damon";
-        String actor2 = "Maaaaaatt Daaaaaamon";
-
-        ArrayList<String> cast = new ArrayList<String>();
-        cast.add(actor1);
-        cast.add(actor2);
-
-        String day = "Monday";
-        String time1 = "10:00pm";
-        String time2 = "2:00pm";
-        ArrayList<String> upcomingTimes = new ArrayList<String>();
-        upcomingTimes.add(time1);
-        upcomingTimes.add(time2);
-
-        Schedule testSchedule = new Schedule(day, upcomingTimes);
-
-        String screenSize = "Gold";
-        int f_seatsOpen = 5;  //need to gen this
-        int f_seatsBooked = 5;  //need to gen this
-        int m_seatsOpen = 5;  //need to gen this
-        int m_seatsBooked = 5;  //need to gen this
-        int r_seatsOpen = 5;  //need to gen this
-        int r_seatsBooked = 5;  //need to gen this
-        BigDecimal basePrice = new BigDecimal("10.00"); //need to gen this
-        BigDecimal ticketPrice = new BigDecimal("0.8"); //0.8, 1.2, 1.6
-
-        Movie testMovie = new Movie(name, synopsis, rating, releaseDate, cast,testSchedule,screenSize,f_seatsOpen,f_seatsBooked,
-                m_seatsOpen,m_seatsBooked,r_seatsOpen,r_seatsBooked,basePrice,ticketPrice);
-
-        assertEquals(testMovie.getName(), "Movie", "Movie name returned is incorrect");
-        testMovie.setName("Finding Nemo");
-        assertEquals(testMovie.getName(), "Finding Nemo", "Movie name returned is incorrect");
-        assertEquals(testMovie.getSynopsis(), "Synopsis", "Movie synopsis returned is incorrect");
-        testMovie.setSynopsis("This movie is about fish");
-        assertEquals(testMovie.getSynopsis(), "This movie is about fish", "Movie synopsis returned is incorrect");
-        assertEquals(testMovie.getRating(), "G", "Movie rating returned is incorrect");
-        testMovie.setRating("M");
-        assertEquals(testMovie.getRating(), "M", "Movie rating returned is incorrect");
-        assertEquals(testMovie.getReleaseDate(), "10/10/2010","Movie release date returned is incorrect");
-        testMovie.setReleaseDate("10/10/2021");
-        assertEquals(testMovie.getReleaseDate(), "10/10/2021","Movie release date returned is incorrect");
+        assertTrue(u.promptLogin("Broskin","YOYO",customers));
 
     }
+
+
 }

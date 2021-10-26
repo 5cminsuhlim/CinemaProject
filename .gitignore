@@ -6,6 +6,12 @@ build
 .project
 .settings/
 .idea/
+app/bin/
+app/build/
+app/.classpath
+app/.project
+app/.settings
+
 
 #Ignore Card Number Generator output
 __pycache__
@@ -15,3 +21,6 @@ __pycache__
 cinemas.txt
 giftcards.txt
 movies.txt
+schedules.txt
+customers.txt
+cards.txt
