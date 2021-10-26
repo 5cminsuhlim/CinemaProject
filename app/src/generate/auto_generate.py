@@ -104,18 +104,19 @@ def genSchedule(cinemas_list):
                 current_movie = random.sample(cinema[3], 1)
                 minutes, hour  = math.modf(current_hours)
                 set_time = datetime.time(int(hour), int((minutes*60)))
-                final_schedule.append([current_movie[0], days[i], str(set_time)])
+                final_schedule.append(str(current_movie[0]) + ";" + days[i] + ";" + str(set_time))
                 current_hours += movie_runtime+min_break
                 current_hours_left -= (current_hours)
             current_days.pop(0)
             current_hours_left = total_hours_max
             current_hours = open_time
             i += 1
-        full_schedule.append([cinema[0], final_schedule])
+        full_schedule.append(str(cinema[0]) + "," + str(final_schedule).replace(']', "").replace('[', "").replace("'", "").replace(" ", ""))
     f = open("../../../schedules.txt", "w")
     i = 0
     for i in range(0, len(full_schedule)):
-        f.write(str(full_schedule[i]))
+        current_string = str(full_schedule[i]) + "\n"
+        f.write(current_string)
     f.close()
     return
 
@@ -126,20 +127,20 @@ def genCustomers(cards):
     f.close()
 
 #Main Function
-try:
-    cardListPath = sys.argv[1]
-    movie_count = int(sys.argv[2])
-    cinema_count = int(sys.argv[3])
-    card_count = int(sys.argv[4])
-    with open(cardListPath) as f:
-        jsonData = json.load(f)
-        f.close()
-    cards_list = parseCards(jsonData)
-    movie_list = genMovies(movie_count)
-    cinemas_list = genCinemas(cinema_count, movie_list)
-    genSchedule(cinemas_list)
-    genGiftCards(card_count)
-    genCustomers(cards_list)
-except Exception as e:
-    print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
-    sys.exit()
+# try:
+cardListPath = sys.argv[1]
+movie_count = int(sys.argv[2])
+cinema_count = int(sys.argv[3])
+card_count = int(sys.argv[4])
+with open(cardListPath) as f:
+    jsonData = json.load(f)
+    f.close()
+cards_list = parseCards(jsonData)
+movie_list = genMovies(movie_count)
+cinemas_list = genCinemas(cinema_count, movie_list)
+genSchedule(cinemas_list)
+genGiftCards(card_count)
+genCustomers(cards_list)
+# except Exception as e:
+#     print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
+#     sys.exit()
