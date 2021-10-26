@@ -16,12 +16,6 @@ public class Movie {
     //private ArrayList<String> upcomingTimes; //need to gen this
     private Schedule schedule;
     private String screenSize; //need to gen this
-    private int f_seatsOpen;  //need to gen this
-    private int f_seatsBooked;  //need to gen this
-    private int m_seatsOpen;  //need to gen this
-    private int m_seatsBooked;  //need to gen this
-    private int r_seatsOpen;  //need to gen this
-    private int r_seatsBooked;  //need to gen this
     private BigDecimal basePrice; //need to gen this
     private BigDecimal ticketPrice; //0.8, 1.2, 1.6
 
@@ -219,22 +213,9 @@ public class Movie {
                 "Rating: " + getRating() + '\n' +
                 "Release Date: " + getReleaseDate() + '\n' +
                 "Cast: " + String.join(", ", getCast()) + "\n" +
-                "Screen Size: " + getScreenSize() + '\n' +
-                "Next Showing: " + getSchedule()) + "\n";
-    }
-
-    public void updateSeatsBooked(int numF, int numM, int numR){
-        this.setF_seatsBooked(this.getF_seatsBooked() + numF);
-        this.setM_seatsBooked(this.getM_seatsBooked() + numM);
-        this.setR_seatsBooked(this.getR_seatsBooked() + numR);
-    }
-
-    public void updateSeatsOpen(int numF, int numM, int numR){
-        this.setF_seatsOpen(this.getF_seatsOpen() - numF);
-        this.setM_seatsOpen(this.getM_seatsOpen() - numM);
-        this.setR_seatsOpen(this.getR_seatsOpen() - numR);
-    }
-
+                "Screen Size: " + getScreenSize() + '\n';
+    }    
+    
     public void bookCustomerCard(Customer customer, Cinema cinema, String time, Card card, int numPeople, int numF, int numM, int numR){
         this.updateSeatsBooked(numF, numM, numR);
         this.updateSeatsOpen(numF, numM, numR);

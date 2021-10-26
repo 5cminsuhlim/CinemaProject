@@ -1,0 +1,116 @@
+package Proj2;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.math.BigDecimal;
+import java.time;
+
+public class MovieInstance{
+    private final int m_id;
+    private final int c_id;
+    private int f_seatsOpen;  //need to gen this
+    private int f_seatsCapacity;  //need to gen this
+    private int m_seatsOpen;  //need to gen this
+    private int m_seatsCapacity;  //need to gen this
+    private int r_seatsOpen;  //need to gen this
+    private int r_seatsCapacity;  //need to gen this
+    private LocalDate day;
+    private LocalTime time;
+
+    public MovieInstance(int m_id, int c_id, int f_seatsCapacity, int m_seatsCapacity, int r_seatsCapacity, LocalDate day, LocalTime time){
+        this.m_id=m_id;
+        this.c_id=c_id;
+        this.f_seatsOpen=f_seatsCapacity;
+        this.f_seatsCapacity=f_seatsCapacity;
+        this.m_seatsOpen=m_seatsCapacity;
+        this.m_seatsCapacity=m_seatsCapacity;
+        this.r_seatsOpen = r_seatsCapacity;
+        this.r_seatsCapacity = r_seatsCapacity;
+        this.day = day;
+        this.time= time;
+    }
+
+    public int getM_id() {
+        return m_id;
+    }
+
+    public int getC_id() {
+        return c_id;
+    }
+
+    public int getF_seatsOpen() {
+        return f_seatsOpen;
+    }
+
+    public void setF_seatsOpen(int f_seatsOpen) {
+        this.f_seatsOpen = f_seatsOpen;
+    }
+
+    public int getF_seatsCapacity() {
+        return f_seatsCapacity;
+    }
+
+    public void setF_seatsCapacity(int f_seatsCapacity) {
+        this.f_seatsCapacity = f_seatsCapacity;
+    }
+
+    public int getM_seatsOpen() {
+        return m_seatsOpen;
+    }
+
+    public void setM_seatsOpen(int m_seatsOpen) {
+        this.m_seatsOpen = m_seatsOpen;
+    }
+
+    public int getM_seatsCapacity() {
+        return m_seatsCapacity;
+    }
+
+    public void setM_seatsCapacity(int m_seatsCapacity) {
+        this.m_seatsCapacity = m_seatsCapacity;
+    }
+
+    public int getR_seatsOpen() {
+        return r_seatsOpen;
+    }
+
+    public void setR_seatsOpen(int r_seatsOpen) {
+        this.r_seatsOpen = r_seatsOpen;
+    }
+
+    public int getR_seatsCapacity() {
+        return r_seatsCapacity;
+    }
+
+    public void setR_seatsCapacity(int r_seatsCapacity) {
+        this.r_seatsCapacity = r_seatsCapacity;
+    }
+
+    public LocalDate getDay() {
+        return day;
+    }
+
+    public void setDay(LocalDate day) {
+        this.day = day;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public
+
+    public void updateSeatsBooked(int numF, int numM, int numR){
+        this.setF_seatsBooked(this.getF_seatsBooked() + numF);
+        this.setM_seatsBooked(this.getM_seatsBooked() + numM);
+        this.setR_seatsBooked(this.getR_seatsBooked() + numR);
+    }
+
+    public void updateSeatsOpen(int numF, int numM, int numR){
+        this.setF_seatsOpen(this.getF_seatsOpen() - numF);
+        this.setM_seatsOpen(this.getM_seatsOpen() - numM);
+        this.setR_seatsOpen(this.getR_seatsOpen() - numR);
+    }
+}
