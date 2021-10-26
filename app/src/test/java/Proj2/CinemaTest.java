@@ -250,4 +250,61 @@ class CinemaTest {
         assertEquals(testMovie.getM_seatsOpen(), 50, "Number of M seats open returned is incorrect");
         assertEquals(testMovie.getR_seatsOpen(), 50, "Number of R seats open returned is incorrect");
     }
+
+    @Test
+    public void customerTest(){
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "Charles";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Customer testCustomer = new Customer(username, password, testCards, testTickets);
+
+        assertEquals(testCustomer.getUsername(), "username", "Username returned is incorrect");
+        testCustomer.setUsername("newUsername");
+        assertEquals(testCustomer.getUsername(), "newUsername", "Username returned is incorrect");
+        assertEquals(testCustomer.getPassword(), "password", "Password returned is incorrect");
+        testCustomer.setPassword("newPassword");
+        assertEquals(testCustomer.getPassword(), "newPassword", "Password returned is incorrect");
+
+        assertEquals(testCustomer.getCards(), testCards, "Card list returned is incorrect");
+        String cardNumber3= "12345";
+        String cardHolderName3 = "Hamish";
+        Card testCard3 = new Card(cardNumber3, cardHolderName3);
+        ArrayList<Card> testCardsUpdated = new ArrayList<Card>();
+        testCardsUpdated.add(testCard3);
+        testCustomer.setCards(testCardsUpdated);
+        assertEquals(testCustomer.getCards(), testCardsUpdated, "Card list returned is incorrect");
+        String cardNumber4= "54321";
+        String cardHolderName4 = "Jackson";
+        Card testCard4 = new Card(cardNumber4, cardHolderName4);
+        testCardsUpdated.add(testCard4);
+        testCustomer.addCard(testCard4);
+        assertEquals(testCustomer.getCards(), testCardsUpdated, "Card list returned is incorrect");
+
+        assertEquals(testCustomer.getTickets(), testTickets, "Ticket list returned is incorrect");
+        String testTicket3 = "Ticket3";
+        ArrayList<String> testTicketsUpdated = new ArrayList<String>();
+        testTicketsUpdated.add(testTicket3);
+        testCustomer.setTickets(testTicketsUpdated);
+        assertEquals(testCustomer.getTickets(), testTicketsUpdated, "Ticket list returned is incorrect");
+        String testTicket4 = "Ticket4";
+        testTicketsUpdated.add(testTicket4);
+        testCustomer.addTicket(testTicket4);
+        assertEquals(testCustomer.getTickets(), testTicketsUpdated, "Ticket list returned is incorrect");
+
+    }
 }
