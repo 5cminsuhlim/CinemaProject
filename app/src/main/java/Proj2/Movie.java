@@ -174,7 +174,23 @@ public class Movie {
     }
 
     public BigDecimal getTicketPrice() {
-        return ticketPrice;
+        if(screenSize.equalsIgnoreCase("bronze")){
+            ticketPrice = basePrice.multiply(BigDecimal.valueOf(0.8));
+            return ticketPrice;
+        }
+        else if(screenSize.equalsIgnoreCase("silver")){
+            ticketPrice = basePrice.multiply(BigDecimal.valueOf(1.2));
+            return ticketPrice;
+        }
+        else if(screenSize.equalsIgnoreCase("gold")){
+            ticketPrice = basePrice.multiply(BigDecimal.valueOf(1.6));
+            return ticketPrice;
+        }
+        else{
+            System.out.println("Pricing error!");
+            BigDecimal ticketPrice = new BigDecimal("0.0");
+            return ticketPrice;
+        }
     }
 
     public void setTicketPrice(String screenSize) {
