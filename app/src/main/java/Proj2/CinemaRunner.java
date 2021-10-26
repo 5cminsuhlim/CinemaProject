@@ -122,9 +122,9 @@ public class CinemaRunner {
                                         System.out.println("Placeholder Print for Customer Fucntionality");
                                         int numPeople = u.getNumPeople();
 
-                                        int numF = u.promptFSeats(m.getF_seatsOpen());
-                                        int numM = u.promptMSeats(m.getM_seatsOpen());
-                                        int numR = u.promptRSeats(m.getR_seatsOpen());
+//                                        int numF = u.promptFSeats(m.getF_seatsOpen());
+//                                        int numM = u.promptMSeats(m.getM_seatsOpen());
+//                                        int numR = u.promptRSeats(m.getR_seatsOpen());
 
                                         Schedule s = m.getScheduleObj();
 
@@ -157,7 +157,7 @@ public class CinemaRunner {
                                                                     Card paymentCard = new Card(cardNo, name);
 
                                                                     if(card.getCardHolderName().equalsIgnoreCase(name)){
-                                                                        m.bookCustomerCard(customer, c, time, paymentCard, numPeople, numF, numM, numR);
+                                                                        //m.bookCustomerCard(customer, c, time, paymentCard, numPeople, numF, numM, numR);
                                                                         break;
                                                                     }
                                                                     else{
@@ -184,7 +184,7 @@ public class CinemaRunner {
                                                                     giftCardFound = true;
 
                                                                     if(giftCardFound){
-                                                                        m.bookCustomerGiftCard(customer, c, time, g, numPeople, numF, numM, numR);
+                                                                        //m.bookCustomerGiftCard(customer, c, time, g, numPeople, numF, numM, numR);
                                                                         break;
                                                                     }
                                                                 }
