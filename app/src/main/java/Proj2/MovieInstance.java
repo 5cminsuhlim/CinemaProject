@@ -16,14 +16,14 @@ public class MovieInstance{
     private int m_seatsCapacity;  //need to gen this
     private int r_seatsOpen;  //need to gen this
     private int r_seatsCapacity;  //need to gen this
-    private LocalDate day;
+    private String day;
     private LocalTime time;
     private String screenSize; //need to gen this
     private BigDecimal basePrice; //need to gen this
     private BigDecimal ticketPrice; //0.8, 1.2, 1.6
 
     public MovieInstance(int m_id, int c_id, int f_seatsCapacity, int m_seatsCapacity,
-                         int r_seatsCapacity, LocalDate day, LocalTime time, String screenSize, BigDecimal basePrice){
+                         int r_seatsCapacity, String day, LocalTime time, String screenSize, BigDecimal basePrice){
         this.m_id=m_id;
         this.c_id=c_id;
         this.f_seatsOpen=f_seatsCapacity;
@@ -95,11 +95,11 @@ public class MovieInstance{
         this.r_seatsCapacity = r_seatsCapacity;
     }
 
-    public LocalDate getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(LocalDate day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
