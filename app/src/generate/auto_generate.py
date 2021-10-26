@@ -98,17 +98,19 @@ def genSchedule(cinemas_list):
         current_hours = open_time
         #ARRAY POS
         #0: ID, 1: NAME, 2: LOCATION, 3: MOIES SHOWING (ARRAY)
+        i = 0
         while len(current_days) > 0:
             while current_hours_left > 0:
                 current_movie = random.sample(cinema[3], 1)
                 minutes, hour  = math.modf(current_hours)
                 set_time = datetime.time(int(hour), int((minutes*60)))
-                final_schedule.append([current_movie[0], days[0], str(set_time)])
+                final_schedule.append([current_movie[0], days[i], str(set_time)])
                 current_hours += movie_runtime+min_break
                 current_hours_left -= (current_hours)
             current_days.pop(0)
             current_hours_left = total_hours_max
-            current_hours = 0
+            current_hours = open_time
+            i += 1
         full_schedule.append([cinema[0], final_schedule])
     f = open("../../../schedules.txt", "w")
     i = 0
