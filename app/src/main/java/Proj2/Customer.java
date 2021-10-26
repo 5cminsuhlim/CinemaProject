@@ -112,10 +112,10 @@ public class Customer {
                 }
             }
             catch(Exception e){
-                System.out.println("Saving cardList failed.");
+                System.out.println("Saving customer details failed.");
                 return -2;
             }
-            System.out.println("Cards Saved.");
+            System.out.println("Customer details saved.");
             return 1;
         } else{
             System.out.println("File does not exist. Please try again");

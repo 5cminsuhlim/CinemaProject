@@ -134,5 +134,177 @@ class CinemaTest {
 
     }
 
+    @Test
+    public void movieTest(){
+        int id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
 
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+
+        String day = "Monday";
+        String time1 = "10:00pm";
+        String time2 = "2:00pm";
+        ArrayList<String> upcomingTimes = new ArrayList<String>();
+        upcomingTimes.add(time1);
+        upcomingTimes.add(time2);
+
+        Schedule testSchedule = new Schedule(day, upcomingTimes);
+
+        String screenSize = "Gold";
+        int f_seatsOpen = 50;  //need to gen this
+        int f_seatsBooked = 5;  //need to gen this
+        int m_seatsOpen = 50;  //need to gen this
+        int m_seatsBooked = 5;  //need to gen this
+        int r_seatsOpen = 50;  //need to gen this
+        int r_seatsBooked = 5;  //need to gen this
+        BigDecimal basePrice = new BigDecimal("10.00"); //need to gen this
+
+        Movie testMovie = new Movie(id, name, synopsis, rating, releaseDate, cast,testSchedule,screenSize,f_seatsOpen,f_seatsBooked,
+                m_seatsOpen,m_seatsBooked,r_seatsOpen,r_seatsBooked,basePrice);
+
+        assertEquals(testMovie.getName(), "Movie", "Movie name returned is incorrect");
+        testMovie.setName("Finding Nemo");
+        assertEquals(testMovie.getName(), "Finding Nemo", "Movie name returned is incorrect");
+        assertEquals(testMovie.getSynopsis(), "Synopsis", "Movie synopsis returned is incorrect");
+        testMovie.setSynopsis("This movie is about fish");
+        assertEquals(testMovie.getSynopsis(), "This movie is about fish", "Movie synopsis returned is incorrect");
+        assertEquals(testMovie.getRating(), "G", "Movie rating returned is incorrect");
+        testMovie.setRating("M");
+        assertEquals(testMovie.getRating(), "M", "Movie rating returned is incorrect");
+        assertEquals(testMovie.getReleaseDate(), "10/10/2010","Movie release date returned is incorrect");
+        testMovie.setReleaseDate("10/10/2021");
+        assertEquals(testMovie.getReleaseDate(), "10/10/2021","Movie release date returned is incorrect");
+
+        assertEquals(testMovie.getCast(), cast, "Cast returned is incorrect");
+        ArrayList<String> updatedCast = new ArrayList<String>();
+        String actor3 = "Chad";
+        String actor4 = "Lachlan";
+        updatedCast.add(actor3);
+        updatedCast.add(actor4);
+        testMovie.setCast(updatedCast);
+        assertEquals(testMovie.getCast(), updatedCast, "Cast returned is incorrect");
+
+        //NEED TO TEST getSchedule()
+        assertEquals(testMovie.getScheduleObj(), testSchedule, "Schedule returned is incorrect");
+        String updatedDay = "Tuesday";
+        String time3 = "10:00am";
+        String time4 = "2:00am";
+        ArrayList<String> newUpcomingTimes = new ArrayList<String>();
+        newUpcomingTimes.add(time3);
+        newUpcomingTimes.add(time4);
+
+        Schedule updatedSchedule = new Schedule(updatedDay, newUpcomingTimes);
+        testMovie.setSchedule(updatedSchedule);
+        assertEquals(testMovie.getScheduleObj(), updatedSchedule, "Schedule returned is incorrect");
+
+        assertEquals(testMovie.getScreenSize(), "Gold", "Screen size returned is incorrect");
+        testMovie.setScreenSize("Silver");
+        assertEquals(testMovie.getScreenSize(), "Silver", "Screen size returned is incorrect");
+
+        assertEquals(testMovie.getF_seatsOpen(), 50, "Number of F seats open returned is incorrect");
+        testMovie.setF_seatsOpen(60);
+        assertEquals(testMovie.getF_seatsOpen(), 60, "Number of F seats open returned is incorrect");
+        assertEquals(testMovie.getF_seatsBooked(), 5, "Number of F seats booked returned is incorrect");
+        testMovie.setF_seatsBooked(10);
+        assertEquals(testMovie.getF_seatsBooked(), 10, "Number of F seats booked returned is incorrect");
+
+        assertEquals(testMovie.getM_seatsOpen(), 50, "Number of M seats open returned is incorrect");
+        testMovie.setM_seatsOpen(60);
+        assertEquals(testMovie.getM_seatsOpen(), 60, "Number of M seats open returned is incorrect");
+        assertEquals(testMovie.getM_seatsBooked(), 5, "Number of M seats booked returned is incorrect");
+        testMovie.setM_seatsBooked(10);
+        assertEquals(testMovie.getM_seatsBooked(), 10, "Number of M seats booked returned is incorrect");
+
+        assertEquals(testMovie.getR_seatsOpen(), 50, "Number of R seats open returned is incorrect");
+        testMovie.setR_seatsOpen(60);
+        assertEquals(testMovie.getR_seatsOpen(), 60, "Number of R seats open returned is incorrect");
+        assertEquals(testMovie.getR_seatsBooked(), 5, "Number of R seats booked returned is incorrect");
+        testMovie.setR_seatsBooked(10);
+        assertEquals(testMovie.getR_seatsBooked(), 10, "Number of R seats booked returned is incorrect");
+
+        BigDecimal ticketPrice = basePrice.multiply(BigDecimal.valueOf(1.2)); //Screen size is currently set to silver
+        assertEquals(testMovie.getTicketPrice(),ticketPrice, "Ticket price returned is incorrect");
+        testMovie.setScreenSize("Gold");
+        testMovie.setTicketPrice("Gold");
+        BigDecimal newTicketPrice = basePrice.multiply(BigDecimal.valueOf(1.6));
+        assertEquals(testMovie.getTicketPrice(),newTicketPrice, "Ticket price returned is incorrect");
+
+        assertEquals(testMovie.getBasePrice(), basePrice, "Base price returned is incorrect");
+        BigDecimal newBasePrice = new BigDecimal("15");
+        testMovie.setBasePrice(newBasePrice);
+        assertEquals(testMovie.getBasePrice(), newBasePrice, "Base price returned is incorrect");
+
+        testMovie.updateSeatsBooked(20,20,20);
+        assertEquals(testMovie.getF_seatsBooked(), 30, "Number of F seats booked returned is incorrect");
+        assertEquals(testMovie.getM_seatsBooked(), 30, "Number of M seats booked returned is incorrect");
+        assertEquals(testMovie.getR_seatsBooked(), 30, "Number of R seats booked returned is incorrect");
+        testMovie.updateSeatsOpen(10,10,10);
+        assertEquals(testMovie.getF_seatsOpen(), 50, "Number of F seats open returned is incorrect");
+        assertEquals(testMovie.getM_seatsOpen(), 50, "Number of M seats open returned is incorrect");
+        assertEquals(testMovie.getR_seatsOpen(), 50, "Number of R seats open returned is incorrect");
+    }
+
+    @Test
+    public void customerTest(){
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "Charles";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Customer testCustomer = new Customer(username, password, testCards, testTickets);
+
+        assertEquals(testCustomer.getUsername(), "username", "Username returned is incorrect");
+        testCustomer.setUsername("newUsername");
+        assertEquals(testCustomer.getUsername(), "newUsername", "Username returned is incorrect");
+        assertEquals(testCustomer.getPassword(), "password", "Password returned is incorrect");
+        testCustomer.setPassword("newPassword");
+        assertEquals(testCustomer.getPassword(), "newPassword", "Password returned is incorrect");
+
+        assertEquals(testCustomer.getCards(), testCards, "Card list returned is incorrect");
+        String cardNumber3= "12345";
+        String cardHolderName3 = "Hamish";
+        Card testCard3 = new Card(cardNumber3, cardHolderName3);
+        ArrayList<Card> testCardsUpdated = new ArrayList<Card>();
+        testCardsUpdated.add(testCard3);
+        testCustomer.setCards(testCardsUpdated);
+        assertEquals(testCustomer.getCards(), testCardsUpdated, "Card list returned is incorrect");
+        String cardNumber4= "54321";
+        String cardHolderName4 = "Jackson";
+        Card testCard4 = new Card(cardNumber4, cardHolderName4);
+        testCardsUpdated.add(testCard4);
+        testCustomer.addCard(testCard4);
+        assertEquals(testCustomer.getCards(), testCardsUpdated, "Card list returned is incorrect");
+
+        assertEquals(testCustomer.getTickets(), testTickets, "Ticket list returned is incorrect");
+        String testTicket3 = "Ticket3";
+        ArrayList<String> testTicketsUpdated = new ArrayList<String>();
+        testTicketsUpdated.add(testTicket3);
+        testCustomer.setTickets(testTicketsUpdated);
+        assertEquals(testCustomer.getTickets(), testTicketsUpdated, "Ticket list returned is incorrect");
+        String testTicket4 = "Ticket4";
+        testTicketsUpdated.add(testTicket4);
+        testCustomer.addTicket(testTicket4);
+        assertEquals(testCustomer.getTickets(), testTicketsUpdated, "Ticket list returned is incorrect");
+
+    }
 }
