@@ -127,20 +127,20 @@ def genCustomers(cards):
     f.close()
 
 #Main Function
-# try:
-cardListPath = sys.argv[1]
-movie_count = int(sys.argv[2])
-cinema_count = int(sys.argv[3])
-card_count = int(sys.argv[4])
-with open(cardListPath) as f:
-    jsonData = json.load(f)
-    f.close()
-cards_list = parseCards(jsonData)
-movie_list = genMovies(movie_count)
-cinemas_list = genCinemas(cinema_count, movie_list)
-genSchedule(cinemas_list)
-genGiftCards(card_count)
-genCustomers(cards_list)
-# except Exception as e:
-#     print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
-#     sys.exit()
+try:
+    cardListPath = sys.argv[1]
+    movie_count = int(sys.argv[2])
+    cinema_count = int(sys.argv[3])
+    card_count = int(sys.argv[4])
+    with open(cardListPath) as f:
+        jsonData = json.load(f)
+        f.close()
+    cards_list = parseCards(jsonData)
+    movie_list = genMovies(movie_count)
+    cinemas_list = genCinemas(cinema_count, movie_list)
+    genSchedule(cinemas_list)
+    genGiftCards(card_count)
+    genCustomers(cards_list)
+except Exception as e:
+    print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
+    sys.exit()
