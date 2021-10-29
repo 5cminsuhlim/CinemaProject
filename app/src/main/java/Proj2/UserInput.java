@@ -369,4 +369,42 @@ public class UserInput {
                 "8: Return\n");
         return scanner.nextLine();
     }
+
+    public String promptGiftCard(ArrayList<GiftCard> giftCards){
+        boolean isNew = false;
+        boolean isValid = false;
+        String code = "";
+
+        //check if code format is valid
+        while(!isValid && !isNew){
+            isValid = false;
+
+            printStream.println("Please enter the gift card code:\n");
+            code = scanner.nextLine();
+            String nums = code.substring(0, 16);
+            String end = code.substring(16);
+
+            if(nums.matches("[0-9]+") && end.equalsIgnoreCase("GC")){
+                isValid = true;
+            }
+
+            if(!isValid){
+                printStream.println("Invalid gift card format.");
+            }
+            else{
+                //check if gc already exists
+                for(GiftCard gc : giftCards){
+                    isNew = true;
+
+                    if(gc.getGiftCardNumber().equalsIgnoreCase(code)) {
+                        printStream.println("Gift Card already exists.");
+                        isNew = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return code;
+    }
 }
