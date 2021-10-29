@@ -406,11 +406,14 @@ public class CinemaRunner {
 
                             //remove cinema staff
                             input = u.promptRemoveStaff(validCustomers);
-
+                            int indexToRemove = -1;
                             for(Customer c : validCustomers){
                                 if(c.getUsername().equalsIgnoreCase(input)){
-                                    validCustomers.remove(c);
+                                    indexToRemove = validCustomers.indexOf(c);
                                 }
+                            }
+                            if(indexToRemove >= 0){
+                                validCustomers.remove(indexToRemove);
                             }
                             break;
 
