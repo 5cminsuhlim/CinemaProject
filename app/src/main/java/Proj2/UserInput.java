@@ -444,5 +444,40 @@ public class UserInput {
         return username;
     }
 
+    public String promptRemoveStaff(ArrayList<Customer> customers){
+        boolean isFound = false;
+        boolean isValid = false;
+        String username = "";
 
+        //check if username format is valid
+        while(!isValid && !isFound){
+            isValid = false;
+
+            printStream.println("Please enter the username for the staff being fired:\n");
+            username = scanner.nextLine();
+
+            if(username.matches("^Staff+[0-9]+")){
+                isValid = true;
+            }
+
+            if(!isValid){
+                printStream.println("Invalid staff username format.");
+            }
+            else{
+                //check if username already exists
+                for(Customer c : customers){
+                    if(c.getUsername().equalsIgnoreCase(username)){
+                        isFound = true;
+                        break;
+                    }
+                }
+
+                if(!isFound){
+                    printStream.println("Staff username does not exist.");
+                }
+            }
+        }
+
+        return username;
+    }
 }
