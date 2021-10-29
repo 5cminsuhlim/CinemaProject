@@ -33,12 +33,12 @@ public class UserInput {
                     return true;
                 }
                 else{
-                    printStream.println("You have entered the incorrect password: ");
+                    printStream.println("You have entered the incorrect password.");
                     return false;
                 }
             }
         }
-        printStream.println("You have entered a username that does not exist.");
+        printStream.println("You have entered a username that does not exist. You have been logged in as a Guest.");
         return false;
     }
 
@@ -366,7 +366,8 @@ public class UserInput {
                 "5: Insert New Giftcard\n" +
                 "6: Add Cinema Staff\n" +
                 "7: FIRE Cinema Staff\n" +
-                "8: Return\n");
+                "8: Get Report\n" +
+                "9: Return\n");
         return scanner.nextLine();
     }
 
@@ -381,6 +382,12 @@ public class UserInput {
 
             printStream.println("Please enter the gift card code:\n");
             code = scanner.nextLine();
+
+            if(code.length() < 18){
+                printStream.println("Invalid gift card code length. Please try again.\n");
+                continue;
+            }
+
             String nums = code.substring(0, 16);
             String end = code.substring(16);
 
