@@ -24,6 +24,7 @@ public class Movie {
     private int r_seatsBooked;  //need to gen this
     private BigDecimal basePrice; //need to gen this
     private BigDecimal ticketPrice; //0.8, 1.2, 1.6
+    private int bookings;
 
     public Movie(int id, String name, String synopsis, String rating, String releaseDate, ArrayList<String> cast, //ArrayList<String> upcomingTimes
                  Schedule schedule, String screenSize, int f_seatsOpen,
@@ -46,6 +47,7 @@ public class Movie {
         this.r_seatsBooked = r_seatsBooked;
         this.basePrice = basePrice;
         setTicketPrice(this.screenSize);
+        this.bookings = 0;
     }
 
     public String getName() {
@@ -240,6 +242,7 @@ public class Movie {
         this.updateSeatsOpen(numF, numM, numR);
 
         customer.addTicket(cinema.getTicketReceipt());
+        this.bookings++;
 
         //if using card
         boolean found = false;
@@ -262,10 +265,15 @@ public class Movie {
         this.updateSeatsOpen(numF, numM, numR);
 
         customer.addTicket(cinema.getTicketReceipt());
+        this.bookings++;
 
         //if using giftcard
         //set giftcard to redeemed
         giftCard.setRedeemed(true);
+    }
+
+    public int getBookings(){
+        return bookings;
     }
 
     protected static ArrayList<Movie> readMovies(String filename){
