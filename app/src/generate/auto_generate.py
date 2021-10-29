@@ -121,26 +121,36 @@ def genSchedule(cinemas_list):
     return
 
 def genCustomers(cards):
-    output_string = "admin,password,{};{},1;2;3;4".format(cards[0], cards[1])
+    #output_string = "admin,password,{};{},1;2;3;4".format(cards[0], cards[1])
+    #output_string = "admin,password,{};{},1;2;3;4".format(cards[0], cards[1])
+    output_string = []
+    manager_string = "Manager" + "," + "iambigman" + "\n"
+    output_string.append(manager_string)
+    i = 0
+    total = random.randint(1, 10000)
+    for i in range(0,total):
+        output_results = "Staff" + str(i) + "," + "defstaffnotsus" + "\n"
+        output_string.append(output_results)
     f = open("../../../customers.txt", "w")
-    f.write(str(output_string))
+    for item in output_string:
+        f.write(str(item))
     f.close()
 
 #Main Function
-try:
-    cardListPath = sys.argv[1]
-    movie_count = int(sys.argv[2])
-    cinema_count = int(sys.argv[3])
-    card_count = int(sys.argv[4])
-    with open(cardListPath) as f:
-        jsonData = json.load(f)
-        f.close()
-    cards_list = parseCards(jsonData)
-    movie_list = genMovies(movie_count)
-    cinemas_list = genCinemas(cinema_count, movie_list)
-    genSchedule(cinemas_list)
-    genGiftCards(card_count)
-    genCustomers(cards_list)
-except Exception as e:
-    print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
-    sys.exit()
+# try:
+cardListPath = sys.argv[1]
+movie_count = int(sys.argv[2])
+cinema_count = int(sys.argv[3])
+card_count = int(sys.argv[4])
+with open(cardListPath) as f:
+    jsonData = json.load(f)
+    f.close()
+cards_list = parseCards(jsonData)
+movie_list = genMovies(movie_count)
+cinemas_list = genCinemas(cinema_count, movie_list)
+genSchedule(cinemas_list)
+genGiftCards(card_count)
+genCustomers(cards_list)
+# except Exception as e:
+#     print("Usage: python3 auto_generate.py [credit_card.json] [movie_count (int)] [cinema_count (int)], [giftCard_count (int)]")
+#     sys.exit()
