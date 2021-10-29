@@ -361,7 +361,10 @@ public class CinemaRunner {
 
                         case "5":
                             //insert new giftcard
+                            input = u.promptGiftCard(validGiftCards);
 
+                            GiftCard gc = new GiftCard(input, false);
+                            validGiftCards.add(gc);
                         case "6":
                             //if staff tries to perform manager action
                             if(!isManager){
