@@ -143,30 +143,40 @@ def genSchedule(cinemas_list):
         while len(current_days) > 0:
             while current_hours_left > 0:
                 current_movie = random.sample(cinema[3], 1)
-                minutes, hour = math.modf(current_hours)
-                set_time = datetime.time(int(hour), int((minutes * 60)))
-                final_schedule.append([current_movie[0], days[i], str(set_time)])
-                current_hours += movie_runtime + min_break
+                minutes, hour  = math.modf(current_hours)
+                set_time = datetime.time(int(hour), int((minutes*60)))
+                final_schedule.append(str(current_movie[0]) + ";" + days[i] + ";" + str(set_time))
+                current_hours += movie_runtime+min_break
                 current_hours_left -= (current_hours)
             current_days.pop(0)
             current_hours_left = total_hours_max
             current_hours = open_time
             i += 1
-        full_schedule.append([cinema[0], final_schedule])
+        full_schedule.append(str(cinema[0]) + "," + str(final_schedule).replace(']', "").replace('[', "").replace("'", "").replace(" ", ""))
     f = open("../../../schedules.txt", "w")
     i = 0
     for i in range(0, len(full_schedule)):
-        f.write(str(full_schedule[i]))
+        current_string = str(full_schedule[i]) + "\n"
+        f.write(current_string)
     f.close()
     return
 
 
 def genCustomers(cards):
-    output_string = "admin,password,{};{},1;2;3;4".format(cards[0], cards[1])
+    #output_string = "admin,password,{};{},1;2;3;4".format(cards[0], cards[1])
+    #output_string = "admin,password,{};{},1;2;3;4".format(cards[0], cards[1])
+    output_string = []
+    manager_string = "Manager" + "," + "iambigman" + "\n"
+    output_string.append(manager_string)
+    i = 0
+    total = random.randint(1, 10000)
+    for i in range(0,total):
+        output_results = "Staff" + str(i) + "," + "defstaffnotsus" + "\n"
+        output_string.append(output_results)
     f = open("../../../customers.txt", "w")
-    f.write(str(output_string))
+    for item in output_string:
+        f.write(str(item))
     f.close()
-
 
 # Main Function
 try:
