@@ -69,7 +69,8 @@ public class CinemaRunner {
                     String username = u.getUsername();
                     String password = u.getPassword();
 
-                    if(username.equalsIgnoreCase("Staff") && password.equalsIgnoreCase("defstaffnotsus")){
+                    //staff usernames must start with "Staff" followed by 1+ ints
+                    if(username.matches("^Staff+[0-9]+") && password.equalsIgnoreCase("defstaffnotsus")){
                         isStaff = true;
                         break;
                     }
@@ -372,6 +373,10 @@ public class CinemaRunner {
                                 break;
                             }
                             //add cinema staff
+                            input = u.promptAddStaff(validCustomers);
+
+                            Customer staff = new Customer(input, "defstaffnotsus", null, null);
+                            validCustomers.add(staff);
 
                         case "7":
                             //if staff tries to perform manager action
