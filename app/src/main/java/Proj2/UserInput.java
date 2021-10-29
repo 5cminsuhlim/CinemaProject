@@ -407,4 +407,42 @@ public class UserInput {
 
         return code;
     }
+
+    public String promptAddStaff(ArrayList<Customer> customers){
+        boolean isNew = false;
+        boolean isValid = false;
+        String username = "";
+
+        //check if username format is valid
+        while(!isValid && !isNew){
+            isValid = false;
+
+            printStream.println("Please enter the username for the new staff:\n");
+            username = scanner.nextLine();
+
+            if(username.matches("^Staff+[0-9]+")){
+                isValid = true;
+            }
+
+            if(!isValid){
+                printStream.println("Invalid staff username format.");
+            }
+            else{
+                //check if username already exists
+                for(Customer c : customers){
+                    isNew = true;
+
+                    if(c.getUsername().equalsIgnoreCase(username)){
+                        printStream.println("Staff username already exists.");
+                        isNew = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return username;
+    }
+
+
 }
