@@ -105,8 +105,15 @@ public class Customer {
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(filename), StandardCharsets.UTF_8))) {
                 for(Customer c : customers) {
-                    String tickets = c.getTickets().stream().map(Object::toString).collect(Collectors.joining(";"));
-                    String cards = c.getCards().stream().map(Card::getCardNumber).collect(Collectors.joining(";"));
+                    String tickets = "";
+                    String cards = "";
+
+                    if(c.getTickets() != null){
+                        tickets = c.getTickets().stream().map(Object::toString).collect(Collectors.joining(";"));
+                    }
+                    if(c.getCards() != null){
+                        cards = c.getCards().stream().map(Card::getCardNumber).collect(Collectors.joining(";"));
+                    }
                     //public Customer(int id, String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets)
                     writer.write(c.getUsername() + "," + c.getPassword() + "," + cards + "," + tickets + "\n");
                 }
