@@ -356,4 +356,128 @@ public class UserInput {
         printStream.println("Please enter the screen size:\n");
         return scanner.nextLine();
     }
+
+    public String promptAdmin(){
+        printStream.println("Please enter desired action:\n" +
+                "1: Insert Movie Data\n" +
+                "2: Delete Movie Data\n" +
+                "3: Modify Movie Data\n" +
+                "4: Add New Show\n" +
+                "5: Insert New Giftcard\n" +
+                "6: Add Cinema Staff\n" +
+                "7: FIRE Cinema Staff\n" +
+                "8: Return\n");
+        return scanner.nextLine();
+    }
+
+    public String promptGiftCard(ArrayList<GiftCard> giftCards){
+        boolean isNew = false;
+        boolean isValid = false;
+        String code = "";
+
+        //check if code format is valid
+        while(!isValid && !isNew){
+            isValid = false;
+
+            printStream.println("Please enter the gift card code:\n");
+            code = scanner.nextLine();
+            String nums = code.substring(0, 16);
+            String end = code.substring(16);
+
+            if(nums.matches("[0-9]+") && end.equalsIgnoreCase("GC")){
+                isValid = true;
+            }
+
+            if(!isValid){
+                printStream.println("Invalid gift card format.");
+            }
+            else{
+                //check if gc already exists
+                for(GiftCard gc : giftCards){
+                    isNew = true;
+
+                    if(gc.getGiftCardNumber().equalsIgnoreCase(code)) {
+                        printStream.println("Gift Card already exists.");
+                        isNew = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return code;
+    }
+
+    public String promptAddStaff(ArrayList<Customer> customers){
+        boolean isNew = false;
+        boolean isValid = false;
+        String username = "";
+
+        //check if username format is valid
+        while(!isValid && !isNew){
+            isValid = false;
+
+            printStream.println("Please enter the username for the new staff:\n");
+            username = scanner.nextLine();
+
+            if(username.matches("^Staff+[0-9]+")){
+                isValid = true;
+            }
+
+            if(!isValid){
+                printStream.println("Invalid staff username format.");
+            }
+            else{
+                //check if username already exists
+                for(Customer c : customers){
+                    isNew = true;
+
+                    if(c.getUsername().equalsIgnoreCase(username)){
+                        printStream.println("Staff username already exists.");
+                        isNew = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return username;
+    }
+
+    public String promptRemoveStaff(ArrayList<Customer> customers){
+        boolean isFound = false;
+        boolean isValid = false;
+        String username = "";
+
+        //check if username format is valid
+        while(!isValid && !isFound){
+            isValid = false;
+
+            printStream.println("Please enter the username for the staff being fired:\n");
+            username = scanner.nextLine();
+
+            if(username.matches("^Staff+[0-9]+")){
+                isValid = true;
+            }
+
+            if(!isValid){
+                printStream.println("Invalid staff username format.");
+            }
+            else{
+                //check if username already exists
+                for(Customer c : customers){
+                    if(c.getUsername().equalsIgnoreCase(username)){
+                        isFound = true;
+                        break;
+                    }
+                }
+
+                if(!isFound){
+                    printStream.println("Staff username does not exist.");
+                }
+            }
+        }
+
+        return username;
+    }
 }
