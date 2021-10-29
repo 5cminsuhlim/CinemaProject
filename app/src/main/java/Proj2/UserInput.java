@@ -357,27 +357,16 @@ public class UserInput {
         return scanner.nextLine();
     }
 
-    public String promptStaff(){
+    public String promptAdmin(){
         printStream.println("Please enter desired action:\n" +
                 "1: Insert Movie Data\n" +
                 "2: Delete Movie Data\n" +
                 "3: Modify Movie Data\n" +
                 "4: Add New Show\n" +
                 "5: Insert New Giftcard\n" +
-                "6: Return\n");
-        return scanner.nextLine();
-    }
-
-    public String promptManager(){
-        printStream.println("Please enter desired action:\n" +
-                "1: Insert Movie Data\n" +
-                "2: Delete Movie Data\n" +
-                "3: Modify Movie Data\n" +
-                "4: Add New Show\n" +
-                "5: Insert New Giftcard\n" +
-                "7: Add Cinema Staff\n" +
-                "8: FIRE Cinema Staff\n" +
-                "9: Return\n");
+                "6: Add Cinema Staff\n" +
+                "7: FIRE Cinema Staff\n" +
+                "8: Return\n");
         return scanner.nextLine();
     }
 }
