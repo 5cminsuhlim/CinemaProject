@@ -241,7 +241,7 @@ public class Movie {
         this.updateSeatsBooked(numF, numM, numR);
         this.updateSeatsOpen(numF, numM, numR);
 
-        customer.addTicket(cinema.getTicketReceipt());
+        customer.addTicket(cinema.getTicketReceipt() + "\n" + time + "\n" + numPeople + "\n" + this.getTicketPrice());
         this.bookings++;
 
         //if using card
@@ -264,7 +264,7 @@ public class Movie {
         this.updateSeatsBooked(numF, numM, numR);
         this.updateSeatsOpen(numF, numM, numR);
 
-        customer.addTicket(cinema.getTicketReceipt());
+        customer.addTicket(cinema.getTicketReceipt() + "\n" + time + "\n" + numPeople + "\n" + this.getTicketPrice());
         this.bookings++;
 
         //if using giftcard
