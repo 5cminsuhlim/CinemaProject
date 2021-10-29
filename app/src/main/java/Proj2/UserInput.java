@@ -50,7 +50,7 @@ public class UserInput {
         while (!movieSuccess) {
             printStream.println("Enter movie file name: ");
             String filename = scanner.nextLine();
-            validMovies = Movie.readMovies(filename);
+            validMovies = Movie.readMovies("../movies.txt");
 
             if(validMovies != null){
                 movieSuccess = true;
@@ -68,7 +68,7 @@ public class UserInput {
         while (!cinemaSuccess) {
             printStream.println("Enter cinema file name: ");
             String filename = scanner.nextLine();
-            validCinemas = Cinema.readCinemas(filename);
+            validCinemas = Cinema.readCinemas("../cinemas.txt");
 
             if(validCinemas != null){
                 cinemaSuccess = true;
@@ -86,7 +86,7 @@ public class UserInput {
         while (!cardSuccess) {
             printStream.println("Enter credit card file name: ");
             String filename = scanner.nextLine();
-            validCards = Card.readCards(filename);
+            validCards = Card.readCards("../cards.txt");
 
             if (validCards != null) {
                 cardSuccess = true;
@@ -104,7 +104,7 @@ public class UserInput {
         while (!giftCardSuccess) {
             printStream.println("Enter gift card file name: ");
             String filename = scanner.nextLine();
-            validGiftCards = GiftCard.readGiftCards(filename);
+            validGiftCards = GiftCard.readGiftCards("../giftcards.txt");
 
             if(validGiftCards != null){
                 giftCardSuccess = true;
@@ -133,7 +133,7 @@ public class UserInput {
         while (!customerSuccess) {
             printStream.println("Enter customer file name: ");
             String filename = scanner.nextLine();
-            validCustomers = Customer.readCustomers(filename,cards);
+            validCustomers = Customer.readCustomers("../customers.txt",cards);
 
             if(validCustomers != null){
                 customerSuccess = true;
