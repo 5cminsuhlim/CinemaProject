@@ -72,18 +72,26 @@ public class Customer {
             while (input.hasNextLine()) { //reads all lines of the file
 
                 String[] line = input.nextLine().split(",");
-                String[] cardArr = line[2].split(";");
                 ArrayList<Card> cards = new ArrayList<>();
 
-                List<String> cardList = Arrays.asList(cardArr);
-                for(Card c: validCards){
-                    if(cardList.contains(c.getCardNumber())){
-                        cards.add(c);
+                try {
+                    String[] cardArr = line[2].split(";");
+                    List<String> cardList = Arrays.asList(cardArr);
+                    for(Card c: validCards){
+                        if(cardList.contains(c.getCardNumber())){
+                            cards.add(c);
+                        }
                     }
-                }
+                } catch (Exception ignored){
 
-                String[] ticketList = line[3].split(";");
-                ArrayList<String> tickets = new ArrayList<>(Arrays.asList(ticketList));
+                }
+                ArrayList<String> tickets = new ArrayList<>();
+                try {
+                    String[] ticketList = line[3].split(";");
+                    tickets.addAll(Arrays.asList(ticketList));
+                } catch (Exception ignored){
+
+                }
               
                 //public Customer(int id, String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets)
                 customerList.add(new Customer(line[0],
