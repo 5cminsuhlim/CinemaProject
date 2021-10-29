@@ -369,9 +369,10 @@ public class CinemaRunner {
                         case "6":
                             //if staff tries to perform manager action
                             if(!isManager){
-                                System.out.println("Nice try guy. You're merely a staff.\n");
+                                System.out.println("Nice try, guy. You're merely a staff.\n");
                                 break;
                             }
+
                             //add cinema staff
                             input = u.promptAddStaff(validCustomers);
 
@@ -381,10 +382,15 @@ public class CinemaRunner {
                         case "7":
                             //if staff tries to perform manager action
                             if(!isManager){
-                                System.out.println("Nice try guy. You're merely a staff.\n");
+                                System.out.println("Nice try, guy. You're merely a staff.\n");
                                 break;
                             }
+
                             //remove cinema staff
+                            input = u.promptRemoveStaff(validCustomers);
+
+                            Customer staffFired = new Customer(input, "defstaffnotsus", null, null);
+                            validCustomers.remove(staffFired);
 
                         case "8":
                             //return to default page
