@@ -41,7 +41,7 @@ public class GiftCard {
                 String[] line = input.nextLine().split(",");
 
                 //need to double check ordering
-                giftCardList.add(new GiftCard(line[0].substring(0, 16), line[1].equals("1")));
+                giftCardList.add(new GiftCard(line[0], line[1].equals("1")));
             }
         }
         catch (Exception e) {
@@ -60,7 +60,7 @@ public class GiftCard {
                     new FileOutputStream(filename), StandardCharsets.UTF_8))) {
                 for(GiftCard c : cards) {
                     int redeemed = c.isRedeemed()? 1 : 0;
-                    writer.write(c.getGiftCardNumber() + "GC," + redeemed + "\n");
+                    writer.write(c.getGiftCardNumber() + "," + redeemed + "\n");
                 }
             }
             catch(Exception e){

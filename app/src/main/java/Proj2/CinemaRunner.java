@@ -52,12 +52,20 @@ public class CinemaRunner {
         boolean isCustomer = false;
         boolean isStaff = false;
         boolean isManager = false;
+        boolean firstLogin = false;
         boolean loggedIn;
         String selectedMovie = "";
         Customer customer = null;
 
         boolean running = true;
         while(running) {
+            isGuest = false;
+            isCustomer = false;
+            isStaff = false;
+            isManager = false;
+            firstLogin = true;
+
+
             //check if guest or customer
             String input = u.checkUser();
             boolean notQuit = true;
@@ -65,6 +73,7 @@ public class CinemaRunner {
                 case "1":
                     isGuest = true;
                     break;
+
                 case "2":
                     String username = u.getUsername();
                     String password = u.getPassword();
@@ -95,13 +104,16 @@ public class CinemaRunner {
                     }
                     else {
                         isCustomer = false;
+                        isGuest = true;
                     }
                 
                     break;
+
                 case "3":
                     running = false;
                     notQuit = false;
                     break;
+
                 default:
                     notQuit = false;
                     System.out.println("Invalid Input, please try again.\n");
@@ -327,20 +339,23 @@ public class CinemaRunner {
 
                 //staff + manager functionality
                 else if(isStaff || isManager){
-                    //obtain report
-                    for (Cinema c : validCinemas) {
-                        System.out.println("-------------------------------------------------------");
-                        System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
-                        System.out.println("-------------------------------------------------------");
-                        for (Movie m : c.getMovies()) {
-                            System.out.println(m.getName());
-                            System.out.println(m.getSchedule());
-                            System.out.println("Number of bookings: " + m.getBookings());
-                            System.out.println("Seats booked: " + m.getF_seatsBooked() + m.getM_seatsBooked() + m.getR_seatsBooked());
-                            System.out.println("Seats available: " + m.getF_seatsOpen() + m.getM_seatsOpen() + m.getR_seatsOpen());
+                    //obtain report upon logging in
+                    if(firstLogin) {
+                        firstLogin = false;
+                        for (Cinema c : validCinemas) {
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
+                            System.out.println("-------------------------------------------------------");
+                            for (Movie m : c.getMovies()) {
+                                System.out.println(m.getName());
+                                System.out.println(m.getSchedule());
+                                System.out.println("Number of bookings: " + m.getBookings());
+                                System.out.println("Seats booked: " + m.getF_seatsBooked() + m.getM_seatsBooked() + m.getR_seatsBooked());
+                                System.out.println("Seats available: " + m.getF_seatsOpen() + m.getM_seatsOpen() + m.getR_seatsOpen());
 
-                            if(isManager){
-                                //report containing date + time of cancelled transactions
+                                if (isManager) {
+                                    //report containing date + time of cancelled transactions
+                                }
                             }
                         }
                     }
@@ -366,6 +381,8 @@ public class CinemaRunner {
 
                             GiftCard gc = new GiftCard(input, false);
                             validGiftCards.add(gc);
+                            break;
+
                         case "6":
                             //if staff tries to perform manager action
                             if(!isManager){
@@ -378,6 +395,7 @@ public class CinemaRunner {
 
                             Customer staff = new Customer(input, "defstaffnotsus", null, null);
                             validCustomers.add(staff);
+                            break;
 
                         case "7":
                             //if staff tries to perform manager action
@@ -391,8 +409,29 @@ public class CinemaRunner {
 
                             Customer staffFired = new Customer(input, "defstaffnotsus", null, null);
                             validCustomers.remove(staffFired);
+                            break;
 
                         case "8":
+                            for (Cinema c : validCinemas) {
+                                System.out.println("-------------------------------------------------------");
+                                System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
+                                System.out.println("-------------------------------------------------------");
+                                for (Movie m : c.getMovies()) {
+                                    System.out.println(m.getName());
+                                    System.out.println(m.getSchedule());
+                                    System.out.println("Number of bookings: " + m.getBookings());
+                                    System.out.println("Seats booked: " + m.getF_seatsBooked() + m.getM_seatsBooked() + m.getR_seatsBooked());
+                                    System.out.println("Seats available: " + m.getF_seatsOpen() + m.getM_seatsOpen() + m.getR_seatsOpen());
+
+                                    if (isManager) {
+                                        //report containing date + time of cancelled transactions
+                                    }
+                                }
+                            }
+
+                            break;
+
+                        case "9":
                             //return to default page
                             notQuit = false;
                             break;
