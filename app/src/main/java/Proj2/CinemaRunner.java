@@ -406,8 +406,11 @@ public class CinemaRunner {
                             //remove cinema staff
                             input = u.promptRemoveStaff(validCustomers);
 
-                            Customer staffFired = new Customer(input, "defstaffnotsus", null, null);
-                            validCustomers.remove(staffFired);
+                            for(Customer c : validCustomers){
+                                if(c.getUsername().equalsIgnoreCase(input)){
+                                    validCustomers.remove(c);
+                                }
+                            }
                             break;
 
                         case "8":
