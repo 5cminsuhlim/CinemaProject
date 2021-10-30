@@ -57,7 +57,7 @@ public class Cinema {
         this.location = location;
     }
 
-    public ArrayList<Movie> getMovies() {
+    public ArrayList<MovieInstance> getMovies() {
         return movies;
     }
 
@@ -65,7 +65,7 @@ public class Cinema {
         this.movies = movies;
     }
 
-    protected static ArrayList<Cinema> readCinemas(String filename){
+    protected static ArrayList<Cinema> readCinemas(String filename, ArrayList<Movie> validMovies){
         ArrayList<Cinema> cinemaList = new ArrayList<>();
 
         try{
@@ -80,12 +80,18 @@ public class Cinema {
 
                 for(String movie : movieArr){
                     String[] detail = movie.split(":");
-
-                    LocalTime time = LocalTime.parse(detail[6] + ":00");
+                    LocalTime time = LocalTime.parse(detail[7] + ":00");
+                    Movie parent = null;
+                    for(Movie mov : validMovies){
+                        if(mov.getId() == Integer.parseInt(detail[2])){
+                            parent = mov;
+                            break;
+                        }
+                    }
 
                     MovieInstance instance = new MovieInstance(Integer.parseInt(detail[0]), Integer.parseInt(detail[1]),
-                            Integer.parseInt(detail[2]), Integer.parseInt(detail[3]), Integer.parseInt(detail[4]),
-                            detail[5], time, detail[7], BigDecimal.valueOf(Long.parseLong(detail[8])));
+                            parent, Integer.parseInt(detail[3]), Integer.parseInt(detail[4]), Integer.parseInt(detail[5]),
+                            detail[6], time, detail[8], BigDecimal.valueOf(Long.parseLong(detail[9])));
 
                     movieList.add(instance);
                 }

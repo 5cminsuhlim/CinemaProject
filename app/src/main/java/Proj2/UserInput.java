@@ -60,7 +60,7 @@ public class UserInput {
         return validMovies;
     }
 
-    public ArrayList<Cinema> cinemaInit() {
+    public ArrayList<Cinema> cinemaInit(ArrayList<Movie> movies) {
         boolean cinemaSuccess = false;
         ArrayList<Cinema> validCinemas = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class UserInput {
         while (!cinemaSuccess) {
             printStream.println("Enter cinema file name: ");
             String filename = scanner.nextLine();
-            validCinemas = Cinema.readCinemas("../cinemas.txt");
+            validCinemas = Cinema.readCinemas("../cinemas.txt", movies);
 
             if(validCinemas != null){
                 cinemaSuccess = true;

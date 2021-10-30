@@ -1,15 +1,19 @@
 package Proj2;
 
 import java.io.File;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 import java.math.BigDecimal;
 import java.time.*;
 
+
 public class MovieInstance{
     private final int m_id;
     private final int c_id;
+    private Movie parent;
     private int f_seatsOpen;  //need to gen this
     private int f_seatsCapacity;  //need to gen this
     private int m_seatsOpen;  //need to gen this
@@ -21,11 +25,13 @@ public class MovieInstance{
     private String screenSize; //need to gen this
     private BigDecimal basePrice; //need to gen this
     private BigDecimal ticketPrice; //0.8, 1.2, 1.6
+    private int bookings;
 
-    public MovieInstance(int m_id, int c_id, int f_seatsCapacity, int m_seatsCapacity,
+    public MovieInstance(int m_id, int c_id, Movie parent, int f_seatsCapacity, int m_seatsCapacity,
                          int r_seatsCapacity, String day, LocalTime time, String screenSize, BigDecimal basePrice){
         this.m_id=m_id;
         this.c_id=c_id;
+        this.parent = parent;
         this.f_seatsOpen=f_seatsCapacity;
         this.f_seatsCapacity=f_seatsCapacity;
         this.m_seatsOpen=m_seatsCapacity;
@@ -37,6 +43,28 @@ public class MovieInstance{
         this.screenSize = screenSize;
         this.basePrice = basePrice;
         this.ticketPrice = setTicketPrice(this.screenSize);
+        this.bookings = 0;
+    }
+
+    public String getName(){
+        return this.parent.getName();
+    }
+
+    public String getMovieDetails(){
+        return this.parent.getMovieDetails();
+    }
+
+    public String getSchedule(){
+        String timeStr = time.format(DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH));
+        return day + timeStr;
+    }
+
+    public String getScreenSize() {
+        return screenSize;
+    }
+
+    public int getBookings(){
+        return bookings;
     }
 
     public int getM_id() {
@@ -113,22 +141,12 @@ public class MovieInstance{
         this.setR_seatsOpen(this.getR_seatsOpen() - numR);
     }
 
-    public BigDecimal setTicketPrice(String screenSize) {
-        if(screenSize.equalsIgnoreCase("bronze")){
-            return basePrice.multiply(BigDecimal.valueOf(0.8));
-        }
-        else if(screenSize.equalsIgnoreCase("silver")){
-            return basePrice.multiply(BigDecimal.valueOf(1.2));
-        }
-        else{
-            return basePrice.multiply(BigDecimal.valueOf(1.6));
-        }
-    }
-
     public void bookCustomerCard(Customer customer, Cinema cinema, String time, Card card, int numPeople, int numF, int numM, int numR){
+
         this.updateSeatsOpen(numF, numM, numR);
 
         customer.addTicket(cinema.getTicketReceipt());
+        this.bookings++;
 
         //if using card
         boolean found = false;
@@ -150,9 +168,22 @@ public class MovieInstance{
         this.updateSeatsOpen(numF, numM, numR);
 
         customer.addTicket(cinema.getTicketReceipt());
+        this.bookings++;
 
         //if using giftcard
         //set giftcard to redeemed
         giftCard.setRedeemed(true);
+    }
+
+    public BigDecimal setTicketPrice(String screenSize) {
+        if(screenSize.equalsIgnoreCase("bronze")){
+            return basePrice.multiply(BigDecimal.valueOf(0.8));
+        }
+        else if(screenSize.equalsIgnoreCase("silver")){
+            return basePrice.multiply(BigDecimal.valueOf(1.2));
+        }
+        else{
+            return basePrice.multiply(BigDecimal.valueOf(1.6));
+        }
     }
 }

@@ -17,7 +17,7 @@ public class CinemaRunner {
 
         //read in all cinemas
         ArrayList<Cinema> validCinemas;
-        validCinemas = u.cinemaInit();
+        validCinemas = u.cinemaInit(validMovies);
 
         //reads in all cards
         //gonna need to make changes for JSON
@@ -42,7 +42,7 @@ public class CinemaRunner {
             System.out.println("-------------------------------------------------------");
             System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
             System.out.println("-------------------------------------------------------");
-            for (Movie m : c.getMovies()) {
+            for (MovieInstance m : c.getMovies()) {
                 System.out.println(m.getName());
                 System.out.println(m.getSchedule());
             }
@@ -134,7 +134,7 @@ public class CinemaRunner {
                             boolean found = false;
 
                             for (Cinema c : validCinemas) {
-                                for (Movie m : c.getMovies()) {
+                                for (MovieInstance m : c.getMovies()) {
                                     //if movie is found
                                     if (m.getName().equalsIgnoreCase(input)) {
                                         found = true;
@@ -149,8 +149,6 @@ public class CinemaRunner {
                                             int numF = u.promptFSeats(m.getF_seatsOpen());
                                             int numM = u.promptMSeats(m.getM_seatsOpen());
                                             int numR = u.promptRSeats(m.getR_seatsOpen());
-
-                                            Schedule s = m.getScheduleObj();
 
                                             for (String t : s.getUpcomingTimes()) {
                                                 input = u.promptTime(t);
@@ -291,7 +289,7 @@ public class CinemaRunner {
                             for (Cinema c : validCinemas) {
                                 //if cinema is found
                                 if (c.getName().equalsIgnoreCase(input)) {
-                                    for (Movie m : c.getMovies()) {
+                                    for (MovieInstance m : c.getMovies()) {
                                         //print movie name
                                         System.out.println(m.getName());
                                         found = true;
@@ -309,7 +307,7 @@ public class CinemaRunner {
                             found = false;
 
                             for (Cinema c : validCinemas) {
-                                for (Movie m : c.getMovies()) {
+                                for (MovieInstance m : c.getMovies()) {
                                     //if screen size is found
                                     if (m.getScreenSize().equalsIgnoreCase(input)) {
                                         //print cinema name + location
@@ -346,7 +344,7 @@ public class CinemaRunner {
                             System.out.println("-------------------------------------------------------");
                             System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
                             System.out.println("-------------------------------------------------------");
-                            for (Movie m : c.getMovies()) {
+                            for (MovieInstance m : c.getMovies()) {
                                 System.out.println(m.getName());
                                 System.out.println(m.getSchedule());
                                 System.out.println("Number of bookings: " + m.getBookings());
@@ -416,7 +414,7 @@ public class CinemaRunner {
                                 System.out.println("-------------------------------------------------------");
                                 System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
                                 System.out.println("-------------------------------------------------------");
-                                for (Movie m : c.getMovies()) {
+                                for (MovieInstance m : c.getMovies()) {
                                     System.out.println(m.getName());
                                     System.out.println(m.getSchedule());
                                     System.out.println("Number of bookings: " + m.getBookings());
