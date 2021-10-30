@@ -180,11 +180,10 @@ public class CinemaRunner {
 
                                                                         if (card.getCardHolderName().equalsIgnoreCase(name)) {
                                                                             m.bookCustomerCard(customer, c, time, paymentCard, numPeople, numF, numM, numR);
-                                                                            break;
                                                                         } else {
                                                                             System.out.println("Invalid name. Exiting payment...\n");
-                                                                            break;
                                                                         }
+                                                                        break;
 
                                                                     }
 
@@ -348,8 +347,10 @@ public class CinemaRunner {
                                 System.out.println(m.getName());
                                 System.out.println(m.getSchedule());
                                 System.out.println("Number of bookings: " + m.getBookings());
-                                System.out.println("Seats booked: " + m.getF_seatsBooked() + m.getM_seatsBooked() + m.getR_seatsBooked());
-                                System.out.println("Seats available: " + m.getF_seatsOpen() + m.getM_seatsOpen() + m.getR_seatsOpen());
+                                int avail = m.getF_seatsOpen() + m.getM_seatsOpen() + m.getR_seatsOpen();
+                                int booked = m.getF_seatsCapacity() + m.getM_seatsCapacity() + m.getR_seatsCapacity() - avail;
+                                System.out.println("Seats booked: " + booked);
+                                System.out.println("Seats available: " + avail);
 
                                 if (isManager) {
                                     //report containing date + time of cancelled transactions
@@ -418,8 +419,10 @@ public class CinemaRunner {
                                     System.out.println(m.getName());
                                     System.out.println(m.getSchedule());
                                     System.out.println("Number of bookings: " + m.getBookings());
-                                    System.out.println("Seats booked: " + m.getF_seatsBooked() + m.getM_seatsBooked() + m.getR_seatsBooked());
-                                    System.out.println("Seats available: " + m.getF_seatsOpen() + m.getM_seatsOpen() + m.getR_seatsOpen());
+                                    int avail = m.getF_seatsOpen() + m.getM_seatsOpen() + m.getR_seatsOpen();
+                                    int booked = m.getF_seatsCapacity() + m.getM_seatsCapacity() + m.getR_seatsCapacity() - avail;
+                                    System.out.println("Seats booked: " + booked);
+                                    System.out.println("Seats available: " + avail);
 
                                     if (isManager) {
                                         //report containing date + time of cancelled transactions

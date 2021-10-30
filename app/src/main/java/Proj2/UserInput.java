@@ -184,20 +184,24 @@ public class UserInput {
 
     public int getNumPeople(){
         int count = 0;
+            try {
+                printStream.println("Please enter the number of children (under 12 years old):");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of children (under 12 years old):");
-        count += Integer.parseInt(scanner.nextLine());
+                printStream.println("Please enter the number of students:");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of students:");
-        count += Integer.parseInt(scanner.nextLine());
+                printStream.println("Please enter the number of adults:");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of adults:");
-        count += Integer.parseInt(scanner.nextLine());
+                printStream.println("Please enter the number of seniors / pensioners:");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of seniors / pensioners:");
-        count += Integer.parseInt(scanner.nextLine());
-
-        return count;
+                return count;
+            }
+            catch(Exception e){
+                return -1;
+            }
     }
 
     public int promptFSeats(int openF){
