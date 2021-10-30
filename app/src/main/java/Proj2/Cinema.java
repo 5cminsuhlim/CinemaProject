@@ -1,6 +1,8 @@
 package Proj2;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,11 +12,11 @@ public class Cinema {
     private final int id;
     private String name; //need to gen this
     private String location; //need to gen this
-    private ArrayList<Movie> movies;
+    private ArrayList<MovieInstance> movies;
     private int transactionNo;
     private ArrayList<Customer> customers;
 
-    public Cinema(int id, String name, String location, ArrayList<Movie> movies, ArrayList<Customer> customers) {
+    public Cinema(int id, String name, String location, ArrayList<MovieInstance> movies, ArrayList<Customer> customers) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -59,7 +61,7 @@ public class Cinema {
         return movies;
     }
 
-    public void setMovies(ArrayList<Movie> movies) {
+    public void setMovies(ArrayList<MovieInstance> movies) {
         this.movies = movies;
     }
 
@@ -72,13 +74,20 @@ public class Cinema {
 
             while (input.hasNextLine()) { //reads all lines of the file
                 String[] line = input.nextLine().split(",");
+
                 String[] movieArr = line[3].split(";");
-                ArrayList<Movie> movieList = new ArrayList<>();
+                ArrayList<MovieInstance> movieList = new ArrayList<>();
 
                 for(String movie : movieArr){
+                    String[] detail = movie.split(":");
 
-                    Movie mov = searchMovie(movie, CinemaRunner.validMovies);
-                    movieList.add(mov);
+                    LocalTime time = LocalTime.parse(detail[6] + ":00");
+
+                    MovieInstance instance = new MovieInstance(Integer.parseInt(detail[0]), Integer.parseInt(detail[1]),
+                            Integer.parseInt(detail[2]), Integer.parseInt(detail[3]), Integer.parseInt(detail[4]),
+                            detail[5], time, detail[7], BigDecimal.valueOf(Long.parseLong(detail[8])));
+
+                    movieList.add(instance);
                 }
                 
                 ArrayList<Customer> customers = new ArrayList<>();

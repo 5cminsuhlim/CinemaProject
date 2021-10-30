@@ -16,38 +16,16 @@ public class Movie {
     //private ArrayList<String> upcomingTimes; //need to gen this
     private Schedule schedule;
     private String screenSize; //need to gen this
-    private int f_seatsOpen;  //need to gen this
-    private int f_seatsBooked;  //need to gen this
-    private int m_seatsOpen;  //need to gen this
-    private int m_seatsBooked;  //need to gen this
-    private int r_seatsOpen;  //need to gen this
-    private int r_seatsBooked;  //need to gen this
     private BigDecimal basePrice; //need to gen this
     private BigDecimal ticketPrice; //0.8, 1.2, 1.6
-    private int bookings;
 
-    public Movie(int id, String name, String synopsis, String rating, String releaseDate, ArrayList<String> cast, //ArrayList<String> upcomingTimes
-                 Schedule schedule, String screenSize, int f_seatsOpen,
-                 int f_seatsBooked, int m_seatsOpen, int m_seatsBooked,
-                 int r_seatsOpen, int r_seatsBooked, BigDecimal basePrice) {
+    public Movie(int id, String name, String synopsis, String rating, String releaseDate, ArrayList<String> cast){ //ArrayList<String> upcomingTimes) {
         this.id = id;
         this.name = name;
         this.synopsis = synopsis;
         this.rating = rating;
         this.releaseDate = releaseDate;
         this.cast = cast;
-        //this.upcomingTimes = upcomingTimes;
-        this.schedule = schedule;
-        this.screenSize = screenSize;
-        this.f_seatsOpen = f_seatsOpen;
-        this.f_seatsBooked = f_seatsBooked;
-        this.m_seatsOpen = m_seatsOpen;
-        this.m_seatsBooked = m_seatsBooked;
-        this.r_seatsOpen = r_seatsOpen;
-        this.r_seatsBooked = r_seatsBooked;
-        this.basePrice = basePrice;
-        setTicketPrice(this.screenSize);
-        this.bookings = 0;
     }
 
     public String getName() {
@@ -127,54 +105,6 @@ public class Movie {
         this.screenSize = screenSize;
     }
 
-    public int getF_seatsOpen() {
-        return f_seatsOpen;
-    }
-
-    public void setF_seatsOpen(int f_seatsOpen) {
-        this.f_seatsOpen = f_seatsOpen;
-    }
-
-    public int getF_seatsBooked() {
-        return f_seatsBooked;
-    }
-
-    public void setF_seatsBooked(int f_seatsBooked) {
-        this.f_seatsBooked = f_seatsBooked;
-    }
-
-    public int getM_seatsOpen() {
-        return m_seatsOpen;
-    }
-
-    public void setM_seatsOpen(int m_seatsOpen) {
-        this.m_seatsOpen = m_seatsOpen;
-    }
-
-    public int getM_seatsBooked() {
-        return m_seatsBooked;
-    }
-
-    public void setM_seatsBooked(int m_seatsBooked) {
-        this.m_seatsBooked = m_seatsBooked;
-    }
-
-    public int getR_seatsOpen() {
-        return r_seatsOpen;
-    }
-
-    public void setR_seatsOpen(int r_seatsOpen) {
-        this.r_seatsOpen = r_seatsOpen;
-    }
-
-    public int getR_seatsBooked() {
-        return r_seatsBooked;
-    }
-
-    public void setR_seatsBooked(int r_seatsBooked) {
-        this.r_seatsBooked = r_seatsBooked;
-    }
-
     public BigDecimal getTicketPrice() {
         if(screenSize.equalsIgnoreCase("bronze")){
             ticketPrice = basePrice.multiply(BigDecimal.valueOf(0.8));
@@ -220,61 +150,9 @@ public class Movie {
                 "Synopsis: " + getSynopsis() + '\n' +
                 "Rating: " + getRating() + '\n' +
                 "Release Date: " + getReleaseDate() + '\n' +
-                "Cast: " + String.join(", ", getCast()) + "\n" +
-                "Screen Size: " + getScreenSize() + '\n' +
-                "Next Showing: " + getSchedule()) + "\n";
+                "Cast: " + String.join(", ", getCast()));
     }
 
-    public void updateSeatsBooked(int numF, int numM, int numR){
-        this.setF_seatsBooked(this.getF_seatsBooked() + numF);
-        this.setM_seatsBooked(this.getM_seatsBooked() + numM);
-        this.setR_seatsBooked(this.getR_seatsBooked() + numR);
-    }
-
-    public void updateSeatsOpen(int numF, int numM, int numR){
-        this.setF_seatsOpen(this.getF_seatsOpen() - numF);
-        this.setM_seatsOpen(this.getM_seatsOpen() - numM);
-        this.setR_seatsOpen(this.getR_seatsOpen() - numR);
-    }
-
-    public void bookCustomerCard(Customer customer, Cinema cinema, String time, Card card, int numPeople, int numF, int numM, int numR){
-        this.updateSeatsBooked(numF, numM, numR);
-        this.updateSeatsOpen(numF, numM, numR);
-
-        customer.addTicket(cinema.getTicketReceipt());
-        this.bookings++;
-
-        //if using card
-        boolean found = false;
-
-        //if a customer's card is found, don't save
-        for(Card c : customer.getCards()){
-            if(c.getCardNumber().equalsIgnoreCase(card.getCardNumber())){
-                found = true;
-                break;
-            }
-        }
-        //if not found, save
-        if(!found){
-            customer.addCard(card);
-        }
-    }
-
-    public void bookCustomerGiftCard(Customer customer, Cinema cinema, String time, GiftCard giftCard, int numPeople, int numF, int numM, int numR){
-        this.updateSeatsBooked(numF, numM, numR);
-        this.updateSeatsOpen(numF, numM, numR);
-
-        customer.addTicket(cinema.getTicketReceipt());
-        this.bookings++;
-
-        //if using giftcard
-        //set giftcard to redeemed
-        giftCard.setRedeemed(true);
-    }
-
-    public int getBookings(){
-        return bookings;
-    }
 
     protected static ArrayList<Movie> readMovies(String filename){
         ArrayList<Movie> movieList = new ArrayList<>();
@@ -290,13 +168,8 @@ public class Movie {
                 // f_seatsBooked,m_seatsOpen,m_seatsBooked,r_seatsOpen,r_seatsBooked,BasePrice
                 String[] castList = line[5].split(";");
                 ArrayList<String> cast = new ArrayList<>(Arrays.asList(castList));
-                Schedule schedule = new Schedule(
-                        "Monday", new ArrayList<>()); // needs to be implemented properly
                 movieList.add(new Movie(Integer.parseInt(line[0]),
-                        line[1], line[2], line[3], line[4], cast, schedule, line[7], Integer.parseInt(line[8]),
-                        Integer.parseInt(line[9]), Integer.parseInt(line[10]), Integer.parseInt(line[11]),
-                        Integer.parseInt(line[12]),Integer.parseInt(line[13]), new BigDecimal(line[14]))
-                );
+                        line[1], line[2], line[3], line[4], cast));
             }
         }
         catch (Exception e) {
