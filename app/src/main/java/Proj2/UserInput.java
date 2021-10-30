@@ -211,13 +211,15 @@ public class UserInput {
         while(!isValid){
             printStream.println("Number of Front Seats Available: " + openF);
             printStream.println("Please enter the number of front seats to book:");
+            try {
+                count = Integer.parseInt(scanner.nextLine());
 
-            count = Integer.parseInt(scanner.nextLine());
-
-            if(count <= openF){
-                isValid = true;
-            }
-            else{
+                if (count <= openF) {
+                    isValid = true;
+                } else {
+                    printStream.println("Invalid input, please try again.");
+                }
+            } catch(Exception e){
                 printStream.println("Invalid input, please try again.");
             }
         }
@@ -232,13 +234,15 @@ public class UserInput {
         while(!isValid){
             printStream.println("Number of Middle Seats Available: " + openM);
             printStream.println("Please enter the number of front seats to book:");
+            try {
+                count = Integer.parseInt(scanner.nextLine());
 
-            count = Integer.parseInt(scanner.nextLine());
-
-            if(count <= openM){
-                isValid = true;
-            }
-            else{
+                if (count <= openM) {
+                    isValid = true;
+                } else {
+                    printStream.println("Invalid input, please try again.");
+                }
+            }catch(Exception e){
                 printStream.println("Invalid input, please try again.");
             }
         }
@@ -253,13 +257,16 @@ public class UserInput {
         while(!isValid){
             printStream.println("Number of Rear Seats Available: " + openR);
             printStream.println("Please enter the number of front seats to book:");
+            try{
+                count = Integer.parseInt(scanner.nextLine());
 
-            count = Integer.parseInt(scanner.nextLine());
-
-            if(count <= openR){
-                isValid = true;
-            }
-            else{
+                if(count <= openR){
+                    isValid = true;
+                }
+                else{
+                    printStream.println("Invalid input, please try again.");
+                }
+            }catch(Exception e){
                 printStream.println("Invalid input, please try again.");
             }
         }
