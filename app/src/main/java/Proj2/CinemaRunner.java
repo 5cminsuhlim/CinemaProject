@@ -42,10 +42,7 @@ public class CinemaRunner {
             System.out.println("-------------------------------------------------------");
             System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
             System.out.println("-------------------------------------------------------");
-            for (MovieInstance m : c.getMovies()) {
-                System.out.println(m.getName());
-                System.out.println(m.getSchedule());
-            }
+            System.out.println(c.getSchedule());
         }
 
         boolean isGuest = false;
@@ -149,8 +146,13 @@ public class CinemaRunner {
                                             int numF = u.promptFSeats(m.getF_seatsOpen());
                                             int numM = u.promptMSeats(m.getM_seatsOpen());
                                             int numR = u.promptRSeats(m.getR_seatsOpen());
-
-                                            for (String t : s.getUpcomingTimes()) {
+                                            ArrayList<String> times = new ArrayList<>();
+                                            for (MovieInstance mov : c.getMovies()) {
+                                                if(mov.getName().equalsIgnoreCase(input)){
+                                                    times.add(mov.getSchedule());
+                                                }
+                                            }
+                                            for (String t : times) {
                                                 input = u.promptTime(t);
                                                 String time = input;
 

@@ -29,6 +29,7 @@ public class MovieInstance{
 
     public MovieInstance(int m_id, int c_id, Movie parent, int f_seatsCapacity, int m_seatsCapacity,
                          int r_seatsCapacity, String day, LocalTime time, String screenSize, BigDecimal basePrice){
+        
         this.m_id=m_id;
         this.c_id=c_id;
         this.parent = parent;
@@ -56,7 +57,7 @@ public class MovieInstance{
 
     public String getSchedule(){
         String timeStr = time.format(DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH));
-        return day + timeStr;
+        return day + " " + timeStr;
     }
 
     public String getScreenSize() {
