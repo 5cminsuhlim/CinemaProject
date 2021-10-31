@@ -119,7 +119,7 @@ public class UserInput {
         while(!saveSuccess) {
             printStream.println("Enter gift card file name to save ur stuff!!: ");
             String filename = scanner.nextLine();
-            if (GiftCard.saveGiftCards(filename, cards) == 1){
+            if (GiftCard.saveGiftCards("../giftcards.txt", cards) == 1){
                 saveSuccess = true;
             }
         }
@@ -148,7 +148,7 @@ public class UserInput {
         while(!saveSuccess) {
             printStream.println("Enter customer file name to save ur stuff!!: ");
             String filename = scanner.nextLine();
-            if (Customer.saveCustomers(filename, customers) == 1){
+            if (Customer.saveCustomers("../customers.txt", customers) == 1){
                 saveSuccess = true;
             }
         }
