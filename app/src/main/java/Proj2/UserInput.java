@@ -186,6 +186,41 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public String promptLocation(ArrayList<Cinema> cinemas){
+        boolean isValid = false;
+        String loc = "";
+
+        while(!isValid){
+            System.out.println("-------------------------------------------------------");
+            System.out.println("Locations: ");
+            System.out.println("-------------------------------------------------------");
+
+            for(Cinema c : cinemas){
+                System.out.println(c.getLocation());
+            }
+
+            printStream.println("Please enter the desired cinema location (enter 'cancel' to exit):\n");
+            loc = scanner.nextLine();
+
+            if(loc.equalsIgnoreCase("cancel")){
+                return "cancel";
+            }
+
+            for(Cinema c : cinemas){
+                if(loc.equalsIgnoreCase(c.getLocation())){
+                    isValid = true;
+                    break;
+                }
+            }
+
+            if(!isValid){
+                printStream.println("Location name does not exist. Please try again.\n");
+            }
+        }
+
+        return loc;
+    }
+
     // Add option to save card detail
     public void book(MovieInstance wantedMov, Cinema cinema, ArrayList<Card> validCards, ArrayList<GiftCard> validGiftCards, Customer customer){
         int numPeople = this.getNumPeople();
