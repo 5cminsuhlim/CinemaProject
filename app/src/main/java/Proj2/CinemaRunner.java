@@ -286,14 +286,23 @@ public class CinemaRunner {
                             //prompt guest to look up cinema
                             input = u.findCinema();
                             found = false;
+                            ArrayList<String> seen = new ArrayList<String>();
+                            String curr = "";
 
                             for (Cinema c : validCinemas) {
                                 //if cinema is found
                                 if (c.getName().equalsIgnoreCase(input)) {
+                                    found = true;
+
                                     for (MovieInstance m : c.getMovies()) {
                                         //print movie name
-                                        System.out.println(m.getName());
-                                        found = true;
+                                        curr = m.getName();
+
+                                        if(!seen.contains(curr)){
+                                            System.out.println(curr);
+
+                                            seen.add(curr);
+                                        }
                                     }
                                 }
                             }
