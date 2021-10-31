@@ -382,6 +382,25 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public String promptModifyMovie(ArrayList<Movie> movies){
+        boolean found = false;
+        String movie = "";
+
+        while(!found){
+            printStream.println("Please enter the movie to modify:\n");
+            movie = scanner.nextLine();
+
+            for(Movie m : movies){
+                if(m.getName().equalsIgnoreCase(movie)){
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        return movie;
+    }
+
     public String promptGiftCard(ArrayList<GiftCard> giftCards){
         boolean isNew = false;
         boolean isValid = false;
