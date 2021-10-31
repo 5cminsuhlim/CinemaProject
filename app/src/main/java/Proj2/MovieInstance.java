@@ -1,6 +1,7 @@
 package Proj2;
 
 import java.io.File;
+import java.math.RoundingMode;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -146,30 +147,27 @@ public class MovieInstance{
 
         this.updateSeatsOpen(numF, numM, numR);
 
-        customer.addTicket(cinema.getTicketReceipt());
-        this.bookings++;
-
-        //if using card
-        boolean found = false;
-
-        //if a customer's card is found, don't save
-        for(Card c : customer.getCards()){
-            if(c.getCardNumber().equalsIgnoreCase(card.getCardNumber())){
-                found = true;
-                break;
-            }
-        }
-        //if not found, save
-        if(!found){
-            customer.addCard(card);
-        }
+        //getTicketReceipt == cinemaID, transactionNo
+        customer.addTicket(cinema.getTicketReceipt() +
+                "Price: $" + ticketPrice.multiply(BigDecimal.valueOf(numPeople)).setScale(2, RoundingMode.UP) +
+                "\nPeople: " + numPeople +
+                "\nFront Seats Booked: " + numF +
+                "\nMiddle Seats Booked: " + numM +
+                "\nRear Seats Booked: " + numR);
+        bookings++;
     }
 
     public void bookCustomerGiftCard(Customer customer, Cinema cinema, GiftCard giftCard, int numPeople, int numF, int numM, int numR){
         this.updateSeatsOpen(numF, numM, numR);
 
-        customer.addTicket(cinema.getTicketReceipt());
-        this.bookings++;
+        //getTicketReceipt == cinemaID, transactionNo
+        customer.addTicket(cinema.getTicketReceipt() +
+                "Price: $" + ticketPrice.multiply(BigDecimal.valueOf(numPeople)).setScale(2, RoundingMode.UP) +
+                "\nPeople: " + numPeople +
+                "\nFront Seats Booked: " + numF +
+                "\nMiddle Seats Booked: " + numM +
+                "\nRear Seats Booked: " + numR);
+        bookings++;
 
         //if using giftcard
         //set giftcard to redeemed
