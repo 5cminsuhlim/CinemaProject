@@ -186,6 +186,7 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    // Add option to save card detail
     public void book(MovieInstance wantedMov, HashMap<MovieInstance, Cinema> foundMCInstance, ArrayList<Card> validCards, ArrayList<GiftCard> validGiftCards, Customer customer){
         int numPeople = this.getNumPeople();
 
@@ -221,7 +222,8 @@ public class UserInput {
 
                                 if (card.getCardHolderName().equalsIgnoreCase(name)) {
                                     wantedMov.bookCustomerCard(customer, foundMCInstance.get(wantedMov), paymentCard, numPeople, numF, numM, numR);
-                                } else {
+                                }
+                                else {
                                     System.out.println("Invalid name. Exiting payment...\n");
                                     break;
                                 }
@@ -253,6 +255,7 @@ public class UserInput {
                             System.out.println("Card already exists. Exiting payment...\n");
                             break;
                         }
+                        break;
 
                     case "cancel":
                         break;
@@ -261,6 +264,7 @@ public class UserInput {
                         System.out.println("Invalid Input, please try again.\n");
                         break;
                 }
+                break;
 
             case "2":
                 //pay by gc
