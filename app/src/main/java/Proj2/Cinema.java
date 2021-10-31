@@ -36,7 +36,7 @@ public class Cinema {
     public String getTicketReceipt(){
         transactionNo++;
 
-        return id + String.valueOf(transactionNo);
+        return "Cinema ID: " + id + "\nTransaction No.: " + String.valueOf(transactionNo) + "\n";
     }
 
     public static Movie searchMovie(String search_name, ArrayList<Movie> movieslist){
