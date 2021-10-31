@@ -3,9 +3,8 @@ package Proj2;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.util.*;
 
 public class UserInput {
     private Scanner scanner;
@@ -497,5 +496,53 @@ public class UserInput {
         }
 
         return username;
+    }
+
+    public ArrayList<Movie> addMovieData(ArrayList<Movie> movies){
+        List<String> ratings = Arrays.asList("G", "PG", "M", "MA15+", "R18+");
+
+        printStream.println("Name: ");
+        String name = scanner.nextLine();
+        printStream.println("Synopsis: ");
+        String synopsis = scanner.nextLine();
+        printStream.println("Rating [G, PG, M, MA15+, R18+]: ");
+        String rating = scanner.nextLine();
+        while(!ratings.contains(rating)){
+            printStream.println("Incorrect input");
+            printStream.println("Rating [G, PG, M, MA15+, R18+]: ");
+            rating = scanner.nextLine();
+        }
+        printStream.println("Release date [DD/MM/YYYY]: ");
+        boolean success = false;
+        String date = scanner.nextLine();
+        while(!success){
+            try {
+                LocalDate.parse(date);
+                success = true;
+            } catch(Exception e){
+                printStream.println("Invalid date");
+                printStream.println("Release date [DD/MM/YYYY]: ");
+                date = scanner.nextLine();
+            }
+        }
+        ArrayList<String> castList = new ArrayList<>();
+        printStream.println("Cast member (enter 'cancel' to finish): ");
+        while(true) {
+            String cast = scanner.nextLine();
+            if (cast.equalsIgnoreCase("cancel")) {
+                break;
+            } else{
+                castList.add(cast);
+            }
+        }
+
+        for(int i = 1; i <= 99; i++){
+            if(movies.get(i).getId() != i){
+                Movie newMovie = new Movie(i, name, synopsis, rating, date, castList);
+                movies.add(i, newMovie);
+                return movies;
+            }
+        }
+        return null;
     }
 }
