@@ -182,6 +182,12 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public String promptChoice(){
+        printStream.println("Please enter the option number to proceed with booking (enter 'cancel' to exit):\n");
+        return scanner.nextLine();
+    }
+
+
     public int getNumPeople(){
         int count = 0;
             try {
@@ -413,6 +419,11 @@ public class UserInput {
                 "8: Return\n");
         return scanner.nextLine();
     }
+
+/*
+    public String changeName(String movieToChange){
+
+    }*/
 
     public String promptGiftCard(ArrayList<GiftCard> giftCards){
         boolean isNew = false;
