@@ -61,6 +61,10 @@ public class MovieInstance{
         return day + " " + timeStr;
     }
 
+    public void setScreenSize(String screenSize){
+        this.screenSize = screenSize;
+    }
+
     public String getScreenSize() {
         return screenSize;
     }
@@ -172,6 +176,10 @@ public class MovieInstance{
         //if using giftcard
         //set giftcard to redeemed
         giftCard.setRedeemed(true);
+    }
+
+    public void setBasePrice(BigDecimal basePrice){
+        this.basePrice = basePrice;
     }
 
     public BigDecimal getTicketPrice() {
