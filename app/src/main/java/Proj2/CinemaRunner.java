@@ -170,6 +170,11 @@ public class CinemaRunner {
                             while(!isValid) {
                                 input = u.promptChoice();
 
+                                if(input.length() == 0){
+                                    System.out.println("Invalid Input, please try again.\n");
+                                    break;
+                                }
+
                                 if (Integer.valueOf(input) < 1 || Integer.valueOf(input) > foundMovieInstance.size()) {
                                     System.out.println("Invalid input, please try again.\n");
                                 }
