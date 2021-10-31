@@ -572,10 +572,182 @@ public class UserInput {
         return scanner.nextLine();
     }
 
-/*
-    public String changeName(String movieToChange){
 
-    }*/
+    public String changeName(){
+        boolean isValid = false;
+        String change = "";
+
+        while(!isValid){
+            printStream.println("Please enter the new movie name ('cancel' to exit):");
+            change = scanner.nextLine();
+
+            if(change.length() == 0){
+                printStream.println("Invalid input, please try again.");
+            }
+            else if(change.equalsIgnoreCase("cancel")){
+                return "cancel";
+            }
+            else{
+                isValid = true;
+            }
+        }
+        return change;
+    }
+
+    public String changeSynopsis(){
+        boolean isValid = false;
+        String change = "";
+
+        while(!isValid){
+            printStream.println("Please enter the new movie synopsis ('cancel' to exit):");
+            change = scanner.nextLine();
+
+            if(change.length() == 0){
+                printStream.println("Invalid input, please try again.");
+            }
+            else if(change.equalsIgnoreCase("cancel")){
+                return "cancel";
+            }
+            else{
+                isValid = true;
+            }
+        }
+        return change;
+    }
+
+    public String changeRating(){
+        boolean isValid = false;
+        String change = "";
+        List<String> ratings = Arrays.asList("G", "PG", "M", "MA15+", "R18+");
+
+        while(!isValid){
+            printStream.println("Please enter the new movie rating from the following list [G, PG, M, MA15+, R18+] ('cancel' to exit):");
+            change = scanner.nextLine();
+
+            if(change.length() == 0 || !ratings.contains(change)){
+                printStream.println("Invalid input, please try again.");
+            }
+            else if(change.equalsIgnoreCase("cancel")){
+                return "cancel";
+            }
+            else{
+                isValid = true;
+            }
+        }
+        return change;
+    }
+
+    public String changeDate(){
+        boolean isValid = false;
+        String change = "";
+
+        while(!isValid){
+            printStream.println("Please enter the new movie release date [DD/MM/YYYY] ('cancel' to exit):");
+            change = scanner.nextLine();
+
+            if(change.length() == 0){
+                printStream.println("Invalid input, please try again.");
+            }
+            else if(change.equalsIgnoreCase("cancel")){
+                return "cancel";
+            }
+            else{
+                try {
+                    LocalDate.parse(change);
+                    isValid = true;
+                } catch(Exception e){
+                    printStream.println("Invalid input, please try again.");
+                    printStream.println("Please enter the release date [DD/MM/YYYY]: ");
+                    change = scanner.nextLine();
+                }
+            }
+
+        }
+        return change;
+    }
+
+    public ArrayList<String> changeCast() {
+        ArrayList<String> castList = new ArrayList<>();
+        printStream.println("Please enter the new movie cast (enter 'cancel' to exit): ");
+        while(true) {
+            String cast = scanner.nextLine();
+            if (cast.equalsIgnoreCase("cancel")) {
+                break;
+            } else{
+                castList.add(cast);
+            }
+        }
+
+        return castList;
+    }
+
+    public String changeScreenSize(){
+        boolean isValid = false;
+        String change = "";
+
+        while(!isValid){
+            printStream.println("Please enter the new movie screen size ('cancel' to exit):");
+            change = scanner.nextLine();
+
+            if(change.length() == 0){
+                printStream.println("Invalid input, please try again.");
+            }
+            else if(change.equalsIgnoreCase("cancel")){
+                return "cancel";
+            }
+            else{
+                isValid = true;
+            }
+        }
+        return change;
+    }
+
+    public String getCinema(ArrayList<Cinema> cinemas){
+        boolean isValid = false;
+        String cinema = "";
+
+        while(!isValid){
+            printStream.println("Please select the cinema in which the selected movie's screen size should be changed ('cancel' to exit):");
+            cinema = scanner.nextLine();
+
+            if(cinema.length() == 0){
+                printStream.println("Invalid input, please try again.");
+            }
+            else if(cinema.equalsIgnoreCase("cancel")){
+                return "cancel";
+            }
+
+            for(Cinema c : cinemas){
+                //finds cinema with matching name
+                if(cinema.equalsIgnoreCase(c.getName())){
+                    isValid = true;
+                    break;
+                }
+            }
+        }
+        return cinema;
+    }
+
+    public String changeTicketPrice(){
+        boolean isValid = false;
+        String change = "";
+
+        while(!isValid){
+            printStream.println("Please enter the new movie ticket price ('cancel' to exit):");
+            change = scanner.nextLine();
+
+            if(change.length() == 0){
+                printStream.println("Invalid input, please try again.");
+            }
+            else if(change.equalsIgnoreCase("cancel")){
+                return "cancel";
+            }
+            else{
+                isValid = true;
+            }
+        }
+        return change;
+    }
 
     public String promptGiftCard(ArrayList<GiftCard> giftCards){
         boolean isNew = false;
@@ -697,18 +869,18 @@ public class UserInput {
     public ArrayList<Movie> addMovieData(ArrayList<Movie> movies){
         List<String> ratings = Arrays.asList("G", "PG", "M", "MA15+", "R18+");
 
-        printStream.println("Name: ");
+        printStream.println("Please enter movie name: ");
         String name = scanner.nextLine();
-        printStream.println("Synopsis: ");
+        printStream.println("Please enter the movie's synopsis: ");
         String synopsis = scanner.nextLine();
-        printStream.println("Rating [G, PG, M, MA15+, R18+]: ");
+        printStream.println("Please select the movie's rating from the following list [G, PG, M, MA15+, R18+]: ");
         String rating = scanner.nextLine();
         while(!ratings.contains(rating)){
             printStream.println("Incorrect input");
-            printStream.println("Rating [G, PG, M, MA15+, R18+]: ");
+            printStream.println("Please select a rating from the following list [G, PG, M, MA15+, R18+]: ");
             rating = scanner.nextLine();
         }
-        printStream.println("Release date [DD/MM/YYYY]: ");
+        printStream.println("Please enter the movie's release date [DD/MM/YYYY]: ");
         boolean success = false;
         String date = scanner.nextLine();
         while(!success){
@@ -717,12 +889,12 @@ public class UserInput {
                 success = true;
             } catch(Exception e){
                 printStream.println("Invalid date");
-                printStream.println("Release date [DD/MM/YYYY]: ");
+                printStream.println("Please enter the release date [DD/MM/YYYY]: ");
                 date = scanner.nextLine();
             }
         }
         ArrayList<String> castList = new ArrayList<>();
-        printStream.println("Cast member (enter 'cancel' to finish): ");
+        printStream.println("Please enter the movie's cast (enter 'cancel' to exit): ");
         while(true) {
             String cast = scanner.nextLine();
             if (cast.equalsIgnoreCase("cancel")) {
