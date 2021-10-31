@@ -155,7 +155,7 @@ public class UserInput {
     }
 
     public String checkUser(){
-        printStream.println("Are you a guest or returning user?\n" +
+        printStream.println("\nAre you a guest or returning user?\n" +
                 "1: Guest\n" +
                 "2: Returning User\n" +
                 "3: Exit\n");
