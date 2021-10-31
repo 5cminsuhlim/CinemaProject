@@ -142,7 +142,7 @@ public class MovieInstance{
         this.setR_seatsOpen(this.getR_seatsOpen() - numR);
     }
 
-    public void bookCustomerCard(Customer customer, Cinema cinema, String time, Card card, int numPeople, int numF, int numM, int numR){
+    public void bookCustomerCard(Customer customer, Cinema cinema, Card card, int numPeople, int numF, int numM, int numR){
 
         this.updateSeatsOpen(numF, numM, numR);
 
@@ -165,7 +165,7 @@ public class MovieInstance{
         }
     }
 
-    public void bookCustomerGiftCard(Customer customer, Cinema cinema, String time, GiftCard giftCard, int numPeople, int numF, int numM, int numR){
+    public void bookCustomerGiftCard(Customer customer, Cinema cinema, GiftCard giftCard, int numPeople, int numF, int numM, int numR){
         this.updateSeatsOpen(numF, numM, numR);
 
         customer.addTicket(cinema.getTicketReceipt());
