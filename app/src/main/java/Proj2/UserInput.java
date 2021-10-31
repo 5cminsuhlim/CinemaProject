@@ -3,9 +3,8 @@ package Proj2;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.util.*;
 
 public class UserInput {
     private Scanner scanner;
@@ -155,7 +154,7 @@ public class UserInput {
     }
 
     public String checkUser(){
-        printStream.println("Are you a guest or returning user?\n" +
+        printStream.println("\nAre you a guest or returning user?\n" +
                 "1: Guest\n" +
                 "2: Returning User\n" +
                 "3: Exit\n");
@@ -187,6 +186,7 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    // Add option to save card detail
     public void book(MovieInstance wantedMov, HashMap<MovieInstance, Cinema> foundMCInstance, ArrayList<Card> validCards, ArrayList<GiftCard> validGiftCards, Customer customer){
         int numPeople = this.getNumPeople();
 
@@ -222,7 +222,8 @@ public class UserInput {
 
                                 if (card.getCardHolderName().equalsIgnoreCase(name)) {
                                     wantedMov.bookCustomerCard(customer, foundMCInstance.get(wantedMov), paymentCard, numPeople, numF, numM, numR);
-                                } else {
+                                }
+                                else {
                                     System.out.println("Invalid name. Exiting payment...\n");
                                     break;
                                 }
@@ -254,6 +255,7 @@ public class UserInput {
                             System.out.println("Card already exists. Exiting payment...\n");
                             break;
                         }
+                        break;
 
                     case "cancel":
                         break;
@@ -262,6 +264,7 @@ public class UserInput {
                         System.out.println("Invalid Input, please try again.\n");
                         break;
                 }
+                break;
 
             case "2":
                 //pay by gc
@@ -653,5 +656,53 @@ public class UserInput {
         }
 
         return username;
+    }
+
+    public ArrayList<Movie> addMovieData(ArrayList<Movie> movies){
+        List<String> ratings = Arrays.asList("G", "PG", "M", "MA15+", "R18+");
+
+        printStream.println("Name: ");
+        String name = scanner.nextLine();
+        printStream.println("Synopsis: ");
+        String synopsis = scanner.nextLine();
+        printStream.println("Rating [G, PG, M, MA15+, R18+]: ");
+        String rating = scanner.nextLine();
+        while(!ratings.contains(rating)){
+            printStream.println("Incorrect input");
+            printStream.println("Rating [G, PG, M, MA15+, R18+]: ");
+            rating = scanner.nextLine();
+        }
+        printStream.println("Release date [DD/MM/YYYY]: ");
+        boolean success = false;
+        String date = scanner.nextLine();
+        while(!success){
+            try {
+                LocalDate.parse(date);
+                success = true;
+            } catch(Exception e){
+                printStream.println("Invalid date");
+                printStream.println("Release date [DD/MM/YYYY]: ");
+                date = scanner.nextLine();
+            }
+        }
+        ArrayList<String> castList = new ArrayList<>();
+        printStream.println("Cast member (enter 'cancel' to finish): ");
+        while(true) {
+            String cast = scanner.nextLine();
+            if (cast.equalsIgnoreCase("cancel")) {
+                break;
+            } else{
+                castList.add(cast);
+            }
+        }
+
+        for(int i = 1; i <= 99; i++){
+            if(movies.get(i).getId() != i){
+                Movie newMovie = new Movie(i, name, synopsis, rating, date, castList);
+                movies.add(i, newMovie);
+                return movies;
+            }
+        }
+        return null;
     }
 }

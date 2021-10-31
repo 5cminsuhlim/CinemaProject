@@ -103,7 +103,7 @@ public class CinemaRunner {
                         isCustomer = false;
                         isGuest = true;
                     }
-                
+
                     break;
 
                 case "3":
@@ -169,6 +169,11 @@ public class CinemaRunner {
 
                             while(!isValid) {
                                 input = u.promptChoice();
+
+                                if(input.length() == 0){
+                                    System.out.println("Invalid Input, please try again.\n");
+                                    break;
+                                }
 
                                 if (Integer.valueOf(input) < 1 || Integer.valueOf(input) > foundMovieInstance.size()) {
                                     System.out.println("Invalid input, please try again.\n");
@@ -359,10 +364,15 @@ public class CinemaRunner {
 
                     switch(input){
                         case "1":
-                            //insert movie data
-
+                            ArrayList<Movie> moviesWithNewMovie = u.addMovieData(validMovies);
+                            if(moviesWithNewMovie != null){
+                                validMovies = moviesWithNewMovie;
+                            } else {
+                                System.out.println("ERROR");
+                            }
                         case "2":
                             //delete movie data
+                            // make sure to delete from cinema instances too
 
                         case "3":
                             //modify movie data
