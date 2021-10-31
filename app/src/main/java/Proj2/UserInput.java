@@ -187,6 +187,80 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public void book(MovieInstance wantedMov, HashMap<MovieInstance, Cinema> foundMCInstance, ArrayList<Card> validCards, ArrayList<GiftCard> validGiftCards, Customer customer){
+        int numPeople = this.getNumPeople();
+
+        int numF = this.promptFSeats(wantedMov.getF_seatsOpen());
+        int numM = this.promptMSeats(wantedMov.getM_seatsOpen());
+        int numR = this.promptRSeats(wantedMov.getR_seatsOpen());
+
+        String input = this.promptPayment();
+
+        switch (input) {
+            case "1":
+                //pay by card
+                input = this.getCard();
+                String cardNo = input;
+
+                boolean cardFound = false;
+
+                for (Card card : validCards) {
+                    if (card.getCardNumber().equalsIgnoreCase(input)) {
+                        cardFound = true;
+                    }
+
+                    if (cardFound) {
+                        input = this.getName();
+                        String name = input;
+
+                        Card paymentCard = new Card(cardNo, name);
+
+                        if (card.getCardHolderName().equalsIgnoreCase(name)) {
+                            wantedMov.bookCustomerCard(customer, foundMCInstance.get(wantedMov), paymentCard, numPeople, numF, numM, numR);
+                        } else {
+                            System.out.println("Invalid name. Exiting payment...\n");
+                        }
+                        break;
+
+                    }
+
+                    if (!cardFound) {
+                        System.out.println("Card not found. Exiting payment...\n");
+                        break;
+                    }
+                }
+                break;
+
+            case "2":
+                //pay by gc
+                input = this.getGiftCard();
+                boolean giftCardFound = false;
+
+                for (GiftCard g : validGiftCards) {
+                    //if found and not redeemed
+                    if (g.getGiftCardNumber().equalsIgnoreCase(input) && !g.isRedeemed()) {
+                        giftCardFound = true;
+
+                        if (giftCardFound) {
+                            wantedMov.bookCustomerGiftCard(customer, foundMCInstance.get(wantedMov), g, numPeople, numF, numM, numR);
+                            break;
+                        }
+                    } else if (g.getGiftCardNumber().equalsIgnoreCase(input) && g.isRedeemed()) {
+                        System.out.println("This gift card has already been redeemed. Exiting payment...\n");
+                        break;
+                    }
+                }
+                System.out.println("Gift Card not found. Exiting payment...\n");
+                break;
+
+            case "cancel":
+                break;
+
+            default:
+                System.out.println("Invalid Input, please try again.\n");
+                break;
+        }
+    }
 
     public int getNumPeople(){
         int count = 0;
