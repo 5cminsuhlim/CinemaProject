@@ -401,6 +401,19 @@ public class UserInput {
         return movie;
     }
 
+    public String promptWhatToChange(String movieToChange){
+        printStream.println("Please enter what to change about " + movieToChange + ":\n" +
+                "1: Modify Movie Name\n" +
+                "2: Modify Movie Synopsis\n" +
+                "3: Modify Movie Rating\n" +
+                "4: Modify Movie Release Date\n" +
+                "5: Modify Movie Cast\n" +
+                "6: Modify Movie Screen Size\n" +
+                "7: Modify Movie Ticket Price\n" +
+                "8: Return\n");
+        return scanner.nextLine();
+    }
+
     public String promptGiftCard(ArrayList<GiftCard> giftCards){
         boolean isNew = false;
         boolean isValid = false;
