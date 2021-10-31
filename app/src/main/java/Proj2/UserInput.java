@@ -187,7 +187,7 @@ public class UserInput {
     }
 
     // Add option to save card detail
-    public void book(MovieInstance wantedMov, HashMap<MovieInstance, Cinema> foundMCInstance, ArrayList<Card> validCards, ArrayList<GiftCard> validGiftCards, Customer customer){
+    public void book(MovieInstance wantedMov, Cinema cinema, ArrayList<Card> validCards, ArrayList<GiftCard> validGiftCards, Customer customer){
         int numPeople = this.getNumPeople();
 
         int numF = this.promptFSeats(wantedMov.getF_seatsOpen());
@@ -221,7 +221,7 @@ public class UserInput {
                                 Card paymentCard = new Card(cardNo, name);
 
                                 if (card.getCardHolderName().equalsIgnoreCase(name)) {
-                                    wantedMov.bookCustomerCard(customer, foundMCInstance.get(wantedMov), paymentCard, numPeople, numF, numM, numR);
+                                    wantedMov.bookCustomerCard(customer, cinema, paymentCard, numPeople, numF, numM, numR);
                                 }
                                 else {
                                     System.out.println("Invalid name. Exiting payment...\n");
@@ -249,7 +249,7 @@ public class UserInput {
                         if(!validCards.contains(newCard)){
                             validCards.add(newCard);
 
-                            wantedMov.bookCustomerCard(customer, foundMCInstance.get(wantedMov), newCard, numPeople, numF, numM, numR);
+                            wantedMov.bookCustomerCard(customer, cinema, newCard, numPeople, numF, numM, numR);
                         }
                         else{
                             System.out.println("Card already exists. Exiting payment...\n");
@@ -277,7 +277,7 @@ public class UserInput {
                         giftCardFound = true;
 
                         if (giftCardFound) {
-                            wantedMov.bookCustomerGiftCard(customer, foundMCInstance.get(wantedMov), g, numPeople, numF, numM, numR);
+                            wantedMov.bookCustomerGiftCard(customer, cinema, g, numPeople, numF, numM, numR);
                             break;
                         }
                     } else if (g.getGiftCardNumber().equalsIgnoreCase(input) && g.isRedeemed()) {
