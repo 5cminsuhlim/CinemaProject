@@ -176,6 +176,26 @@ public class MovieInstance{
         giftCard.setRedeemed(true);
     }
 
+    public BigDecimal getTicketPrice() {
+        if(screenSize.equalsIgnoreCase("bronze")){
+            ticketPrice = basePrice.multiply(BigDecimal.valueOf(0.8));
+            return ticketPrice;
+        }
+        else if(screenSize.equalsIgnoreCase("silver")){
+            ticketPrice = basePrice.multiply(BigDecimal.valueOf(1.2));
+            return ticketPrice;
+        }
+        else if(screenSize.equalsIgnoreCase("gold")){
+            ticketPrice = basePrice.multiply(BigDecimal.valueOf(1.6));
+            return ticketPrice;
+        }
+        else{
+            System.out.println("Pricing error!");
+            BigDecimal ticketPrice = new BigDecimal("0.0");
+            return ticketPrice;
+        }
+    }
+
     public BigDecimal setTicketPrice(String screenSize) {
         if(screenSize.equalsIgnoreCase("bronze")){
             return basePrice.multiply(BigDecimal.valueOf(0.8));
