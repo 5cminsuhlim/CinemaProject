@@ -60,7 +60,7 @@ public class UserInput {
         return validMovies;
     }
 
-    public ArrayList<Cinema> cinemaInit() {
+    public ArrayList<Cinema> cinemaInit(ArrayList<Movie> movies) {
         boolean cinemaSuccess = false;
         ArrayList<Cinema> validCinemas = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class UserInput {
         while (!cinemaSuccess) {
             printStream.println("Enter cinema file name: ");
             String filename = scanner.nextLine();
-            validCinemas = Cinema.readCinemas("../cinemas.txt");
+            validCinemas = Cinema.readCinemas("../cinemas.txt", movies);
 
             if(validCinemas != null){
                 cinemaSuccess = true;
@@ -184,20 +184,24 @@ public class UserInput {
 
     public int getNumPeople(){
         int count = 0;
+            try {
+                printStream.println("Please enter the number of children (under 12 years old):");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of children (under 12 years old):");
-        count += Integer.parseInt(scanner.nextLine());
+                printStream.println("Please enter the number of students:");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of students:");
-        count += Integer.parseInt(scanner.nextLine());
+                printStream.println("Please enter the number of adults:");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of adults:");
-        count += Integer.parseInt(scanner.nextLine());
+                printStream.println("Please enter the number of seniors / pensioners:");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of seniors / pensioners:");
-        count += Integer.parseInt(scanner.nextLine());
-
-        return count;
+                return count;
+            }
+            catch(Exception e){
+                return -1;
+            }
     }
 
     public int promptFSeats(int openF){
@@ -207,13 +211,15 @@ public class UserInput {
         while(!isValid){
             printStream.println("Number of Front Seats Available: " + openF);
             printStream.println("Please enter the number of front seats to book:");
+            try {
+                count = Integer.parseInt(scanner.nextLine());
 
-            count = Integer.parseInt(scanner.nextLine());
-
-            if(count <= openF){
-                isValid = true;
-            }
-            else{
+                if (count <= openF) {
+                    isValid = true;
+                } else {
+                    printStream.println("Invalid input, please try again.");
+                }
+            } catch(Exception e){
                 printStream.println("Invalid input, please try again.");
             }
         }
@@ -228,13 +234,15 @@ public class UserInput {
         while(!isValid){
             printStream.println("Number of Middle Seats Available: " + openM);
             printStream.println("Please enter the number of front seats to book:");
+            try {
+                count = Integer.parseInt(scanner.nextLine());
 
-            count = Integer.parseInt(scanner.nextLine());
-
-            if(count <= openM){
-                isValid = true;
-            }
-            else{
+                if (count <= openM) {
+                    isValid = true;
+                } else {
+                    printStream.println("Invalid input, please try again.");
+                }
+            }catch(Exception e){
                 printStream.println("Invalid input, please try again.");
             }
         }
@@ -249,13 +257,16 @@ public class UserInput {
         while(!isValid){
             printStream.println("Number of Rear Seats Available: " + openR);
             printStream.println("Please enter the number of front seats to book:");
+            try{
+                count = Integer.parseInt(scanner.nextLine());
 
-            count = Integer.parseInt(scanner.nextLine());
-
-            if(count <= openR){
-                isValid = true;
-            }
-            else{
+                if(count <= openR){
+                    isValid = true;
+                }
+                else{
+                    printStream.println("Invalid input, please try again.");
+                }
+            }catch(Exception e){
                 printStream.println("Invalid input, please try again.");
             }
         }

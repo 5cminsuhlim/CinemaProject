@@ -17,7 +17,7 @@ public class CinemaRunner {
 
         //read in all cinemas
         ArrayList<Cinema> validCinemas;
-        validCinemas = u.cinemaInit();
+        validCinemas = u.cinemaInit(validMovies);
 
         //reads in all cards
         //gonna need to make changes for JSON
@@ -42,10 +42,7 @@ public class CinemaRunner {
             System.out.println("-------------------------------------------------------");
             System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
             System.out.println("-------------------------------------------------------");
-            for (Movie m : c.getMovies()) {
-                System.out.println(m.getName());
-                System.out.println(m.getSchedule());
-            }
+            System.out.println(c.getSchedule());
         }
 
         boolean isGuest = false;
@@ -134,7 +131,7 @@ public class CinemaRunner {
                             boolean found = false;
 
                             for (Cinema c : validCinemas) {
-                                for (Movie m : c.getMovies()) {
+                                for (MovieInstance m : c.getMovies()) {
                                     //if movie is found
                                     if (m.getName().equalsIgnoreCase(input)) {
                                         found = true;
@@ -149,10 +146,13 @@ public class CinemaRunner {
                                             int numF = u.promptFSeats(m.getF_seatsOpen());
                                             int numM = u.promptMSeats(m.getM_seatsOpen());
                                             int numR = u.promptRSeats(m.getR_seatsOpen());
-
-                                            Schedule s = m.getScheduleObj();
-
-                                            for (String t : s.getUpcomingTimes()) {
+                                            ArrayList<String> times = new ArrayList<>();
+                                            for (MovieInstance mov : c.getMovies()) {
+                                                if(mov.getName().equalsIgnoreCase(input)){
+                                                    times.add(mov.getSchedule());
+                                                }
+                                            }
+                                            for (String t : times) {
                                                 input = u.promptTime(t);
                                                 String time = input;
 
@@ -182,11 +182,10 @@ public class CinemaRunner {
 
                                                                         if (card.getCardHolderName().equalsIgnoreCase(name)) {
                                                                             m.bookCustomerCard(customer, c, time, paymentCard, numPeople, numF, numM, numR);
-                                                                            break;
                                                                         } else {
                                                                             System.out.println("Invalid name. Exiting payment...\n");
-                                                                            break;
                                                                         }
+                                                                        break;
 
                                                                     }
 
@@ -291,7 +290,7 @@ public class CinemaRunner {
                             for (Cinema c : validCinemas) {
                                 //if cinema is found
                                 if (c.getName().equalsIgnoreCase(input)) {
-                                    for (Movie m : c.getMovies()) {
+                                    for (MovieInstance m : c.getMovies()) {
                                         //print movie name
                                         System.out.println(m.getName());
                                         found = true;
@@ -309,7 +308,7 @@ public class CinemaRunner {
                             found = false;
 
                             for (Cinema c : validCinemas) {
-                                for (Movie m : c.getMovies()) {
+                                for (MovieInstance m : c.getMovies()) {
                                     //if screen size is found
                                     if (m.getScreenSize().equalsIgnoreCase(input)) {
                                         //print cinema name + location
@@ -346,12 +345,14 @@ public class CinemaRunner {
                             System.out.println("-------------------------------------------------------");
                             System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
                             System.out.println("-------------------------------------------------------");
-                            for (Movie m : c.getMovies()) {
+                            for (MovieInstance m : c.getMovies()) {
                                 System.out.println(m.getName());
                                 System.out.println(m.getSchedule());
                                 System.out.println("Number of bookings: " + m.getBookings());
-                                System.out.println("Seats booked: " + m.getF_seatsBooked() + m.getM_seatsBooked() + m.getR_seatsBooked());
-                                System.out.println("Seats available: " + m.getF_seatsOpen() + m.getM_seatsOpen() + m.getR_seatsOpen());
+                                int avail = m.getF_seatsOpen() + m.getM_seatsOpen() + m.getR_seatsOpen();
+                                int booked = m.getF_seatsCapacity() + m.getM_seatsCapacity() + m.getR_seatsCapacity() - avail;
+                                System.out.println("Seats booked: " + booked);
+                                System.out.println("Seats available: " + avail);
 
                                 if (isManager) {
                                     //report containing date + time of cancelled transactions
@@ -422,12 +423,14 @@ public class CinemaRunner {
                                 System.out.println("-------------------------------------------------------");
                                 System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
                                 System.out.println("-------------------------------------------------------");
-                                for (Movie m : c.getMovies()) {
+                                for (MovieInstance m : c.getMovies()) {
                                     System.out.println(m.getName());
                                     System.out.println(m.getSchedule());
                                     System.out.println("Number of bookings: " + m.getBookings());
-                                    System.out.println("Seats booked: " + m.getF_seatsBooked() + m.getM_seatsBooked() + m.getR_seatsBooked());
-                                    System.out.println("Seats available: " + m.getF_seatsOpen() + m.getM_seatsOpen() + m.getR_seatsOpen());
+                                    int avail = m.getF_seatsOpen() + m.getM_seatsOpen() + m.getR_seatsOpen();
+                                    int booked = m.getF_seatsCapacity() + m.getM_seatsCapacity() + m.getR_seatsCapacity() - avail;
+                                    System.out.println("Seats booked: " + booked);
+                                    System.out.println("Seats available: " + avail);
 
                                     if (isManager) {
                                         //report containing date + time of cancelled transactions
