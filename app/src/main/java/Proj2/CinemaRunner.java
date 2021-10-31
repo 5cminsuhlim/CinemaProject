@@ -317,15 +317,25 @@ public class CinemaRunner {
                             found = false;
 
                             for (Cinema c : validCinemas) {
+                                seen = new ArrayList<String>();
+                                curr = "";
+
+                                //print cinema name + location
+                                System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
+
                                 for (MovieInstance m : c.getMovies()) {
                                     //if screen size is found
                                     if (m.getScreenSize().equalsIgnoreCase(input)) {
-                                        //print cinema name + location
-                                        System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
+                                        found = true;
 
                                         //print movie name
-                                        System.out.println(m.getName());
-                                        found = true;
+                                        curr = m.getName();
+
+                                        if(!seen.contains(curr)){
+                                            System.out.println(curr);
+
+                                            seen.add(curr);
+                                        }
                                     }
                                 }
                             }
