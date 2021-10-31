@@ -198,38 +198,70 @@ public class UserInput {
 
         switch (input) {
             case "1":
-                //pay by card
-                input = this.getCard();
-                String cardNo = input;
+                input = this.promptCardPayment();
 
-                boolean cardFound = false;
+                switch(input){
+                    case "1":
+                        //pay with existing card
+                        //pay by card
+                        input = this.getCard();
+                        String cardNo = input;
 
-                for (Card card : validCards) {
-                    if (card.getCardNumber().equalsIgnoreCase(input)) {
-                        cardFound = true;
-                    }
+                        boolean cardFound = false;
 
-                    if (cardFound) {
-                        input = this.getName();
-                        String name = input;
+                        for (Card card : validCards) {
+                            if (card.getCardNumber().equalsIgnoreCase(input)) {
+                                cardFound = true;
+                            }
 
-                        Card paymentCard = new Card(cardNo, name);
+                            if (cardFound) {
+                                input = this.getName();
+                                String name = input;
 
-                        if (card.getCardHolderName().equalsIgnoreCase(name)) {
-                            wantedMov.bookCustomerCard(customer, foundMCInstance.get(wantedMov), paymentCard, numPeople, numF, numM, numR);
-                        } else {
-                            System.out.println("Invalid name. Exiting payment...\n");
+                                Card paymentCard = new Card(cardNo, name);
+
+                                if (card.getCardHolderName().equalsIgnoreCase(name)) {
+                                    wantedMov.bookCustomerCard(customer, foundMCInstance.get(wantedMov), paymentCard, numPeople, numF, numM, numR);
+                                } else {
+                                    System.out.println("Invalid name. Exiting payment...\n");
+                                    break;
+                                }
+
+                            }
+
+                            if (!cardFound) {
+                                System.out.println("Card not found. Exiting payment...\n");
+                                break;
+                            }
                         }
                         break;
 
-                    }
+                    case "2":
+                        //pay with new card
+                        input = this.getCard();
+                        cardNo = input;
 
-                    if (!cardFound) {
-                        System.out.println("Card not found. Exiting payment...\n");
+                        input = this.getUsername();
+
+                        Card newCard = new Card(cardNo, input);
+
+                        if(!validCards.contains(newCard)){
+                            validCards.add(newCard);
+
+                            wantedMov.bookCustomerCard(customer, foundMCInstance.get(wantedMov), newCard, numPeople, numF, numM, numR);
+                        }
+                        else{
+                            System.out.println("Card already exists. Exiting payment...\n");
+                            break;
+                        }
+
+                    case "cancel":
                         break;
-                    }
+
+                    default:
+                        System.out.println("Invalid Input, please try again.\n");
+                        break;
                 }
-                break;
 
             case "2":
                 //pay by gc
@@ -365,6 +397,13 @@ public class UserInput {
         printStream.println("Please select a payment method (enter 'cancel' to exit):\n" +
                             "1: Card\n" +
                             "2: Gift Card\n");
+        return scanner.nextLine();
+    }
+
+    public String promptCardPayment(){
+        printStream.println("Please select a card payment option (enter 'cancel' to exit):\n" +
+                "1: Pay with Existing Card\n" +
+                "2: Pay with New Card\n");
         return scanner.nextLine();
     }
 
