@@ -316,6 +316,11 @@ public class CinemaRunner {
                             input = u.findScreen();
                             found = false;
 
+                            if(input.length() == 0){
+                                System.out.println("Invalid screen size\n");
+                                break;
+                            }
+
                             for (Cinema c : validCinemas) {
                                 seen = new ArrayList<String>();
                                 curr = "";
