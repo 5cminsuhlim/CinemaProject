@@ -60,7 +60,7 @@ public class UserInput {
         return validMovies;
     }
 
-    public ArrayList<Cinema> cinemaInit() {
+    public ArrayList<Cinema> cinemaInit(ArrayList<Movie> movies) {
         boolean cinemaSuccess = false;
         ArrayList<Cinema> validCinemas = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class UserInput {
         while (!cinemaSuccess) {
             printStream.println("Enter cinema file name: ");
             String filename = scanner.nextLine();
-            validCinemas = Cinema.readCinemas("../cinemas.txt");
+            validCinemas = Cinema.readCinemas("../cinemas.txt", movies);
 
             if(validCinemas != null){
                 cinemaSuccess = true;
@@ -119,7 +119,7 @@ public class UserInput {
         while(!saveSuccess) {
             printStream.println("Enter gift card file name to save ur stuff!!: ");
             String filename = scanner.nextLine();
-            if (GiftCard.saveGiftCards(filename, cards) == 1){
+            if (GiftCard.saveGiftCards("../giftcards.txt", cards) == 1){
                 saveSuccess = true;
             }
         }
@@ -148,7 +148,7 @@ public class UserInput {
         while(!saveSuccess) {
             printStream.println("Enter customer file name to save ur stuff!!: ");
             String filename = scanner.nextLine();
-            if (Customer.saveCustomers(filename, customers) == 1){
+            if (Customer.saveCustomers("../customers.txt", customers) == 1){
                 saveSuccess = true;
             }
         }
@@ -182,22 +182,138 @@ public class UserInput {
         return scanner.nextLine();
     }
 
+    public String promptChoice(){
+        printStream.println("Please enter the option number to proceed with booking (enter 'cancel' to exit):\n");
+        return scanner.nextLine();
+    }
+
+    public void book(MovieInstance wantedMov, HashMap<MovieInstance, Cinema> foundMCInstance, ArrayList<Card> validCards, ArrayList<GiftCard> validGiftCards, Customer customer){
+        int numPeople = this.getNumPeople();
+
+        int numF = this.promptFSeats(wantedMov.getF_seatsOpen());
+        int numM = this.promptMSeats(wantedMov.getM_seatsOpen());
+        int numR = this.promptRSeats(wantedMov.getR_seatsOpen());
+
+        String input = this.promptPayment();
+
+        switch (input) {
+            case "1":
+                input = this.promptCardPayment();
+
+                switch(input){
+                    case "1":
+                        //pay with existing card
+                        //pay by card
+                        input = this.getCard();
+                        String cardNo = input;
+
+                        boolean cardFound = false;
+
+                        for (Card card : validCards) {
+                            if (card.getCardNumber().equalsIgnoreCase(input)) {
+                                cardFound = true;
+                            }
+
+                            if (cardFound) {
+                                input = this.getName();
+                                String name = input;
+
+                                Card paymentCard = new Card(cardNo, name);
+
+                                if (card.getCardHolderName().equalsIgnoreCase(name)) {
+                                    wantedMov.bookCustomerCard(customer, foundMCInstance.get(wantedMov), paymentCard, numPeople, numF, numM, numR);
+                                } else {
+                                    System.out.println("Invalid name. Exiting payment...\n");
+                                    break;
+                                }
+
+                            }
+
+                            if (!cardFound) {
+                                System.out.println("Card not found. Exiting payment...\n");
+                                break;
+                            }
+                        }
+                        break;
+
+                    case "2":
+                        //pay with new card
+                        input = this.getCard();
+                        cardNo = input;
+
+                        input = this.getUsername();
+
+                        Card newCard = new Card(cardNo, input);
+
+                        if(!validCards.contains(newCard)){
+                            validCards.add(newCard);
+
+                            wantedMov.bookCustomerCard(customer, foundMCInstance.get(wantedMov), newCard, numPeople, numF, numM, numR);
+                        }
+                        else{
+                            System.out.println("Card already exists. Exiting payment...\n");
+                            break;
+                        }
+
+                    case "cancel":
+                        break;
+
+                    default:
+                        System.out.println("Invalid Input, please try again.\n");
+                        break;
+                }
+
+            case "2":
+                //pay by gc
+                input = this.getGiftCard();
+                boolean giftCardFound = false;
+
+                for (GiftCard g : validGiftCards) {
+                    //if found and not redeemed
+                    if (g.getGiftCardNumber().equalsIgnoreCase(input) && !g.isRedeemed()) {
+                        giftCardFound = true;
+
+                        if (giftCardFound) {
+                            wantedMov.bookCustomerGiftCard(customer, foundMCInstance.get(wantedMov), g, numPeople, numF, numM, numR);
+                            break;
+                        }
+                    } else if (g.getGiftCardNumber().equalsIgnoreCase(input) && g.isRedeemed()) {
+                        System.out.println("This gift card has already been redeemed. Exiting payment...\n");
+                        break;
+                    }
+                }
+                System.out.println("Gift Card not found. Exiting payment...\n");
+                break;
+
+            case "cancel":
+                break;
+
+            default:
+                System.out.println("Invalid Input, please try again.\n");
+                break;
+        }
+    }
+
     public int getNumPeople(){
         int count = 0;
+            try {
+                printStream.println("Please enter the number of children (under 12 years old):");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of children (under 12 years old):");
-        count += Integer.parseInt(scanner.nextLine());
+                printStream.println("Please enter the number of students:");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of students:");
-        count += Integer.parseInt(scanner.nextLine());
+                printStream.println("Please enter the number of adults:");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of adults:");
-        count += Integer.parseInt(scanner.nextLine());
+                printStream.println("Please enter the number of seniors / pensioners:");
+                count += Integer.parseInt(scanner.nextLine());
 
-        printStream.println("Please enter the number of seniors / pensioners:");
-        count += Integer.parseInt(scanner.nextLine());
-
-        return count;
+                return count;
+            }
+            catch(Exception e){
+                return -1;
+            }
     }
 
     public int promptFSeats(int openF){
@@ -207,13 +323,15 @@ public class UserInput {
         while(!isValid){
             printStream.println("Number of Front Seats Available: " + openF);
             printStream.println("Please enter the number of front seats to book:");
+            try {
+                count = Integer.parseInt(scanner.nextLine());
 
-            count = Integer.parseInt(scanner.nextLine());
-
-            if(count <= openF){
-                isValid = true;
-            }
-            else{
+                if (count <= openF) {
+                    isValid = true;
+                } else {
+                    printStream.println("Invalid input, please try again.");
+                }
+            } catch(Exception e){
                 printStream.println("Invalid input, please try again.");
             }
         }
@@ -228,13 +346,15 @@ public class UserInput {
         while(!isValid){
             printStream.println("Number of Middle Seats Available: " + openM);
             printStream.println("Please enter the number of front seats to book:");
+            try {
+                count = Integer.parseInt(scanner.nextLine());
 
-            count = Integer.parseInt(scanner.nextLine());
-
-            if(count <= openM){
-                isValid = true;
-            }
-            else{
+                if (count <= openM) {
+                    isValid = true;
+                } else {
+                    printStream.println("Invalid input, please try again.");
+                }
+            }catch(Exception e){
                 printStream.println("Invalid input, please try again.");
             }
         }
@@ -249,13 +369,16 @@ public class UserInput {
         while(!isValid){
             printStream.println("Number of Rear Seats Available: " + openR);
             printStream.println("Please enter the number of front seats to book:");
+            try{
+                count = Integer.parseInt(scanner.nextLine());
 
-            count = Integer.parseInt(scanner.nextLine());
-
-            if(count <= openR){
-                isValid = true;
-            }
-            else{
+                if(count <= openR){
+                    isValid = true;
+                }
+                else{
+                    printStream.println("Invalid input, please try again.");
+                }
+            }catch(Exception e){
                 printStream.println("Invalid input, please try again.");
             }
         }
@@ -274,6 +397,13 @@ public class UserInput {
         printStream.println("Please select a payment method (enter 'cancel' to exit):\n" +
                             "1: Card\n" +
                             "2: Gift Card\n");
+        return scanner.nextLine();
+    }
+
+    public String promptCardPayment(){
+        printStream.println("Please select a card payment option (enter 'cancel' to exit):\n" +
+                "1: Pay with Existing Card\n" +
+                "2: Pay with New Card\n");
         return scanner.nextLine();
     }
 
@@ -370,6 +500,43 @@ public class UserInput {
                 "9: Return\n");
         return scanner.nextLine();
     }
+
+    public String promptModifyMovie(ArrayList<Movie> movies){
+        boolean found = false;
+        String movie = "";
+
+        while(!found){
+            printStream.println("Please enter the movie to modify:\n");
+            movie = scanner.nextLine();
+
+            for(Movie m : movies){
+                if(m.getName().equalsIgnoreCase(movie)){
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        return movie;
+    }
+
+    public String promptWhatToChange(String movieToChange){
+        printStream.println("Please enter what to change about " + movieToChange + ":\n" +
+                "1: Modify Movie Name\n" +
+                "2: Modify Movie Synopsis\n" +
+                "3: Modify Movie Rating\n" +
+                "4: Modify Movie Release Date\n" +
+                "5: Modify Movie Cast\n" +
+                "6: Modify Movie Screen Size\n" +
+                "7: Modify Movie Ticket Price\n" +
+                "8: Return\n");
+        return scanner.nextLine();
+    }
+
+/*
+    public String changeName(String movieToChange){
+
+    }*/
 
     public String promptGiftCard(ArrayList<GiftCard> giftCards){
         boolean isNew = false;
