@@ -13,11 +13,6 @@ public class Movie {
     private String rating; //rating
     private String releaseDate; //?
     private ArrayList<String> cast; //people
-    //private ArrayList<String> upcomingTimes; //need to gen this
-    private Schedule schedule;
-    private String screenSize; //need to gen this
-    private BigDecimal basePrice; //need to gen this
-    private BigDecimal ticketPrice; //0.8, 1.2, 1.6
 
     public Movie(int id, String name, String synopsis, String rating, String releaseDate, ArrayList<String> cast){ //ArrayList<String> upcomingTimes) {
         this.id = id;
@@ -26,6 +21,14 @@ public class Movie {
         this.rating = rating;
         this.releaseDate = releaseDate;
         this.cast = cast;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id){
+        this.id=id;
     }
 
     public String getName() {
@@ -68,83 +71,6 @@ public class Movie {
         this.cast = cast;
     }
 
-    /*
-    public ArrayList<String> getUpcomingTimes() {
-        return upcomingTimes;
-    }
-
-    public void setUpcomingTimes(ArrayList<String> upcomingTimes) {
-        this.upcomingTimes = upcomingTimes;
-    }*/
-
-    public String getSchedule() {
-        StringBuilder s = new StringBuilder();
-
-        s.append(schedule.getDay()).append(":");
-
-        for (String time : schedule.getUpcomingTimes()) {
-            s.append(time).append("\n");
-        }
-
-        return s.toString();
-    }
-
-    public Schedule getScheduleObj(){
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
-
-    public String getScreenSize() {
-        return screenSize;
-    }
-
-    public void setScreenSize(String screenSize) {
-        this.screenSize = screenSize;
-    }
-
-    public BigDecimal getTicketPrice() {
-        if(screenSize.equalsIgnoreCase("bronze")){
-            ticketPrice = basePrice.multiply(BigDecimal.valueOf(0.8));
-            return ticketPrice;
-        }
-        else if(screenSize.equalsIgnoreCase("silver")){
-            ticketPrice = basePrice.multiply(BigDecimal.valueOf(1.2));
-            return ticketPrice;
-        }
-        else if(screenSize.equalsIgnoreCase("gold")){
-            ticketPrice = basePrice.multiply(BigDecimal.valueOf(1.6));
-            return ticketPrice;
-        }
-        else{
-            System.out.println("Pricing error!");
-            BigDecimal ticketPrice = new BigDecimal("0.0");
-            return ticketPrice;
-        }
-    }
-
-    public void setTicketPrice(String screenSize) {
-        if(screenSize.equalsIgnoreCase("bronze")){
-            ticketPrice = basePrice.multiply(BigDecimal.valueOf(0.8));
-        }
-        else if(screenSize.equalsIgnoreCase("silver")){
-            ticketPrice = basePrice.multiply(BigDecimal.valueOf(1.2));
-        }
-        else if(screenSize.equalsIgnoreCase("gold")){
-            ticketPrice = basePrice.multiply(BigDecimal.valueOf(1.6));
-        }
-    }
-
-    public BigDecimal getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(BigDecimal basePrice) {
-        this.basePrice = basePrice;
-    }
-
     public String getMovieDetails() {
         return ("\n" + getName() + '\n' +
                 "Synopsis: " + getSynopsis() + '\n' +
@@ -152,7 +78,6 @@ public class Movie {
                 "Release Date: " + getReleaseDate() + '\n' +
                 "Cast: " + String.join(", ", getCast()));
     }
-
 
     protected static ArrayList<Movie> readMovies(String filename){
         ArrayList<Movie> movieList = new ArrayList<>();
@@ -178,9 +103,5 @@ public class Movie {
         }
 
         return movieList;
-    }
-
-    public int getId() {
-        return id;
     }
 }
