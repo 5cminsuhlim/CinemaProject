@@ -277,12 +277,13 @@ public class UserInput {
                         input = this.getCard();
                         cardNo = input;
 
-                        input = this.getUsername();
+                        input = this.getName();
 
                         Card newCard = new Card(cardNo, input);
 
                         if(!validCards.contains(newCard)){
                             validCards.add(newCard);
+                            customer.addCard(newCard);
 
                             wantedMov.bookCustomerCard(customer, cinema, newCard, numPeople, numF, numM, numR);
                         }
