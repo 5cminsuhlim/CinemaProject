@@ -179,7 +179,7 @@ public class CinemaRunner {
                                 if (input.equalsIgnoreCase("cancel")) {
                                     break;
                                 }
-                                else if (Integer.valueOf(input) < 1 || Integer.valueOf(input) > foundMovieInstance.size()) {
+                                else if (Integer.parseInt(input) < 1 || Integer.parseInt(input) > foundMovieInstance.size()) {
                                     System.out.println("Invalid input, please try again.\n");
                                 }
                                 else {
@@ -190,7 +190,7 @@ public class CinemaRunner {
                             if(!isValid) {
                                 break;
                             }
-                            MovieInstance wantedMov = foundMovieInstance.get(Integer.valueOf(input) - 1);
+                            MovieInstance wantedMov = foundMovieInstance.get(Integer.parseInt(input) - 1);
 
                             //start booking for movieinstance at input - 1
                             //people
@@ -729,5 +729,7 @@ public class CinemaRunner {
         }
         u.giftCardSave(validGiftCards);
         u.customerSave(validCustomers);
+        u.cinemaSave(validCinemas);
+        u.movieSave(validMovies);
     }
 }

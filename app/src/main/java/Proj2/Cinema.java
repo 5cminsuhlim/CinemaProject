@@ -1,8 +1,9 @@
 package Proj2;
 
-import java.io.File;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -14,15 +15,13 @@ public class Cinema {
     private String location; //need to gen this
     private ArrayList<MovieInstance> movies;
     private int transactionNo;
-    private ArrayList<Customer> customers;
 
-    public Cinema(int id, String name, String location, ArrayList<MovieInstance> movies, ArrayList<Customer> customers, ArrayList<Movie> moviesParent) {
+    public Cinema(int id, String name, String location, ArrayList<MovieInstance> movies, ArrayList<Movie> moviesParent) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.movies = movies;
         this.transactionNo = 0;
-        this.customers = customers;
         this.moviesParent = moviesParent;
     }
 
@@ -36,7 +35,7 @@ public class Cinema {
     public String getTicketReceipt(){
         transactionNo++;
 
-        return "Cinema ID: " + id + "\nTransaction No.: " + String.valueOf(transactionNo) + "\n";
+        return "Cinema ID: " + id + "\nTransaction No.: " + transactionNo + "\n";
     }
 
     public static Movie searchMovie(String search_name, ArrayList<Movie> movieslist){
@@ -133,52 +132,56 @@ public class Cinema {
             while (input.hasNextLine()) { //reads all lines of the file
                 String[] line = input.nextLine().split(",");
 
-                String[] movieArr = line[3].split(";");
                 ArrayList<MovieInstance> movieList = new ArrayList<>();
                 ArrayList<Movie> moviesParent = new ArrayList<>();
 
-                for(String movie : movieArr){
-                    String[] detail = movie.split(":");
-                    String timeStr = detail[6] + ":00:00";
-                    LocalTime time = LocalTime.parse(timeStr);
+                    String[] movieArr = line[3].split(";");
+                    for (String movie : movieArr) {
+                        String[] detail = movie.split(":");
+                        String timeStr = detail[9] + ":00:00";
+                        LocalTime time = LocalTime.parse(timeStr);
 
-                    boolean playable = false;
-                    for(int i = 0; i < 7; i++){
-                        if(detail[5].equals(days[i])){
-                            playable = (i+1 >= dayOfWeek && time.compareTo(currentTime) > 0);
-                            break;
-                        }
-                    }
-                    if(!playable) {
-                        continue;
-                    }
-
-                    Movie parent = null;
-                    for(Movie mov : validMovies){
-                        //System.out.println(mov.getId());
-                        //System.out.println(detail[0]);
-                        if(mov.getId() == Integer.parseInt(detail[0])){
-                            parent = mov;
-                            if(!moviesParent.contains(parent)){
-                                moviesParent.add(parent);
+                        boolean playable = false;
+                        for (int i = 0; i < 7; i++) {
+                            if (detail[8].equals(days[i])) {
+                                playable = (i + 1 >= dayOfWeek && time.compareTo(currentTime) > 0);
+                                break;
                             }
-                            //System.out.println("found parent for ");
-                            //System.out.println(detail[0]);
-                            break;
                         }
+                        if (!playable) {
+                            continue;
+                        }
+
+                        Movie parent = null;
+
+                        for (Movie mov : validMovies) {
+                            //System.out.println(mov.getId());
+                            //System.out.println(detail[0]);
+                            if (mov.getId() == Integer.parseInt(detail[0])) {
+                                parent = mov;
+                                if (!moviesParent.contains(parent)) {
+                                    moviesParent.add(parent);
+                                }
+                                //System.out.println("found parent for ");
+                                //System.out.println(detail[0]);
+                                break;
+                            }
+                        }
+
+                        MovieInstance instance = new MovieInstance(Integer.parseInt(detail[0]), Integer.parseInt(detail[1]),
+                                parent, Integer.parseInt(detail[2]), Integer.parseInt(detail[4]), Integer.parseInt(detail[6]),
+                                detail[8], time, detail[10], new BigDecimal(detail[11]));
+                        instance.setF_seatsOpen(Integer.parseInt(detail[3]));
+                        instance.setM_seatsOpen(Integer.parseInt(detail[5]));
+                        instance.setR_seatsOpen(Integer.parseInt(detail[7]));
+                        movieList.add(instance);
                     }
 
-                    MovieInstance instance = new MovieInstance(Integer.parseInt(detail[0]), Integer.parseInt(detail[1]),
-                            parent, Integer.parseInt(detail[2]), Integer.parseInt(detail[3]), Integer.parseInt(detail[4]),
-                            detail[5], time, detail[7], new BigDecimal(detail[8]));
-
-                    movieList.add(instance);
-                }
 
                 ArrayList<Customer> customers = new ArrayList<>();
                 //Implement fucntionality to create/read movie objects and customers objects
                 ArrayList<MovieInstance> sortedMovies = new ArrayList<>();
-                cinemaList.add(new Cinema(Integer.parseInt(line[0]), line[1], line[2], sortInstances(movieList), customers, moviesParent));
+                cinemaList.add(new Cinema(Integer.parseInt(line[0]), line[1], line[2], sortInstances(movieList), moviesParent));
             }
         }
         catch (Exception e) {
@@ -192,4 +195,37 @@ public class Cinema {
     public int getId() {
         return id;
     }
+
+    protected static int saveCinemas(String filename, ArrayList<Cinema> cinemas){
+        cinemas.sort(Comparator.comparing(Cinema::getId));
+        File f = new File(filename);
+        if(f.exists() && !f.isDirectory()){
+            f.delete();
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(filename), StandardCharsets.UTF_8))) {
+                for(Cinema c : cinemas) {
+                    // int id, String name, String location, ArrayList<MovieInstance> movies, ArrayList<Movie> moviesParent
+                    ArrayList<String> movieList = new ArrayList<>();
+                    for(MovieInstance m : c.getMovies()){
+                        movieList.add(m.getM_id() + ":" + m.getC_id() + ":" + m.getF_seatsOpen() + ":" + m.getF_seatsCapacity() + ":" +
+                                m.getM_seatsOpen() + ":" + m.getM_seatsCapacity() + ":" + m.getR_seatsOpen() + ":" + m.getR_seatsCapacity()
+                                + ":" + m.getDay() + ":" + m.getTime().toString().substring(0,2) + ":" + m.getScreenSize() + ":" + m.getBasePrice());
+                    }
+                    writer.write(c.getId() + "," + c.getName() + "," + c.getLocation() + "," +
+                            String.join(";", movieList) +  "\n");
+                }
+            }
+            catch(Exception e){
+                System.out.println("Saving cinema details failed.");
+                return -2;
+            }
+            System.out.println("Cinema details saved.");
+            return 1;
+        } else{
+            System.out.println("File does not exist. Please try again");
+            return -1;
+        }
+
+    }
+
 }

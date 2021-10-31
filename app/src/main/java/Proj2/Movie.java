@@ -1,10 +1,10 @@
 package Proj2;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.math.BigDecimal;
+import java.util.stream.Collectors;
 
 public class Movie {
     private final int id;
@@ -99,5 +99,32 @@ public class Movie {
         }
 
         return movieList;
+    }
+
+    protected static int saveMovies(String filename, ArrayList<Movie> movies){
+        movies.sort(Comparator.comparing(Movie::getId));
+        File f = new File(filename);
+        if(f.exists() && !f.isDirectory()){
+            f.delete();
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(filename), StandardCharsets.UTF_8))) {
+                for(Movie m : movies) {
+
+                    //public Customer(int id, String username, String password, ArrayList<Card> cards, ArrayList<Integer> tickets)
+                    writer.write(m.getId() + "," + m.getName() + "," + m.getSynopsis() + "," + m.getRating() +
+                            "," + m.getReleaseDate() + "," + String.join(";", m.getCast()) + "\n");
+                }
+            }
+            catch(Exception e){
+                System.out.println("Saving movie details failed.");
+                return -2;
+            }
+            System.out.println("Movie details saved.");
+            return 1;
+        } else{
+            System.out.println("File does not exist. Please try again");
+            return -1;
+        }
+
     }
 }

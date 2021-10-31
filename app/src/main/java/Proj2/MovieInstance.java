@@ -48,6 +48,10 @@ public class MovieInstance{
         this.bookings = 0;
     }
 
+    public String getBasePrice() {
+        return String.valueOf(basePrice);
+    }
+
     public String getName(){
         return this.parent.getName();
     }
@@ -197,8 +201,7 @@ public class MovieInstance{
         }
         else{
             System.out.println("Pricing error!");
-            BigDecimal ticketPrice = new BigDecimal("0.0");
-            return ticketPrice;
+            return new BigDecimal("0.0");
         }
     }
 
