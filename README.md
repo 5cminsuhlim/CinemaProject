@@ -8,7 +8,7 @@ The following file presents a clear guide on how to compile and run the Cinema B
 
 In a team of 5, we were contracted to build a Cinema Booking system for our client as part of Assignment 2.
 
-Coming Soon
+## Test file generation
 
 Automated Generation Function
 
