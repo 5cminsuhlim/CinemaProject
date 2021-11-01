@@ -144,7 +144,7 @@ public class Cinema {
                         boolean playable = false;
                         for (int i = 0; i < 7; i++) {
                             if (detail[8].equals(days[i])) {
-                                playable = (i + 1 >= dayOfWeek && time.compareTo(currentTime) > 0);
+                                playable = (i + 1 > dayOfWeek || (i + 1 == dayOfWeek && time.compareTo(currentTime) > 0));
                                 break;
                             }
                         }

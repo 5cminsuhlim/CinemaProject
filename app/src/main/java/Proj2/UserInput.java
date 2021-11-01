@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class UserInput {
@@ -579,6 +580,69 @@ public class UserInput {
         }
 
         return movie;
+    }
+
+    public Movie promptDeleteMovie(ArrayList<Movie> movies){
+        boolean found = false;
+        String movie = "";
+        Movie mov = null;
+        while(!found){
+            printStream.println("Please enter the movie to delete:\n");
+            movie = scanner.nextLine();
+            for(Movie m : movies){
+                if(m.getName().equalsIgnoreCase(movie)){
+                    found = true;
+                    mov = m;
+                    break;
+                }
+            }
+        }
+        return mov;
+    }
+
+    public String promptDeleteShowingOrMovie(){
+        while(true) {
+            printStream.println("Delete whole movie [1] or a single showing [2] (or 'cancel')?\n");
+            String selection = scanner.nextLine();
+            if (selection.equalsIgnoreCase("cancel")) {
+                return "cancel";
+            } else if (selection.equalsIgnoreCase("1")) {
+                return "1";
+            } else if (selection.equalsIgnoreCase("2")) {
+                return "2";
+            } else {
+                printStream.println("Invalid selection, please try again.\n");
+            }
+        }
+    }
+
+    public ArrayList<Cinema> promptSingleInstanceToDelete(ArrayList<Cinema> cinemas){
+        while(true) {
+            printStream.println("Which instance would you like to delete? Please use the form\n" +
+                    "[cinema_location]:[movie_name]:[day]:[time_HH] or 'cancel':\n");
+            try{
+                String[] selection = scanner.nextLine().split(":");
+                if(selection[0].equalsIgnoreCase("cancel")){
+                    return null;
+                }
+                String timeStr = selection[3] + ":00:00";
+                LocalTime time = LocalTime.parse(timeStr);
+                for (Cinema c : cinemas) {
+                    if (c.getLocation().equalsIgnoreCase(selection[0])) {
+                        for (MovieInstance m : c.getMovies()) {
+                            if (m.getName().equalsIgnoreCase(selection[1])
+                                    && m.getDay().equalsIgnoreCase(selection[2])
+                                    && (m.getTime().compareTo(time) == 0)) {
+                                c.getMovies().remove(m);
+                                return cinemas;
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e){
+                printStream.println("Invalid Input.");
+            }
+        }
     }
 
     public String promptWhatToChange(String movieToChange){
