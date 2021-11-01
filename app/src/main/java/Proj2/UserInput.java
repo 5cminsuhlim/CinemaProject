@@ -153,6 +153,28 @@ public class UserInput {
         }
     }
 
+    public void movieSave(ArrayList<Movie> movies) {
+        boolean saveSuccess = false;
+        while(!saveSuccess) {
+            printStream.println("Enter movie file name to save ur stuff!!: ");
+            String filename = scanner.nextLine();
+            if (Movie.saveMovies("../movies.txt", movies) == 1){
+                saveSuccess = true;
+            }
+        }
+    }
+
+    public void cinemaSave(ArrayList<Cinema> cinemas) {
+        boolean saveSuccess = false;
+        while(!saveSuccess) {
+            printStream.println("Enter cinema file name to save ur stuff!!: ");
+            String filename = scanner.nextLine();
+            if (Cinema.saveCinemas("../cinemas.txt", cinemas) == 1){
+                saveSuccess = true;
+            }
+        }
+    }
+
     public String checkUser(){
         printStream.println("\nAre you a guest or returning user?\n" +
                 "1: Guest\n" +
@@ -305,7 +327,7 @@ public class UserInput {
             case "2":
                 //pay by gc
                 input = this.getGiftCard();
-                boolean giftCardFound = false;
+                boolean giftCardFound;
 
                 for (GiftCard g : validGiftCards) {
                     //if found and not redeemed

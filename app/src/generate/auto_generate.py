@@ -96,11 +96,16 @@ def genCinemas(cinema_count, movie_list):
                     else:
                         daytime.append(time)
                         valid = True
-
-                instance = "{}:{}:{}:{}:{}:{}:{}:{}:{}".format(movie, i+1,
-                                                   random.choice(seats),
-                                                   random.choice(seats),
-                                                   random.choice(seats),
+                seats1 = random.choice(seats)
+                seats2 = random.choice(seats)
+                seats3 = random.choice(seats)
+                instance = "{}:{}:{}:{}:{}:{}:{}:{}:{}:{}:{}:{}".format(movie, i+1,
+                                                   seats1,
+                                                   seats1,
+                                                   seats2,
+												   seats2,
+                                                   seats3,
+                                                   seats3,
                                                    time[0], time[1], random.choice(screenSizes),
                                                    '{0:.2f}'.format(random.randint(5, 15)))
                 instances.append(instance)
