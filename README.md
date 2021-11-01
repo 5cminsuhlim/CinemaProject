@@ -1,5 +1,12 @@
 # Assignment2
 
+# Group 5 Cinema Booking System
+
+The following file presents a clear guide on how to compile and run the Cinema Booking system.
+
+## Introduction
+
+In a team of 5, we were contracted to build a Cinema Booking system for our client as part of Assignment 2.
 
 Coming Soon
 
@@ -11,5 +18,26 @@ Automated Generation Function
     - faker
     - names
     
-  Run Command:
-    `gradle generate`
+## How to Run
+
+Simply type in `gradle clean build generate run` into your terminal interface.
+
+
+# About the team
+
+
+### Scrum Master
+
+Chad Heyman
+
+### Product Owner
+
+Justin Klass
+
+### Development Team
+
+Eric Lim, Lachlan Murphy, Sean Kunkler
+
+**Note: All members had equal contribution due to the nature of the project (University Assignment)**
+
+If you would like to contribute to the assignment, please contact us at realemail@gmail.com, where we can discuss your role in the project and potentially add you as a contributor on our GitHub repo.
