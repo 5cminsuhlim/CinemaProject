@@ -1377,8 +1377,8 @@ class CinemaTest {
         int r_seatsCapacity = 50;
         String day = "Monday";
         String day2 = "Friday";
-        LocalTime time = LocalTime.of(11, 30, 00, 00);
-        LocalTime time2 = LocalTime.of(10, 30, 00, 00);
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
         String screenSize = "Gold";
         BigDecimal basePrice = new BigDecimal("20");
 
@@ -1415,10 +1415,10 @@ class CinemaTest {
 
         Cinema testCinema = new Cinema(c_id, c_name, location, movies, moviesParent);
 
-        ArrayList<MovieInstance> test = Cinema.sortInstances(testCinema.getMovies());
+        testCinema.sort();
 
-        assertEquals(test.get(0), movInst2);
-        assertEquals(test.get(1), movInst);
-        assertEquals(test.get(2), movInst3);
+        assertEquals(testCinema.getMovies().get(0), movInst2);
+        assertEquals(testCinema.getMovies().get(1), movInst);
+        assertEquals(testCinema.getMovies().get(2), movInst3);
     }
 }
