@@ -389,7 +389,50 @@ class CinemaTest {
 
         assertEquals(testCinema.getMovieParents(), moviesParent, "Incorrect parent array");
         assertEquals(testCinema.getId(), c_id, "Incorrect ID");
-        assertTrue(testCinema.getLocation().equalsIgnoreCase("Fred's House"), "Incorrect location");
+        }
 
+
+    @Test
+    public void userInput1(){
+        //Add movie data
+        String input = "John\n" + "Good Movie\n" + "America\n" + "G\n" + "7/11\n" + "11/11/2011\n" + "Jane Doe\n" + "cancel\n";
+        // LocalDate.parse("11-11-2001");
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+
+        int newm_id = 2;
+        int newm2_id = 3;
+        String newName = "Movie";
+        String newSynopsis = "Synopsis";
+        String newRating = "G";
+        String newReleaseDate = "10/10/2010";
+        String actor3 = "Leo Di Caprio";
+        String actor4 = "Ched";
+        ArrayList<String> newCast = new ArrayList<String>();
+        newCast.add(actor3);
+        newCast.add(actor4);
+        Movie newMovie = new Movie(newm_id, newName, newSynopsis, newRating, newReleaseDate, newCast);
+        Movie newMovie2 = new Movie(newm2_id, newName, newSynopsis, newRating, newReleaseDate, newCast);
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        movies.add(newMovie);
+        movies.add(newMovie2);
+
+        u.addMovieData(movies);
+    }
+
+    @Test
+    public void userCardInit(){
+        String input = "resources/test_cards.txt";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        u.cardInit();
+    }
+
+    @Test
+    public void testGetUsername(){
+        String input = "Jeff";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        assertEquals(u.getUsername(), input, "Invalid Username");
     }
 }
