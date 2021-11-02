@@ -1,6 +1,8 @@
 package Proj2;
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class CinemaRunner {
@@ -52,7 +54,6 @@ public class CinemaRunner {
         boolean isManager = false;
         boolean firstLogin = false;
         boolean loggedIn;
-        String selectedMovie = "";
         Customer customer = null;
 
         boolean running = true;
@@ -128,7 +129,6 @@ public class CinemaRunner {
                         case "1":
                             //prompt guest to look up a movie
                             input = u.findMovie();
-                            selectedMovie = input;
                             boolean found = false;
                             boolean cinemaFound = false;
                             int count = 0;
@@ -647,6 +647,98 @@ public class CinemaRunner {
 
 
                         case "4":
+                            //print current showings for every cinema
+                            for (Cinema c : validCinemas) {
+                                System.out.println("-------------------------------------------------------");
+                                System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
+                                System.out.println("-------------------------------------------------------");
+                                for (MovieInstance m : c.getMovies()) {
+                                    System.out.println(m.getName());
+                                    System.out.println(m.getSchedule());
+                                }
+                            }
+
+                            input = u.getCinema(validCinemas);
+                            ArrayList<Cinema> foundCinemas = new ArrayList<>();
+                            Cinema wantedCinema = null;
+                            if (input.equalsIgnoreCase("cancel")) {
+                                break;
+                            }
+                            for (Cinema c : validCinemas) {
+                                if (c.getName().equalsIgnoreCase(input)) {
+                                    foundCinemas.add(c);
+                                }
+                            }
+                            if (foundCinemas.size() == 0) {
+                                System.out.println("Cinema not found.\n");
+                                break;
+                            } else if (foundCinemas.size() == 1) {
+                                wantedCinema = foundCinemas.get(0);
+                            } else {
+                                // ask user to specify location and repeat above
+                                input = u.promptLocation(foundCinemas);
+
+                                if (input.equalsIgnoreCase("cancel")) {
+                                    break;
+                                }
+
+                                int index = 0;
+
+                                for (Cinema c : foundCinemas) {
+                                    if (c.getLocation().equalsIgnoreCase(input)) {
+                                        index = foundCinemas.indexOf(c);
+                                    }
+                                }
+
+                                wantedCinema = foundCinemas.get(index);
+                            }
+
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("Cinema Name: " + wantedCinema.getName() + "\nLocation: " + wantedCinema.getLocation());
+                            System.out.println("-------------------------------------------------------");
+
+                            for(MovieInstance m : wantedCinema.getMovies()){
+                                System.out.println(m.getName());
+                                System.out.println(m.getSchedule());
+                            }
+
+                            //get movie title for adding more showings
+                            input = u.findMovieScreenings(validCinemas);
+                            movie = input;
+                            if (input.equalsIgnoreCase("cancel")) {
+                                break;
+                            }
+
+                            System.out.println("Remaining weekly showings for " + input + ":");
+                            for(MovieInstance m : wantedCinema.getMovies()){
+                                if(input.equalsIgnoreCase(m.getName())){
+                                    System.out.println(m.getSchedule());
+                                }
+                            }
+
+                            //get day
+                            input = u.promptScreeningDay();
+                            String day = input;
+
+                            //get time
+                            input = u.promptScreeningTime(day);
+
+                            //convert string time to time obj
+                            LocalTime test = LocalTime.parse(input);
+
+                            String timeStr = "";
+
+                            //try merging time and day
+                            try {
+                                timeStr = day + test.format(DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH));
+                            }
+                            catch (Exception e) {
+                                System.out.println("Invalid Input, please try again.\n");
+                                break;
+                            }
+
+                            wantedCinema.setSchedule(timeStr, movie);
+
                             break;
 
                         case "5":
