@@ -178,18 +178,14 @@ public class Cinema {
                     movieList.add(instance);
                 }
 
-
-                ArrayList<Customer> customers = new ArrayList<>();
                 //Implement fucntionality to create/read movie objects and customers objects
-                ArrayList<MovieInstance> sortedMovies = new ArrayList<>();
                 cinemaList.add(new Cinema(Integer.parseInt(line[0]), line[1], line[2], sortInstances(movieList), moviesParent));
             }
         }
         catch (Exception e) {
-            System.out.println("Error reading cinema file. Please try again.\n");
+            System.out.println("Error reading cinema file.\n");
             return null;
         }
-
         return cinemaList;
     }
 
@@ -226,6 +222,5 @@ public class Cinema {
             System.out.println("File does not exist. Please try again");
             return -1;
         }
-
     }
 }
