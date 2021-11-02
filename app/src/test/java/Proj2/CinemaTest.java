@@ -1734,4 +1734,156 @@ class CinemaTest {
         ArrayList<Cinema> skux = u.promptSingleInstanceToDelete(cinemas);
         assertEquals(skux.size(), 1);
     }
+
+    @Test
+    public void userInputTestScreeningDay() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Cinema testCinema2 = new Cinema(2, "swag cinema", "Swag Lake", movies, moviesParent);
+        ArrayList<Cinema> cinemas = new ArrayList<>();
+        cinemas.add(testCinema2);
+        ArrayList<Cinema> cinemas2 = new ArrayList<>();
+        cinemas2.add(testCinema2);
+        String input = "Tuesday\n";
+        // LocalDate.parse("11-11-2001");
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String input2 = "cancel\n";
+        // LocalDate.parse("11-11-2001");
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output1 = u.promptScreeningDay();
+        String output2 = u2.promptScreeningDay();
+
+        assertEquals(output1, "Tuesday");
+        assertEquals(output2, "cancel");
+    }
+
+    @Test
+    public void userInputTestScreeningTime() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Cinema testCinema2 = new Cinema(2, "swag cinema", "Swag Lake", movies, moviesParent);
+        ArrayList<Cinema> cinemas = new ArrayList<>();
+        cinemas.add(testCinema2);
+        ArrayList<Cinema> cinemas2 = new ArrayList<>();
+        cinemas2.add(testCinema2);
+        String input = "11:30\n";
+        // LocalDate.parse("11-11-2001");
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String input2 = "cancel\n";
+        // LocalDate.parse("11-11-2001");
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output1 = u.promptScreeningTime("Monday");
+        String output2 = u2.promptScreeningTime("Monday");
+
+        assertEquals(output1, "11:30");
+        assertEquals(output2, "cancel");
+    }
+
+
 }
