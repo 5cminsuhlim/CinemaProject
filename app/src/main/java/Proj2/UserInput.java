@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.io.*;
 
 public class UserInput {
     private Scanner scanner;
@@ -23,8 +24,24 @@ public class UserInput {
     }
 
     public String getPassword(){
-        printStream.print("Please enter your password:\n");
-        return scanner.nextLine();
+        String prompt = "Please enter your password:\n";
+
+        EraserThread et = new EraserThread(prompt);
+        Thread mask = new Thread(et);
+        mask.start();
+        String password = "";
+
+        try {
+            password = scanner.nextLine();
+        } catch (Exception ioe) {
+            ioe.printStackTrace();
+        }
+        // stop masking
+        et.stopMasking();
+        printStream.print(" Input Accepted *\n\n");
+
+        // return the password entered by the user
+        return password;
     }
 
     public boolean promptLogin(String username, String password, ArrayList<Customer> customers){
