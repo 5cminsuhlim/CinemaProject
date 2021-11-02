@@ -43,11 +43,7 @@ public class UserInput {
             File file = new File(filename);
             Scanner input = new Scanner(file);
             while (input.hasNextLine()) { //reads all lines of the file
-                try {
-                    this.cancelledTransactions.add(input.nextLine());
-                } catch(Exception e){
-                    break;
-                }
+                this.cancelledTransactions.add(input.nextLine());
             }
         } catch(Exception e){
             printStream.println("Error reading the manager report.");
