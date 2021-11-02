@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -1484,12 +1485,10 @@ class CinemaTest {
         testTickets.add(testTicket2);
 
         Cinema testCinema = new Cinema(c_id, c_name, location, movies, moviesParent);
+        ArrayList<Cinema> cinemas = new ArrayList<>();
+        cinemas.add(testCinema);
 
-        testCinema.sort();
-
-        assertEquals(testCinema.getMovies().get(0), movInst2);
-        assertEquals(testCinema.getMovies().get(1), movInst);
-        assertEquals(testCinema.getMovies().get(2), movInst3);
+        Cinema.saveCinemas("resources/test_cinemas", cinemas);
     }
 
     @Test
