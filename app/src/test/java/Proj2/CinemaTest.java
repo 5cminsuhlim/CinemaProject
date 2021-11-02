@@ -1554,11 +1554,7 @@ class CinemaTest {
 
         Cinema testCinema = new Cinema(c_id, c_name, location, movies, moviesParent);
 
-        testCinema.sort();
-
-        assertEquals(testCinema.getMovies().get(0), movInst2);
-        assertEquals(testCinema.getMovies().get(1), movInst);
-        assertEquals(testCinema.getMovies().get(2), movInst3);
+        Cinema.readCinemas("resources/test_cinemas", moviesParent);
     }
 
     @Test
