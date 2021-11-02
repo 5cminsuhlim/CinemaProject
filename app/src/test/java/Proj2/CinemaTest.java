@@ -426,4 +426,12 @@ class CinemaTest {
         UserInput u = new UserInput(is, System.out);
         u.cardInit();
     }
+
+    @Test
+    public void testGetUsername(){
+        String input = "Jeff";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        u.getUsername();
+    }
 }
