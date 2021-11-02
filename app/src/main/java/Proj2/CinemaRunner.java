@@ -56,6 +56,7 @@ public class CinemaRunner {
         boolean firstLogin = false;
         boolean loggedIn;
         Customer customer = null;
+        Card savedCard = null;
 
         boolean running = true;
         while(running) {
@@ -64,6 +65,8 @@ public class CinemaRunner {
             isStaff = false;
             isManager = false;
             firstLogin = true;
+            customer = null;
+            savedCard = null;
 
 
             //check if guest or customer
@@ -124,8 +127,6 @@ public class CinemaRunner {
             while (notQuit) {
                 //guest and customer functionality
                 if(isGuest || isCustomer) {
-                    Card savedCard = null;
-
                     //prompt USER to filter by movie, cinema, or screen size
                     input = u.promptUser();
 
@@ -233,8 +234,12 @@ public class CinemaRunner {
 
                                                         input = u.enterPasswordGuest();
 
-                                                        Customer newCustomer = new Customer(username, input, null, null);
+                                                        ArrayList<Card> newCards = new ArrayList<>();
+                                                        ArrayList<String> newTickets = new ArrayList<>();
+
+                                                        Customer newCustomer = new Customer(username, input, newCards, newTickets);
                                                         validCustomers.add(newCustomer);
+                                                        customer = newCustomer;
                                                         signedUp = true;
                                                         isCustomer = true;
 
@@ -387,8 +392,12 @@ public class CinemaRunner {
 
                                                         input = u.enterPasswordGuest();
 
-                                                        Customer newCustomer = new Customer(username, input, null, null);
+                                                        ArrayList<Card> newCards = new ArrayList<>();
+                                                        ArrayList<String> newTickets = new ArrayList<>();
+
+                                                        Customer newCustomer = new Customer(username, input, newCards, newTickets);
                                                         validCustomers.add(newCustomer);
+                                                        customer = newCustomer;
                                                         signedUp = true;
                                                         isCustomer = true;
 
@@ -524,8 +533,12 @@ public class CinemaRunner {
 
                                                         input = u.enterPasswordGuest();
 
-                                                        Customer newCustomer = new Customer(username, input, null, null);
+                                                        ArrayList<Card> newCards = new ArrayList<>();
+                                                        ArrayList<String> newTickets = new ArrayList<>();
+
+                                                        Customer newCustomer = new Customer(username, input, newCards, newTickets);
                                                         validCustomers.add(newCustomer);
+                                                        customer = newCustomer;
                                                         signedUp = true;
                                                         isCustomer = true;
 
