@@ -294,5 +294,42 @@ class CinemaTest {
 
         assertEquals(testCinema.searchMovie("Movie", moviesParent), testMovie, "Movie search failed");
         assertEquals(testCinema.searchMovie("Incorrect name", moviesParent), null, "Movie search failed");
+
+        assertEquals(testCinema.getMovieParents(), moviesParent, "Movie parents list returned is incorrect");
+        assertEquals(testCinema.getMovies(), movies, "Movies list returned is incorrect");
+
+        int newc_id = 2;
+        int newm_id = 2;
+        String newName = "Movie";
+        String newSynopsis = "Synopsis";
+        String newRating = "G";
+        String newReleaseDate = "10/10/2010";
+        String actor3 = "Leo Di Caprio";
+        String actor4 = "Ched";
+        ArrayList<String> newCast = new ArrayList<String>();
+        newCast.add(actor3);
+        newCast.add(actor4);
+        Movie newMovie = new Movie(newm_id, newName, newSynopsis, newRating, newReleaseDate, newCast);
+
+        int f_seatsCapacity1 = 50;
+        int m_seatsCapacity1 = 50;
+        int r_seatsCapacity1 = 50;
+        String newDay = "Monday";
+        LocalTime newTime = LocalTime.of(11, 30, 00, 00);
+        String newScreenSize = "Gold";
+        BigDecimal newBasePrice = new BigDecimal("20");
+        BigDecimal newTicketPrice = new BigDecimal("1.6");
+
+        MovieInstance newMovInst = new MovieInstance(newm_id, newc_id, newMovie, f_seatsCapacity1, m_seatsCapacity1, r_seatsCapacity1,
+                newDay, newTime, newScreenSize, newBasePrice);
+
+        ArrayList<MovieInstance> movies1 = new ArrayList<MovieInstance>();
+        movies1.add(newMovInst);
+        testCinema.setMovies(movies1);
+        assertEquals(testCinema.getMovies(), movies1, "Movies list returned is incorrect");
+
+        assertEquals(testCinema.getId(), c_id, "Cinema ID returned is incorrect");
+
+
     }
 }
