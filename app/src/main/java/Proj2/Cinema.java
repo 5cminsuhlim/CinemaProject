@@ -30,9 +30,6 @@ public class Cinema {
         return name;
     }
 
-
-
-
     public String getTicketReceipt(){
         transactionNo++;
 
@@ -84,6 +81,35 @@ public class Cinema {
         output.removeIf(s -> s.length() < 5);
         output.sort(String::compareToIgnoreCase);
         return String.join("\n", output);
+    }
+
+    public void setSchedule(String timeStr, String movie){
+        ArrayList<String> output = new ArrayList<>();
+        for(Movie m : moviesParent){
+            ArrayList<String> movieList = new ArrayList<>();
+            boolean first = true;
+            //populate arraylist with existing schedules
+            for(MovieInstance mov : movies){
+                if(mov.getM_id() == m.getId()){
+                    if(first){
+                        movieList.add(m.getName() + ": " + mov.getSchedule());
+                        first = false;
+                    } else{
+                        movieList.add(mov.getSchedule());
+                    }
+                }
+            }
+            //add additional screening to existing schedules
+            for(MovieInstance mov : movies){
+                if(movie.equalsIgnoreCase(mov.getName())){
+                    movieList.add(timeStr);
+                }
+            }
+            output.add(String.join(" | ", movieList)) ;
+        }
+
+        output.removeIf(s -> s.length() < 5);
+        output.sort(String::compareToIgnoreCase);
     }
 
     public ArrayList<Movie> getMovieParents() {
