@@ -122,10 +122,10 @@ class CinemaTest {
         ArrayList<Customer> customers = new ArrayList<Customer>();
         Customer g = new Customer("Broskin", "YOYO", null,null);
         customers.add(g);
-
         assertTrue(u.promptLogin("Broskin","YOYO",customers));
-
-    }
+        u.promptLogin("JohnJohn", "Doe", customers);
+        u.promptLogin("Broskin", "Doe", customers);
+        }
 
     @Test
     public void movieTest(){
@@ -452,9 +452,7 @@ class CinemaTest {
     @Test
     public void testReadManReport() throws Exception{
         String filename = "resources/test_managerreport.txt";
-        String input = "";
-        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
-        UserInput u = new UserInput(is, System.out);
+        UserInput u = new UserInput(System.in, System.out);
         u.writeError("Bobby brown", "No more popcorn left");
         u.getManagerReport();
         u.readManagerReport("bob");
