@@ -220,116 +220,150 @@ class CinemaTest {
 
     }
 
+    // @Test
+    // public void cinemaTest(){
+    //     int c_id = 1;
+
+    //     int m_id = 1;
+    //     String name = "Movie";
+    //     String synopsis = "Synopsis";
+    //     String rating = "G";
+    //     String releaseDate = "10/10/2010";
+    //     String actor1 = "Matt Damon";
+    //     String actor2 = "Maaaaaatt Daaaaaamon";
+    //     ArrayList<String> cast = new ArrayList<String>();
+    //     cast.add(actor1);
+    //     cast.add(actor2);
+    //     Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+    //     ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+    //     moviesParent.add(testMovie);
+
+    //     String c_name = "Event";
+    //     String location = "Bondi Junction";
+
+    //     int f_seatsOpen = 40;
+    //     int f_seatsCapacity = 50;
+    //     int m_seatsOpen = 40;
+    //     int m_seatsCapacity = 50;
+    //     int r_seatsOpen = 40;
+    //     int r_seatsCapacity = 50;
+    //     String day = "Monday";
+    //     LocalTime time = LocalTime.of(11, 30, 00, 00);
+    //     String screenSize = "Gold";
+    //     BigDecimal basePrice = new BigDecimal("20");
+    //     BigDecimal ticketPrice = new BigDecimal("1.6");
+
+    //     MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+    //                                                 day, time, screenSize, basePrice);
+
+    //     ArrayList<MovieInstance> movies = new ArrayList<MovieInstance>();
+    //     movies.add(movInst);
+
+    //     int transactionNo = 1;
+    //     String username = "username";
+    //     String password = "password";
+
+    //     String cardNumber1 = "40691";
+    //     String cardHolderName1 = "Charles";
+    //     String cardNumber2 = "42689";
+    //     String cardHolderName2 = "Sergio";
+    //     Card testCard1 = new Card(cardNumber1, cardHolderName1);
+    //     Card testCard2 = new Card(cardNumber2, cardHolderName2);
+    //     ArrayList<Card> testCards = new ArrayList<Card>();
+    //     testCards.add(testCard1);
+    //     testCards.add(testCard2);
+    //     String testTicket1 = "Ticket1";
+    //     String testTicket2 = "Ticket2";
+    //     ArrayList<String> testTickets = new ArrayList<String>();
+    //     testTickets.add(testTicket1);
+    //     testTickets.add(testTicket2);
+
+    //     Customer testCustomer = new Customer(username, password, testCards, testTickets);
+    //     ArrayList<Customer> customers = new ArrayList<Customer>();
+    //     customers.add(testCustomer);
+
+    //     Cinema testCinema = new Cinema(c_id, c_name, location,movies, customers, moviesParent);
+
+    //     assertEquals(testCinema.getName(), c_name, "Cinema name returned is incorrect");
+    //     testCinema.setName("Hoyts");
+    //     assertEquals(testCinema.getName(), "Hoyts", "Cinema name returned is incorrect");
+    //     assertEquals(testCinema.getTicketReceipt(), "Cinema ID: 1\nTransaction No: 1\n");
+    //     assertEquals(testCinema.getLocation(), location, "Cinema location returned is incorrect");
+    //     testCinema.setLocation("Wyoming");
+    //     assertEquals(testCinema.getLocation(), "Wyoming", "Cinema location returned is incorrect");
+
+    //     assertEquals(testCinema.searchMovie("Movie", moviesParent), testMovie, "Movie search failed");
+    //     assertEquals(testCinema.searchMovie("Incorrect name", moviesParent), null, "Movie search failed");
+
+    //     assertEquals(testCinema.getMovieParents(), moviesParent, "Movie parents list returned is incorrect");
+    //     assertEquals(testCinema.getMovies(), movies, "Movies list returned is incorrect");
+
+    //     int newc_id = 2;
+    //     int newm_id = 2;
+    //     String newName = "Movie";
+    //     String newSynopsis = "Synopsis";
+    //     String newRating = "G";
+    //     String newReleaseDate = "10/10/2010";
+    //     String actor3 = "Leo Di Caprio";
+    //     String actor4 = "Ched";
+    //     ArrayList<String> newCast = new ArrayList<String>();
+    //     newCast.add(actor3);
+    //     newCast.add(actor4);
+    //     Movie newMovie = new Movie(newm_id, newName, newSynopsis, newRating, newReleaseDate, newCast);
+
+    //     int f_seatsCapacity1 = 50;
+    //     int m_seatsCapacity1 = 50;
+    //     int r_seatsCapacity1 = 50;
+    //     String newDay = "Monday";
+    //     LocalTime newTime = LocalTime.of(11, 30, 00, 00);
+    //     String newScreenSize = "Gold";
+    //     BigDecimal newBasePrice = new BigDecimal("20");
+    //     BigDecimal newTicketPrice = new BigDecimal("1.6");
+
+    //     MovieInstance newMovInst = new MovieInstance(newm_id, newc_id, newMovie, f_seatsCapacity1, m_seatsCapacity1, r_seatsCapacity1,
+    //             newDay, newTime, newScreenSize, newBasePrice);
+
+    //     ArrayList<MovieInstance> movies1 = new ArrayList<MovieInstance>();
+    //     movies1.add(newMovInst);
+    //     testCinema.setMovies(movies1);
+    //     assertEquals(testCinema.getMovies(), movies1, "Movies list returned is incorrect");
+
+    //     assertEquals(testCinema.getId(), c_id, "Cinema ID returned is incorrect");
+
+
+    // }
+
     @Test
-    public void cinemaTest(){
-        int c_id = 1;
+    public void setCardHolderNameTest(){
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "Charles";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        testCard1.setCardHolderName("jeff");
+        assertEquals(testCard1.getCardHolderName(), "jeff", "Name not changed");
 
-        int m_id = 1;
-        String name = "Movie";
-        String synopsis = "Synopsis";
-        String rating = "G";
-        String releaseDate = "10/10/2010";
-        String actor1 = "Matt Damon";
-        String actor2 = "Maaaaaatt Daaaaaamon";
-        ArrayList<String> cast = new ArrayList<String>();
-        cast.add(actor1);
-        cast.add(actor2);
-        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
-        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
-        moviesParent.add(testMovie);
+    }
 
-        String c_name = "Event";
-        String location = "Bondi Junction";
-
-        int f_seatsOpen = 40;
-        int f_seatsCapacity = 50;
-        int m_seatsOpen = 40;
-        int m_seatsCapacity = 50;
-        int r_seatsOpen = 40;
-        int r_seatsCapacity = 50;
-        String day = "Monday";
-        LocalTime time = LocalTime.of(11, 30, 00, 00);
-        String screenSize = "Gold";
-        BigDecimal basePrice = new BigDecimal("20");
-        BigDecimal ticketPrice = new BigDecimal("1.6");
-
-        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
-                                                    day, time, screenSize, basePrice);
-
-        ArrayList<MovieInstance> movies = new ArrayList<MovieInstance>();
-        movies.add(movInst);
-
-        int transactionNo = 1;
-        String username = "username";
-        String password = "password";
-
+    @Test
+    public void testCardsRead(){
         String cardNumber1 = "40691";
         String cardHolderName1 = "Charles";
         String cardNumber2 = "42689";
         String cardHolderName2 = "Sergio";
         Card testCard1 = new Card(cardNumber1, cardHolderName1);
         Card testCard2 = new Card(cardNumber2, cardHolderName2);
-        ArrayList<Card> testCards = new ArrayList<Card>();
-        testCards.add(testCard1);
-        testCards.add(testCard2);
-        String testTicket1 = "Ticket1";
-        String testTicket2 = "Ticket2";
-        ArrayList<String> testTickets = new ArrayList<String>();
-        testTickets.add(testTicket1);
-        testTickets.add(testTicket2);
-
-        Customer testCustomer = new Customer(username, password, testCards, testTickets);
-        ArrayList<Customer> customers = new ArrayList<Customer>();
-        customers.add(testCustomer);
-
-        Cinema testCinema = new Cinema(c_id, c_name, location,movies, customers, moviesParent);
-
-        assertEquals(testCinema.getName(), c_name, "Cinema name returned is incorrect");
-        testCinema.setName("Hoyts");
-        assertEquals(testCinema.getName(), "Hoyts", "Cinema name returned is incorrect");
-        assertEquals(testCinema.getTicketReceipt(), "Cinema ID: 1\nTransaction No: 1\n");
-        assertEquals(testCinema.getLocation(), location, "Cinema location returned is incorrect");
-        testCinema.setLocation("Wyoming");
-        assertEquals(testCinema.getLocation(), "Wyoming", "Cinema location returned is incorrect");
-
-        assertEquals(testCinema.searchMovie("Movie", moviesParent), testMovie, "Movie search failed");
-        assertEquals(testCinema.searchMovie("Incorrect name", moviesParent), null, "Movie search failed");
-
-        assertEquals(testCinema.getMovieParents(), moviesParent, "Movie parents list returned is incorrect");
-        assertEquals(testCinema.getMovies(), movies, "Movies list returned is incorrect");
-
-        int newc_id = 2;
-        int newm_id = 2;
-        String newName = "Movie";
-        String newSynopsis = "Synopsis";
-        String newRating = "G";
-        String newReleaseDate = "10/10/2010";
-        String actor3 = "Leo Di Caprio";
-        String actor4 = "Ched";
-        ArrayList<String> newCast = new ArrayList<String>();
-        newCast.add(actor3);
-        newCast.add(actor4);
-        Movie newMovie = new Movie(newm_id, newName, newSynopsis, newRating, newReleaseDate, newCast);
-
-        int f_seatsCapacity1 = 50;
-        int m_seatsCapacity1 = 50;
-        int r_seatsCapacity1 = 50;
-        String newDay = "Monday";
-        LocalTime newTime = LocalTime.of(11, 30, 00, 00);
-        String newScreenSize = "Gold";
-        BigDecimal newBasePrice = new BigDecimal("20");
-        BigDecimal newTicketPrice = new BigDecimal("1.6");
-
-        MovieInstance newMovInst = new MovieInstance(newm_id, newc_id, newMovie, f_seatsCapacity1, m_seatsCapacity1, r_seatsCapacity1,
-                newDay, newTime, newScreenSize, newBasePrice);
-
-        ArrayList<MovieInstance> movies1 = new ArrayList<MovieInstance>();
-        movies1.add(newMovInst);
-        testCinema.setMovies(movies1);
-        assertEquals(testCinema.getMovies(), movies1, "Movies list returned is incorrect");
-
-        assertEquals(testCinema.getId(), c_id, "Cinema ID returned is incorrect");
-
-
+        ArrayList<Card> cardList = new ArrayList<>();
+        cardList.add(testCard1);
+        cardList.add(testCard2);
+        ArrayList<Card> readCardList = testCard1.readCards("resources/test_cards.txt");
+        boolean flag = false;
+        for(int i=0; i<2; i++) {
+            if(((cardList.get(i)).getCardNumber()).equals(((readCardList.get(i)).getCardNumber())) == false) {
+                flag = true;
+            }
+            if(((cardList.get(i)).getCardHolderName()).equals(((readCardList.get(i)).getCardHolderName())) == false) {
+                flag = true;
+            }
+        }
+        assertFalse(flag, "Values don't match");
     }
 }
