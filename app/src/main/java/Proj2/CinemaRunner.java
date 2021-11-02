@@ -961,6 +961,6 @@ public class CinemaRunner {
         u.customerSave(validCustomers);
         u.cinemaSave(validCinemas);
         u.movieSave(validMovies);
-        u.saveManagerReport();
+        u.saveManagerReport("../managerreport.txt");
     }
 }
