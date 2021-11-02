@@ -287,7 +287,8 @@ class CinemaTest {
         assertEquals(testCinema.getName(), c_name, "Cinema name returned is incorrect");
         testCinema.setName("Hoyts");
         assertEquals(testCinema.getName(), "Hoyts", "Cinema name returned is incorrect");
-        assertEquals(testCinema.getTicketReceipt(), "Cinema ID: 1 Transaction No: 1");
+        assertEquals(testCinema.getTicketReceipt(), "11");
+        // Old Output for ^^ is "Cinema ID: 1 Transaction No: 1"
         assertEquals(testCinema.getLocation(), location, "Cinema location returned is incorrect");
         testCinema.setLocation("Wyoming");
         assertEquals(testCinema.getLocation(), "Wyoming", "Cinema location returned is incorrect");

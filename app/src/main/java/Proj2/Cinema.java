@@ -1,5 +1,7 @@
 package Proj2;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
@@ -218,4 +220,36 @@ public class Cinema {
     public int getId() {
         return id;
     }
+
+protected static int saveCinemas(String filename, ArrayList<Cinema> cinemas){
+    cinemas.sort(Comparator.comparing(Cinema::getId));
+    File f = new File(filename);
+    if(f.exists() && !f.isDirectory()){
+        f.delete();
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(filename), StandardCharsets.UTF_8))) {
+            for(Cinema c : cinemas) {
+                // int id, String name, String location, ArrayList<MovieInstance> movies, ArrayList<Movie> moviesParent
+                ArrayList<String> movieList = new ArrayList<>();
+                for(MovieInstance m : c.getMovies()){
+                    movieList.add(m.getM_id() + ":" + m.getC_id() + ":" + m.getF_seatsOpen() + ":" + m.getF_seatsCapacity() + ":" +
+                            m.getM_seatsOpen() + ":" + m.getM_seatsCapacity() + ":" + m.getR_seatsOpen() + ":" + m.getR_seatsCapacity()
+                            + ":" + m.getDay() + ":" + m.getTime().toString().substring(0,2) + ":" + m.getScreenSize() + ":" + m.getBasePrice());
+                }
+                writer.write(c.getId() + "," + c.getName() + "," + c.getLocation() + "," +
+                        String.join(";", movieList) +  "\n");
+            }
+        }
+        catch(Exception e){
+            System.out.println("Saving cinema details failed.");
+            return -2;
+        }
+        System.out.println("Cinema details saved.");
+        return 1;
+    } else{
+        System.out.println("File does not exist. Please try again");
+        return -1;
+    }
+
+}
 }
