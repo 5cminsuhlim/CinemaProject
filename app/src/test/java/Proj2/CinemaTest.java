@@ -332,4 +332,14 @@ class CinemaTest {
 
 
     }
+
+    @Test
+    public void setCardHolderNameTest(){
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "Charles";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        testCard1.setCardHolderName("jeff");
+        assertEquals(testCard1.getCardHolderName(), "jeff", "Name not changed");
+
+    }
 }
