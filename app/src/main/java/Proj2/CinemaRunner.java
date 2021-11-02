@@ -1,5 +1,6 @@
 package Proj2;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class CinemaRunner {
@@ -175,11 +176,11 @@ public class CinemaRunner {
                                     break;
                                 }
 
-                                if (Integer.valueOf(input) < 1 || Integer.valueOf(input) > foundMovieInstance.size()) {
-                                    System.out.println("Invalid input, please try again.\n");
-                                }
-                                else if (input.equalsIgnoreCase("cancel")) {
+                                if (input.equalsIgnoreCase("cancel")) {
                                     break;
+                                }
+                                else if (Integer.parseInt(input) < 1 || Integer.parseInt(input) > foundMovieInstance.size()) {
+                                    System.out.println("Invalid input, please try again.\n");
                                 }
                                 else {
                                     isValid = true;
@@ -189,15 +190,14 @@ public class CinemaRunner {
                             if(!isValid) {
                                 break;
                             }
-                            MovieInstance wantedMov = foundMovieInstance.get(Integer.valueOf(input) - 1);
+                            MovieInstance wantedMov = foundMovieInstance.get(Integer.parseInt(input) - 1);
 
                             //start booking for movieinstance at input - 1
                             //people
                             //movieinstance
                             //cards / giftcards
-
                             if (isCustomer) {
-                                u.book(wantedMov,foundMCInstance, validCards, validGiftCards, customer);
+                                u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, customer);
                             }
                             //guest
                             else {
@@ -234,9 +234,7 @@ public class CinemaRunner {
                                                         signedUp = true;
                                                         isCustomer = true;
 
-                                                        //add guest payment
-
-                                                        u.book(wantedMov,foundMCInstance, validCards, validGiftCards, newCustomer);
+                                                        u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, newCustomer);
                                                     }
                                                 }
                                                 break;
@@ -260,29 +258,153 @@ public class CinemaRunner {
                         case "2":
                             //prompt guest to look up cinema
                             input = u.findCinema();
-                            found = false;
-                            ArrayList<String> seen = new ArrayList<String>();
-                            String curr = "";
+                            Cinema wantedCinema = null;
+                            cinemaFound = false;
+                            ArrayList<Cinema> foundCinemas = new ArrayList<Cinema>();
 
                             for (Cinema c : validCinemas) {
-                                //if cinema is found
                                 if (c.getName().equalsIgnoreCase(input)) {
-                                    found = true;
-
-                                    for (MovieInstance m : c.getMovies()) {
-                                        //print movie name
-                                        curr = m.getName();
-
-                                        if(!seen.contains(curr)){
-                                            System.out.println(curr);
-
-                                            seen.add(curr);
-                                        }
-                                    }
+                                    foundCinemas.add(c);
                                 }
                             }
-                            if (!found) {
-                                System.out.println("Cinema not found\n");
+
+                            if(foundCinemas.size() == 0) {
+                                System.out.println("Cinema not found.\n");
+                                break;
+                            }
+                            else if (foundCinemas.size() == 1){
+                                wantedCinema = foundCinemas.get(0);
+                            }
+                            else {
+                                // ask user to specify location and repeat above
+                                input = u.promptLocation(foundCinemas);
+
+                                if(input.equalsIgnoreCase("cancel")){
+                                    break;
+                                }
+
+                                int index = 0;
+
+                                for(Cinema c : foundCinemas){
+                                    if(c.getLocation().equalsIgnoreCase(input)){
+                                        index = foundCinemas.indexOf(c);
+                                    }
+                                }
+
+                                wantedCinema = foundCinemas.get(index);
+                            }
+
+                            count = 0;
+                            foundMovieInstance = new ArrayList<MovieInstance>();
+                            found = false;
+
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("Cinema Name: " + wantedCinema.getName() + "\nLocation: " + wantedCinema.getLocation());
+                            System.out.println("-------------------------------------------------------");
+
+                            for (MovieInstance m : wantedCinema.getMovies()) {
+                                //if movie is found
+                                count++;
+                                found = true;
+                                foundMovieInstance.add(m);
+                                System.out.println("Option " + count + ":");
+                                System.out.println(m.getSchedule() + ", " + m.getScreenSize() + "\n");
+                            }
+
+                            if(!found){
+                                System.out.println("No movies found.\n");
+                                break;
+                            }
+
+                            isValid = false;
+
+                            while(!isValid) {
+                                input = u.promptChoice();
+
+                                if(input.length() == 0){
+                                    System.out.println("Invalid Input, please try again.\n");
+                                    break;
+                                }
+
+                                if (input.equalsIgnoreCase("cancel")) {
+                                    break;
+                                }
+                                else if (Integer.valueOf(input) < 1 || Integer.valueOf(input) > foundMovieInstance.size()) {
+                                    System.out.println("Invalid input, please try again.\n");
+                                }
+                                else {
+                                    isValid = true;
+                                }
+                            }
+
+                            if(!isValid) {
+                                break;
+                            }
+
+                            wantedMov = foundMovieInstance.get(Integer.valueOf(input) - 1);
+
+                            if(foundMovieInstance.size() > 0) {
+                                System.out.println(wantedMov.getMovieDetails() + "\n");
+                            }
+
+                            if (isCustomer) {
+                                u.book(wantedMov, wantedCinema, validCards, validGiftCards, customer);
+                            }
+                            //guest
+                            else {
+                                System.out.println("-------------------------------------------------------");
+                                System.out.println("Cinema Name: " + wantedCinema.getName() +
+                                        "\nLocation: " + wantedCinema.getLocation());
+                                System.out.println("-------------------------------------------------------");
+                                System.out.println(wantedMov.getSchedule() + ", " + wantedMov.getScreenSize() + "\n");
+
+                                input = u.bookMovie();
+
+                                switch (input) {
+                                    case "1":
+                                        //prompt guest to make an account
+                                        System.out.println("To proceed with booking, please make an account.\n");
+                                        input = u.promptAccount();
+                                        switch (input) {
+                                            case "1":
+                                                boolean signedUp = false;
+                                                //prompt guest to make a new account
+                                                while (!signedUp) {
+                                                    input = u.enterUsernameGuest(validCustomers);
+
+                                                    if (input.equalsIgnoreCase("cancel")) {
+                                                        break;
+                                                    }
+                                                    else {
+                                                        String username = input;
+
+                                                        input = u.enterPasswordGuest();
+
+                                                        Customer newCustomer = new Customer(username, input, null, null);
+                                                        validCustomers.add(newCustomer);
+                                                        signedUp = true;
+                                                        isCustomer = true;
+
+                                                        //add guest payment
+
+                                                        u.book(wantedMov, wantedCinema, validCards, validGiftCards, newCustomer);
+                                                    }
+                                                }
+                                                break;
+                                            case "2":
+                                                //return guest to default page
+                                                break;
+                                            default:
+                                                System.out.println("Invalid Input, please try again.\n");
+                                        }
+                                        break;
+                                    case "2":
+                                        //don't book
+                                        break;
+                                    default:
+                                        System.out.println("Invalid Input, please try again.\n");
+                                }
+
                             }
                             break;
 
@@ -297,8 +419,8 @@ public class CinemaRunner {
                             }
 
                             for (Cinema c : validCinemas) {
-                                seen = new ArrayList<String>();
-                                curr = "";
+                                ArrayList<String> seen = new ArrayList<String>();
+                                String curr = "";
 
                                 //print cinema name + location
                                 System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
@@ -371,14 +493,161 @@ public class CinemaRunner {
                                 System.out.println("ERROR");
                             }
                         case "2":
-                            //delete movie data
-                            // make sure to delete from cinema instances too
+
+                            String selection = u.promptDeleteShowingOrMovie();
+
+                            if(selection.equals("cancel")){
+                                break;
+                            } else if(selection.equals("1")){
+                                Movie deletedMovie = u.promptDeleteMovie(validMovies);
+                                if(deletedMovie == null){
+                                    break;
+                                }
+                                for(Cinema c : validCinemas){
+                                    c.getMovies().removeIf(m -> m.getParent() == deletedMovie);
+                                    c.getMovieParents().remove(deletedMovie);
+                                }
+                                validMovies.remove(deletedMovie);
+                            } else {
+                                ArrayList<Cinema> cinemasWithoutInstance;
+                                cinemasWithoutInstance = u.promptSingleInstanceToDelete(validCinemas);
+                                if(cinemasWithoutInstance == null){
+                                    System.out.println("\nCancelled movie deletion.\n");
+                                    break;
+                                } else {
+                                    validCinemas = cinemasWithoutInstance;
+                                    System.out.println("\nMovie deleted successfully.\n");
+                                }
+                            }
+                            break;
 
                         case "3":
                             //modify movie data
+                            input = u.promptModifyMovie(validMovies);
+
+                            if(input.length() == 0){
+                                System.out.println("Invalid Input, please try again.\n");
+                                break;
+                            }
+                            String movie = input;
+                            Movie movieObj = null;
+                            boolean assignedMovieObject = false;
+                            for(Movie m : validMovies){
+                                if(m.getName().equalsIgnoreCase(movie)){
+                                    movieObj = m;
+                                    assignedMovieObject = true;
+                                    break;
+                                }
+                            }
+                            if(!assignedMovieObject){
+                                continue;
+                            }
+
+                            input = u.promptWhatToChange(movie);
+
+                            switch (input) {
+                                case "1" -> {
+                                    input = u.changeName();
+                                    if (input.equalsIgnoreCase("cancel")) {
+                                        break;
+                                    }
+                                    movieObj.setName(input);
+                                }
+                                case "2" -> {
+                                    input = u.changeSynopsis();
+                                    if (input.equalsIgnoreCase("cancel")) {
+                                        break;
+                                    }
+                                    movieObj.setSynopsis(input);
+                                }
+                                case "3" -> {
+                                    input = u.changeRating();
+                                    if (input.equalsIgnoreCase("cancel")) {
+                                        break;
+                                    }
+                                    movieObj.setRating(input);
+                                }
+                                case "4" -> {
+                                    input = u.changeDate();
+                                    if (input.equalsIgnoreCase("cancel")) {
+                                        break;
+                                    }
+                                    movieObj.setReleaseDate(input);
+                                }
+                                case "5" -> {
+                                    ArrayList<String> inputAL = u.changeCast();
+                                    if (inputAL.size() > 0) {
+                                        movieObj.setCast(inputAL);
+                                    }
+                                }
+                                case "6" -> {
+                                    input = u.changeScreenSize();
+                                    String ss = input;
+                                    input = u.getCinema(validCinemas);
+                                    ArrayList<Cinema> foundCinemas = new ArrayList<>();
+                                    Cinema wantedCinema = null;
+                                    if (input.equalsIgnoreCase("cancel")) {
+                                        break;
+                                    }
+                                    for (Cinema c : validCinemas) {
+                                        if (c.getName().equalsIgnoreCase(input)) {
+                                            foundCinemas.add(c);
+                                        }
+                                    }
+                                    if (foundCinemas.size() == 0) {
+                                        System.out.println("Cinema not found.\n");
+                                        break;
+                                    } else if (foundCinemas.size() == 1) {
+                                        wantedCinema = foundCinemas.get(0);
+                                    } else {
+                                        // ask user to specify location and repeat above
+                                        input = u.promptLocation(foundCinemas);
+
+                                        if (input.equalsIgnoreCase("cancel")) {
+                                            break;
+                                        }
+
+                                        int index = 0;
+
+                                        for (Cinema c : foundCinemas) {
+                                            if (c.getLocation().equalsIgnoreCase(input)) {
+                                                index = foundCinemas.indexOf(c);
+                                            }
+                                        }
+
+                                        wantedCinema = foundCinemas.get(index);
+                                    }
+                                    for (MovieInstance m : wantedCinema.getMovies()) {
+                                        if (m.getName().equalsIgnoreCase(movie)) {
+                                            m.setScreenSize(ss);
+                                        }
+                                    }
+                                }
+                                case "7" -> {
+                                    input = u.changeTicketPrice();
+                                    if (input.equalsIgnoreCase("cancel")) {
+                                        break;
+                                    }
+                                    for (Cinema c : validCinemas) {
+                                        for (MovieInstance m : c.getMovies()) {
+                                            //m_id or c_id?
+                                            if (movieObj.getId() == m.getM_id()) {
+                                                m.setBasePrice(BigDecimal.valueOf(Integer.parseInt(input)));
+                                            }
+                                        }
+
+                                    }
+                                }
+                                case "8" ->
+                                        //return to default page
+                                        notQuit = false;
+                                default -> System.out.println("Invalid Input, please try again.\n");
+                            }
+                            break;
+
 
                         case "4":
-                            //add new show
+                            break;
 
                         case "5":
                             //insert new giftcard
@@ -460,5 +729,7 @@ public class CinemaRunner {
         }
         u.giftCardSave(validGiftCards);
         u.customerSave(validCustomers);
+        u.cinemaSave(validCinemas);
+        u.movieSave(validMovies);
     }
 }
