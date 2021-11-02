@@ -13,6 +13,7 @@ public class CinemaRunner {
     public static void main(String[] args) {
         UserInput u = new UserInput(System.in, System.out);
         System.out.println("Initialising Cinema System...");
+        u.readManagerReport();
         //Hardcoded boy
         customers.put("Feedback","Assign1?");
         //reads in all movies
@@ -76,6 +77,7 @@ public class CinemaRunner {
                 case "2":
                     String username = u.getUsername();
                     String password = u.getPassword();
+                    System.out.println();
 
                     //staff usernames must start with "Staff" followed by 1+ ints
                     if(username.matches("^Staff+[0-9]+") && password.equalsIgnoreCase("defstaffnotsus")){
@@ -222,6 +224,7 @@ public class CinemaRunner {
                                                     input = u.enterUsernameGuest(validCustomers);
 
                                                     if (input.equalsIgnoreCase("cancel")) {
+                                                        u.writeError("guest", "user cancelled");
                                                         break;
                                                     }
                                                     else {
@@ -240,16 +243,20 @@ public class CinemaRunner {
                                                 break;
                                             case "2":
                                                 //return guest to default page
+                                                u.writeError("guest", "user cancelled");
                                                 break;
                                             default:
                                                 System.out.println("Invalid Input, please try again.\n");
+                                                u.writeError("guest", "invalid input");
                                         }
                                         break;
                                     case "2":
-                                        //don't book
+                                        u.writeError("guest", "user cancelled");
                                         break;
                                     default:
                                         System.out.println("Invalid Input, please try again.\n");
+                                        u.writeError("guest", "invalid input");
+
                                 }
 
                             }
@@ -329,7 +336,7 @@ public class CinemaRunner {
                                 if (input.equalsIgnoreCase("cancel")) {
                                     break;
                                 }
-                                else if (Integer.valueOf(input) < 1 || Integer.valueOf(input) > foundMovieInstance.size()) {
+                                else if (Integer.parseInt(input) < 1 || Integer.parseInt(input) > foundMovieInstance.size()) {
                                     System.out.println("Invalid input, please try again.\n");
                                 }
                                 else {
@@ -374,6 +381,7 @@ public class CinemaRunner {
                                                     input = u.enterUsernameGuest(validCustomers);
 
                                                     if (input.equalsIgnoreCase("cancel")) {
+                                                        u.writeError("guest", "user cancelled");
                                                         break;
                                                     }
                                                     else {
@@ -394,16 +402,20 @@ public class CinemaRunner {
                                                 break;
                                             case "2":
                                                 //return guest to default page
+                                                u.writeError("guest", "user cancelled");
                                                 break;
                                             default:
                                                 System.out.println("Invalid Input, please try again.\n");
+                                                u.writeError("guest", "invalid input");
                                         }
                                         break;
                                     case "2":
                                         //don't book
+                                        u.writeError("guest", "user cancelled");
                                         break;
                                     default:
                                         System.out.println("Invalid Input, please try again.\n");
+                                        u.writeError("guest", "invalid input");
                                 }
 
                             }
@@ -477,7 +489,7 @@ public class CinemaRunner {
                                 break;
                             }
 
-                            wantedMov = foundMovieInstance.get(Integer.valueOf(input) - 1);
+                            wantedMov = foundMovieInstance.get(Integer.parseInt(input) - 1);
 
                             if(foundMovieInstance.size() > 0) {
                                 System.out.println(wantedMov.getMovieDetails() + "\n");
@@ -508,6 +520,7 @@ public class CinemaRunner {
                                                     input = u.enterUsernameGuest(validCustomers);
 
                                                     if (input.equalsIgnoreCase("cancel")) {
+                                                        u.writeError("guest", "user cancelled");
                                                         break;
                                                     }
                                                     else {
@@ -526,16 +539,20 @@ public class CinemaRunner {
                                                 break;
                                             case "2":
                                                 //return guest to default page
+                                                u.writeError("guest", "user cancelled");
                                                 break;
                                             default:
                                                 System.out.println("Invalid Input, please try again.\n");
+                                                u.writeError("guest", "invalid input");
                                         }
                                         break;
                                     case "2":
                                         //don't book
+                                        u.writeError("guest", "user cancelled");
                                         break;
                                     default:
                                         System.out.println("Invalid Input, please try again.\n");
+                                        u.writeError("guest", "invalid input");
                                 }
 
                             }
@@ -919,13 +936,11 @@ public class CinemaRunner {
                                     int booked = m.getF_seatsCapacity() + m.getM_seatsCapacity() + m.getR_seatsCapacity() - avail;
                                     System.out.println("Seats booked: " + booked);
                                     System.out.println("Seats available: " + avail);
-
-                                    if (isManager) {
-                                        //report containing date + time of cancelled transactions
-                                    }
                                 }
                             }
-
+                            if (isManager) {
+                                u.getManagerReport();
+                            }
                             break;
 
                         case "9":
@@ -946,5 +961,6 @@ public class CinemaRunner {
         u.customerSave(validCustomers);
         u.cinemaSave(validCinemas);
         u.movieSave(validMovies);
+        u.saveManagerReport();
     }
 }
