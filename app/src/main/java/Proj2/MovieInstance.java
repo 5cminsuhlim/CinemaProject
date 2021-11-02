@@ -161,7 +161,7 @@ public class MovieInstance{
 
         //getTicketReceipt == cinemaID, transactionNo
         customer.addTicket(cinema.getTicketReceipt() +
-                "Price: $" + ticketPrice.multiply(BigDecimal.valueOf(numPeople)).setScale(2, RoundingMode.UP) +
+                "Price: $" + ticketPrice.multiply(BigDecimal.valueOf(numF + numM + numR)).setScale(2, RoundingMode.UP) +
                 "\nPeople: " + numPeople +
                 "\nFront Seats Booked: " + numF +
                 "\nMiddle Seats Booked: " + numM +

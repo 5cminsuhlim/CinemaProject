@@ -124,6 +124,8 @@ public class CinemaRunner {
             while (notQuit) {
                 //guest and customer functionality
                 if(isGuest || isCustomer) {
+                    Card savedCard = null;
+
                     //prompt USER to filter by movie, cinema, or screen size
                     input = u.promptUser();
 
@@ -199,7 +201,7 @@ public class CinemaRunner {
                             //movieinstance
                             //cards / giftcards
                             if (isCustomer) {
-                                u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, customer);
+                                 savedCard = u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, customer, savedCard);
                             }
                             //guest
                             else {
@@ -212,12 +214,12 @@ public class CinemaRunner {
                                 input = u.bookMovie();
 
                                 switch (input) {
-                                    case "1":
+                                    case "1" -> {
                                         //prompt guest to make an account
                                         System.out.println("To proceed with booking, please make an account.\n");
                                         input = u.promptAccount();
                                         switch (input) {
-                                            case "1":
+                                            case "1" -> {
                                                 boolean signedUp = false;
                                                 //prompt guest to make a new account
                                                 while (!signedUp) {
@@ -226,8 +228,7 @@ public class CinemaRunner {
                                                     if (input.equalsIgnoreCase("cancel")) {
                                                         u.writeError("guest", "user cancelled");
                                                         break;
-                                                    }
-                                                    else {
+                                                    } else {
                                                         String username = input;
 
                                                         input = u.enterPasswordGuest();
@@ -237,26 +238,24 @@ public class CinemaRunner {
                                                         signedUp = true;
                                                         isCustomer = true;
 
-                                                        u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, newCustomer);
+                                                        savedCard = u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, customer, savedCard);
                                                     }
                                                 }
-                                                break;
-                                            case "2":
-                                                //return guest to default page
-                                                u.writeError("guest", "user cancelled");
-                                                break;
-                                            default:
+                                            }
+                                            case "2" ->
+                                                    //return guest to default page
+                                                    u.writeError("guest", "user cancelled");
+                                            default -> {
                                                 System.out.println("Invalid Input, please try again.\n");
                                                 u.writeError("guest", "invalid input");
+                                            }
                                         }
-                                        break;
-                                    case "2":
-                                        u.writeError("guest", "user cancelled");
-                                        break;
-                                    default:
+                                    }
+                                    case "2" -> u.writeError("guest", "user cancelled");
+                                    default -> {
                                         System.out.println("Invalid Input, please try again.\n");
                                         u.writeError("guest", "invalid input");
-
+                                    }
                                 }
 
                             }
@@ -267,7 +266,7 @@ public class CinemaRunner {
                             input = u.findCinema();
                             Cinema wantedCinema = null;
                             cinemaFound = false;
-                            ArrayList<Cinema> foundCinemas = new ArrayList<Cinema>();
+                            ArrayList<Cinema> foundCinemas = new ArrayList<>();
 
                             for (Cinema c : validCinemas) {
                                 if (c.getName().equalsIgnoreCase(input)) {
@@ -356,7 +355,7 @@ public class CinemaRunner {
                             }
 
                             if (isCustomer) {
-                                u.book(wantedMov, wantedCinema, validCards, validGiftCards, customer);
+                                savedCard = u.book(wantedMov, wantedCinema, validCards, validGiftCards, customer, savedCard);
                             }
                             //guest
                             else {
@@ -369,12 +368,12 @@ public class CinemaRunner {
                                 input = u.bookMovie();
 
                                 switch (input) {
-                                    case "1":
+                                    case "1" -> {
                                         //prompt guest to make an account
                                         System.out.println("To proceed with booking, please make an account.\n");
                                         input = u.promptAccount();
                                         switch (input) {
-                                            case "1":
+                                            case "1" -> {
                                                 boolean signedUp = false;
                                                 //prompt guest to make a new account
                                                 while (!signedUp) {
@@ -383,8 +382,7 @@ public class CinemaRunner {
                                                     if (input.equalsIgnoreCase("cancel")) {
                                                         u.writeError("guest", "user cancelled");
                                                         break;
-                                                    }
-                                                    else {
+                                                    } else {
                                                         String username = input;
 
                                                         input = u.enterPasswordGuest();
@@ -394,28 +392,26 @@ public class CinemaRunner {
                                                         signedUp = true;
                                                         isCustomer = true;
 
-                                                        //add guest payment
-
-                                                        u.book(wantedMov, wantedCinema, validCards, validGiftCards, newCustomer);
+                                                        savedCard = u.book(wantedMov, wantedCinema, validCards, validGiftCards, newCustomer, savedCard);
                                                     }
                                                 }
-                                                break;
-                                            case "2":
-                                                //return guest to default page
-                                                u.writeError("guest", "user cancelled");
-                                                break;
-                                            default:
+                                            }
+                                            case "2" ->
+                                                    //return guest to default page
+                                                    u.writeError("guest", "user cancelled");
+                                            default -> {
                                                 System.out.println("Invalid Input, please try again.\n");
                                                 u.writeError("guest", "invalid input");
+                                            }
                                         }
-                                        break;
-                                    case "2":
-                                        //don't book
-                                        u.writeError("guest", "user cancelled");
-                                        break;
-                                    default:
+                                    }
+                                    case "2" ->
+                                            //don't book
+                                            u.writeError("guest", "user cancelled");
+                                    default -> {
                                         System.out.println("Invalid Input, please try again.\n");
                                         u.writeError("guest", "invalid input");
+                                    }
                                 }
 
                             }
@@ -496,7 +492,7 @@ public class CinemaRunner {
                             }
 
                             if (isCustomer) {
-                                u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, customer);
+                                savedCard = u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, customer, savedCard);
                             }
                             else {
                                 System.out.println("-------------------------------------------------------");
@@ -533,7 +529,7 @@ public class CinemaRunner {
                                                         signedUp = true;
                                                         isCustomer = true;
 
-                                                        u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, newCustomer);
+                                                        savedCard = u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, newCustomer, savedCard);
                                                     }
                                                 }
                                                 break;
