@@ -421,7 +421,7 @@ class CinemaTest {
 
     @Test
     public void userCardInit(){
-        String input = "resources/creditcards.txt"
+        String input = "resources/test_cards.txt";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
     }
