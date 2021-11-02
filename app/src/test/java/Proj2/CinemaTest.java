@@ -365,5 +365,6 @@ class CinemaTest {
             }
         }
         assertFalse(flag, "Values don't match");
+        assertEquals(testCard1.readCards("resources/null.txt"), null, "Read file successfully");
     }
 }
