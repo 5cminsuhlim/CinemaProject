@@ -79,7 +79,7 @@ def genCinemas(cinema_count, movie_list):
         days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         times = [x for x in range(10, 23) if x % 2 == 0]
 
-        random_movies = random.sample(movie_list, int(round(3 * len(movie_list) / 5)))
+        random_movies = random.sample(movie_list, int(round(1 * len(movie_list) / 5)))
 
         screenSizes = ["Bronze", "Silver", "Gold"]
         instances = []

@@ -48,6 +48,10 @@ public class MovieInstance{
         this.bookings = 0;
     }
 
+    public Movie getParent(){
+        return this.parent;
+    }
+
     public String getBasePrice() {
         return String.valueOf(basePrice);
     }
