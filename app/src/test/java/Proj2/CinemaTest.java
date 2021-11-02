@@ -394,7 +394,7 @@ class CinemaTest {
     @Test
     public void userInput1(){
         //Add movie data
-        String input = "John\n" + "Good Movie\n" + "G\n" + "11/11/2011\n" + "Jane Doe\n" + "cancel\n";
+        String input = "John\n" + "Good Movie\n" + "America\n" + "G\n" + "7/11\n" + "11/11/2011\n" + "Jane Doe\n" + "cancel\n";
         // LocalDate.parse("11-11-2001");
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
