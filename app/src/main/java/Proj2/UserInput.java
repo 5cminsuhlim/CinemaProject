@@ -487,8 +487,24 @@ public class UserInput {
     }
 
     public String getCard(){
-        printStream.println("Please enter your card number:\n");
-        return scanner.nextLine();
+        String prompt = "Please enter your card number:\n";
+
+        EraserThread et = new EraserThread(prompt);
+        Thread mask = new Thread(et);
+        mask.start();
+        String cardDetail = "";
+
+        try {
+            cardDetail = scanner.nextLine();
+        } catch (Exception ioe) {
+            ioe.printStackTrace();
+        }
+        // stop masking
+        et.stopMasking();
+        printStream.print(" Input Accepted *\n\n");
+
+        // return the password entered by the user
+        return cardDetail;
     }
 
     public String getName(){
