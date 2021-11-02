@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.math.BigDecimal;
+import java.beans.Transient;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
@@ -366,5 +367,28 @@ class CinemaTest {
         }
         assertFalse(flag, "Values don't match");
         assertEquals(testCard1.readCards("resources/null.txt"), null, "Read file successfully");
+    }
+
+    @Test
+    public void cinemaSetterMethods(){
+        int c_id = 1;
+        String c_name = "Event";
+        String location = "Bondi Junction";
+        ArrayList<MovieInstance> movies = new ArrayList<MovieInstance>();
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        Cinema testCinema = new Cinema(c_id, c_name, location,movies, moviesParent);
+
+        testCinema.setLocation("Fred's House");
+        assertEquals(testCinema.getLocation(), "Fred's House", "Incorrect Location");
+
+        ArrayList<MovieInstance> movies2 = new ArrayList<MovieInstance>();
+        testCinema.setMovies(movies2);
+        assertEquals(testCinema.getMovies(), movies2, "Incorrect movies");
+        testCinema.setName("John's House");
+        assertEquals(testCinema.getName(), "John's House", "Incorrect Name");
+
+        assertEquals(testCinema.getMovieParents(), moviesParent, "Incorrect parent array");
+        assertEquals(testCinema.getId(), c_id, "Incorrect ID");
+
     }
 }
