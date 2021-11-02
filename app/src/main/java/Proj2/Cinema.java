@@ -30,13 +30,10 @@ public class Cinema {
         return name;
     }
 
-
-
-
     public String getTicketReceipt(){
         transactionNo++;
 
-        return id + String.valueOf(transactionNo);
+        return "Cinema ID: " + id + " Transaction No: " + String.valueOf(transactionNo);
     }
 
     public static Movie searchMovie(String search_name, ArrayList<Movie> movieslist){
