@@ -1625,8 +1625,22 @@ class CinemaTest {
 
     @Test
     public void customerTestSave() {
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "Charles";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.add(testCard1);
+        cards.add(testCard2);
         ArrayList<Customer> customers = new ArrayList<>();
-        Customer g = new Customer("Broskin", "YOYO", null,null);
+        Customer g = new Customer("Broskin", "YOYO", cards,testTickets);
         customers.add(g);
         ArrayList<Customer> empty = new ArrayList<>();
         Customer.saveCustomers("resources/test_customers", customers);
@@ -1650,5 +1664,74 @@ class CinemaTest {
         Customer.readCustomers("resources/test_customers", empty);
         Customer.readCustomers("resources/test_customers.txt", cards);
         Customer.readCustomers("resources/test_customers.txt", empty);
+    }
+
+    @Test
+    public void userInputTestSingleInstanceDelete() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Cinema testCinema2 = new Cinema(2, "swag cinema", "Swag Lake", movies, moviesParent);
+        ArrayList<Cinema> cinemas = new ArrayList<>();
+        cinemas.add(testCinema2);
+        ArrayList<Cinema> cinemas2 = new ArrayList<>();
+        cinemas2.add(testCinema2);
+//[cinema_location]:[movie_name]:[day]:[time_HH] or 'cancel':\n"
+        String input = "Swag Lake:Movie:Monday:12\n";
+        // LocalDate.parse("11-11-2001");
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        ArrayList<Cinema> skux = u.promptSingleInstanceToDelete(cinemas);
+        assertEquals(skux.size(), 1);
     }
 }
