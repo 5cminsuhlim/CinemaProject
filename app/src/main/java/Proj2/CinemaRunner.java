@@ -709,12 +709,37 @@ public class CinemaRunner {
                             if (input.equalsIgnoreCase("cancel")) {
                                 break;
                             }
+                            int m_id = -1;
+                            int c_id = -1;
+                            Movie parent = null;
+                            int fseat = -1;
+                            int mseat = -1;
+                            int rseat = -1;
+                            String ss = "";
+                            BigDecimal price = BigDecimal.ZERO;
+
+                            boolean found = false;
 
                             System.out.println("Remaining weekly showings for " + input + ":");
                             for(MovieInstance m : wantedCinema.getMovies()){
                                 if(input.equalsIgnoreCase(m.getName())){
                                     System.out.println(m.getSchedule());
+                                    m_id = m.getM_id();
+                                    c_id = m.getC_id();
+                                    parent = m.getParent();
+                                    fseat = m.getF_seatsCapacity();
+                                    mseat = m.getM_seatsCapacity();
+                                    rseat = m.getR_seatsCapacity();
+                                    ss = m.getScreenSize();
+                                    price = BigDecimal.valueOf(Double.parseDouble(m.getBasePrice()));
+                                    found = true;
+                                    break;
                                 }
+                            }
+
+                            if(!found){
+                                System.out.println("Movie " + input + " not being shown at " + wantedCinema.getName() + ".");
+                                break;
                             }
 
                             //get day
@@ -733,14 +758,15 @@ public class CinemaRunner {
 
                             //try merging time and day
                             try {
-                                timeStr = day + colonTime.format(DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH));
+                                timeStr = day + " " + colonTime.format(DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH));
                             }
                             catch (Exception e) {
                                 System.out.println("Invalid Input, please try again.\n");
                                 break;
                             }
 
-                            wantedCinema.setSchedule(timeStr, movie);
+                            MovieInstance newShowing = new MovieInstance(m_id, c_id, parent, fseat, mseat, rseat, day, colonTime, ss, price);
+                            wantedCinema.addSchedule(newShowing);
 
                             break;
 
