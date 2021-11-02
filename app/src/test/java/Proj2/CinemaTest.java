@@ -458,6 +458,7 @@ class CinemaTest {
         u.writeError("Bobby brown", "No more popcorn left");
         u.getManagerReport();
         u.readManagerReport("bob");
+        u.saveManagerReport("resources/test_managerreport.txt");
         u.readManagerReport(filename);
     }
 
