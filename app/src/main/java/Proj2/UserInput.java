@@ -1101,9 +1101,9 @@ public class UserInput {
             if(movies.get(i).getId() != i){
                 Movie newMovie = new Movie(i, name, synopsis, rating, date, castList);
                 movies.add(i, newMovie);
-                return movies;
+                break;
             }
         }
-        return null;
+        return movies;
     }
 }
