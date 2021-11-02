@@ -275,6 +275,7 @@ class CinemaTest {
         Card testCard2 = new Card(cardNumber2, cardHolderName2);
         ArrayList<Card> testCards = new ArrayList<Card>();
         ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        validGiftCards.add(new GiftCard("1234567891123456GC", false));
         testCards.add(testCard1);
         testCards.add(testCard2);
         String testTicket1 = "Ticket1";
@@ -334,11 +335,11 @@ class CinemaTest {
         assertEquals(testCinema.getMovies(), movies1, "Movies list returned is incorrect");
 
         assertEquals(testCinema.getId(), c_id, "Cinema ID returned is incorrect");
-        
-        // String input = "1\n" + "1\n" + "1\n" + "1\n" + "1\n" + "1\n"+ "1\n"+ "1\n"+ "1\n" + "";
-        // InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
-        // UserInput u = new UserInput(is, System.out);
-        // u.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+
+         String input = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "2\n" + "1234567891123456GC\n";
+         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+         UserInput u = new UserInput(is, System.out);
+         u.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
     }
 
     @Test
@@ -1956,5 +1957,6 @@ class CinemaTest {
 
         assertEquals(output1, "Staff1");
     }
+
 
 }
