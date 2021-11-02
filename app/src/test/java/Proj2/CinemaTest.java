@@ -3,6 +3,7 @@
  */
 package Proj2;
 
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
@@ -1986,7 +1987,6 @@ class CinemaTest {
         ArrayList<Cinema> cinemas2 = new ArrayList<>();
         cinemas2.add(testCinema2);
         String input = "Staff1\n";
-        // LocalDate.parse("11-11-2001");
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
         String output1 = u.promptRemoveStaff(customers);
@@ -1994,5 +1994,100 @@ class CinemaTest {
         assertEquals(output1, "Staff1");
     }
 
+    @Test
+    public void userInputTestAddGiftCard() {
+        GiftCard card = new GiftCard("1234567891123456GC", false);
+        ArrayList<GiftCard> cards = new ArrayList<>();
+        cards.add(card);
+
+        String input = "1234567891123456GC\n";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output1 = u.promptGiftCard(cards);
+
+        assertEquals(output1, "1234567891123456GC");
+
+        String input2 = "90123913\n1234567891123456GC";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output2 = u2.promptGiftCard(cards);
+
+        assertEquals(output2, "1234567891123456GC");
+    }
+
+    @Test
+    public void userInputTestLocation() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+        ArrayList<Customer> customers = new ArrayList<Customer>();
+        Customer g = new Customer("Staff1", "defstaffnotsus", null,null);
+        customers.add(g);
+
+        Cinema testCinema2 = new Cinema(2, "swag cinema", "Swag Lake", movies, moviesParent);
+        ArrayList<Cinema> cinemas2 = new ArrayList<>();
+        cinemas2.add(testCinema2);
+        String input = "invalid\nSwag Lake\n";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output1 = u.promptLocation(cinemas2);
+
+        String input2 = "invalid\ncancel\n";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output2 = u2.promptLocation(cinemas2);
+
+        assertEquals(output1, "Swag Lake");
+        assertEquals(output2, "cancel");
+    }
 
 }
