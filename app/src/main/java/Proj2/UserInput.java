@@ -320,10 +320,36 @@ public class UserInput {
     // Add option to save card detail
     public void book(MovieInstance wantedMov, Cinema cinema, ArrayList<Card> validCards, ArrayList<GiftCard> validGiftCards, Customer customer){
         int numPeople = this.getNumPeople();
+        int numF = -1;
+        int numM = -1;
+        int numR = -1;
 
-        int numF = this.promptFSeats(wantedMov.getF_seatsOpen());
-        int numM = this.promptMSeats(wantedMov.getM_seatsOpen());
-        int numR = this.promptRSeats(wantedMov.getR_seatsOpen());
+        boolean correctsum = false;
+        while(!correctsum) {
+            numF = this.promptFSeats(wantedMov.getF_seatsOpen());
+            if(numF == -2 ){
+                printStream.println("Cancelling Transaction \n");
+                return;
+            }
+            numM = this.promptMSeats(wantedMov.getM_seatsOpen());
+            if(numM == -2 ){
+                printStream.println("Cancelling Transaction \n");
+                return;
+            }
+            numR = this.promptRSeats(wantedMov.getR_seatsOpen());
+            if(numR == -2 ){
+                printStream.println("\n Cancelling Transaction \n");
+                return;
+            }
+
+            if((numF + numM + numR)!=numPeople){
+                printStream.println("Incorrect number of seats. Please try again or cancel transaction \n");
+
+            }
+            else{
+                correctsum = true;
+            }
+        }
 
         String input = this.promptPayment();
 
@@ -461,11 +487,16 @@ public class UserInput {
         boolean isValid = false;
         int count = 0;
 
+
         while(!isValid){
             printStream.println("Number of Front Seats Available: " + openF);
             printStream.println("Please enter the number of front seats to book:");
+            String userin = scanner.nextLine();
+            if (userin.equalsIgnoreCase("cancel")){
+                return -2;
+            }
             try {
-                count = Integer.parseInt(scanner.nextLine());
+                count = Integer.parseInt(userin);
 
                 if (count <= openF) {
                     isValid = true;
@@ -487,15 +518,19 @@ public class UserInput {
         while(!isValid){
             printStream.println("Number of Middle Seats Available: " + openM);
             printStream.println("Please enter the number of front seats to book:");
+            String userin = scanner.nextLine();
+            if (userin.equalsIgnoreCase("cancel")){
+                return -2;
+            }
             try {
-                count = Integer.parseInt(scanner.nextLine());
+                count = Integer.parseInt(userin);
 
                 if (count <= openM) {
                     isValid = true;
                 } else {
                     printStream.println("Invalid input, please try again.");
                 }
-            }catch(Exception e){
+            } catch(Exception e){
                 printStream.println("Invalid input, please try again.");
             }
         }
@@ -510,16 +545,19 @@ public class UserInput {
         while(!isValid){
             printStream.println("Number of Rear Seats Available: " + openR);
             printStream.println("Please enter the number of front seats to book:");
-            try{
-                count = Integer.parseInt(scanner.nextLine());
+            String userin = scanner.nextLine();
+            if (userin.equalsIgnoreCase("cancel")){
+                return -2;
+            }
+            try {
+                count = Integer.parseInt(userin);
 
-                if(count <= openR){
+                if (count <= openR) {
                     isValid = true;
-                }
-                else{
+                } else {
                     printStream.println("Invalid input, please try again.");
                 }
-            }catch(Exception e){
+            } catch(Exception e){
                 printStream.println("Invalid input, please try again.");
             }
         }
