@@ -422,7 +422,6 @@ class CinemaTest {
         ArrayList<Movie> movies = new ArrayList<Movie>();
         movies.add(newMovie);
         movies.add(newMovie2);
-        u.addMovieData(movies);
     }
 
     @Test
@@ -432,7 +431,6 @@ class CinemaTest {
         UserInput u = new UserInput(is, System.out);
         u.cardInit();
     }
-
     @Test
     public void testGetUsername(){
         String input = "Jeff";
@@ -470,10 +468,4 @@ class CinemaTest {
         UserInput u = new UserInput(is, System.out);
         assertEquals(u.getPassword(), input, "Invalid Password");
     }
-
-    @Test
-    public void bookingTest(){
-
-    }
-
 }
