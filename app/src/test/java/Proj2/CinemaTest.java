@@ -391,6 +391,7 @@ class CinemaTest {
         assertEquals(testCinema.getId(), c_id, "Incorrect ID");
         }
 
+
     @Test
     public void userInput1(){
         //Add movie data

@@ -3,15 +3,70 @@ package Proj2;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.io.*;
 
 public class UserInput {
     private Scanner scanner;
     private PrintStream printStream;
+    private ArrayList<String> cancelledTransactions = new ArrayList<>();
+
+    public void getManagerReport(){
+        for(String s : cancelledTransactions){
+            printStream.print(s.replace(",", " ") + "\n");
+        }
+        cancelledTransactions.clear();
+    }
+
+    public void saveManagerReport(){
+        try {
+            File f = new File("../managerreport.txt");
+            if(f.exists() && !f.isDirectory()) {
+                f.delete();
+                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream("../managerreport.txt"), StandardCharsets.UTF_8))) {
+                    for (String s : this.cancelledTransactions) {
+                        writer.write(s + "\n");
+                    }
+                } catch (Exception e) {
+                    printStream.println("Error saving the manager report.");
+                }
+            }
+        } catch (Exception e){
+            printStream.println("Error saving the manager report.");
+        }
+    }
+
+    public void readManagerReport() {
+        try {
+            File file = new File("../managerreport.txt");
+            Scanner input = new Scanner(file);
+            while (input.hasNextLine()) { //reads all lines of the file
+                try {
+                    this.cancelledTransactions.add(input.nextLine());
+                } catch(Exception e){
+                    break;
+                }
+            }
+        } catch(Exception e){
+            printStream.println("Error reading the manager report.");
+        }
+    }
+
+    public void writeError(String user, String reason){
+//A summary of cancelled transactions by the user. This summary only includes date and time of the cancelled,
+//the user (if available, otherwise "anonymous") and the reasons
+//(e.g. "timeout", "user cancelled", "card payment failed", etc.)
+        LocalDate localDate = LocalDate.now();
+        LocalTime localTime = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
+        String output = localDate.toString() + "," + localTime.toString() + "," + user + "," + reason;
+        cancelledTransactions.add(output);
+    }
 
     public UserInput(InputStream inputStream, PrintStream printStream) {
         this.scanner = new Scanner(inputStream);
@@ -300,6 +355,7 @@ public class UserInput {
                                 }
                                 else {
                                     System.out.println("Invalid name. Exiting payment...\n");
+                                    this.writeError(customer.getUsername(), "invalid card");
                                     break;
                                 }
 
@@ -307,6 +363,7 @@ public class UserInput {
 
                             if (!cardFound) {
                                 System.out.println("Card not found. Exiting payment...\n");
+                                this.writeError(customer.getUsername(), "invalid card");
                                 break;
                             }
                         }
@@ -329,15 +386,18 @@ public class UserInput {
                         }
                         else{
                             System.out.println("Card already exists. Exiting payment...\n");
+                            this.writeError(customer.getUsername(), "invalid card");
                             break;
                         }
                         break;
 
                     case "cancel":
+                        this.writeError(customer.getUsername(), "user cancelled");
                         break;
 
                     default:
                         System.out.println("Invalid Input, please try again.\n");
+                        this.writeError(customer.getUsername(), "invalid input");
                         break;
                 }
                 break;
@@ -350,25 +410,26 @@ public class UserInput {
                 for (GiftCard g : validGiftCards) {
                     //if found and not redeemed
                     if (g.getGiftCardNumber().equalsIgnoreCase(input) && !g.isRedeemed()) {
-                        giftCardFound = true;
+                        wantedMov.bookCustomerGiftCard(customer, cinema, g, numPeople, numF, numM, numR);
+                        break;
 
-                        if (giftCardFound) {
-                            wantedMov.bookCustomerGiftCard(customer, cinema, g, numPeople, numF, numM, numR);
-                            break;
-                        }
                     } else if (g.getGiftCardNumber().equalsIgnoreCase(input) && g.isRedeemed()) {
                         System.out.println("This gift card has already been redeemed. Exiting payment...\n");
+                        this.writeError(customer.getUsername(), "already redeemed giftcard");
                         break;
                     }
                 }
                 System.out.println("Gift Card not found. Exiting payment...\n");
+                this.writeError(customer.getUsername(), "invalid giftcard");
                 break;
 
             case "cancel":
+                this.writeError(customer.getUsername(), "user cancelled");
                 break;
 
             default:
                 System.out.println("Invalid Input, please try again.\n");
+                this.writeError(customer.getUsername(), "invalid input");
                 break;
         }
     }

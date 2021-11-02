@@ -188,6 +188,9 @@ try:
     genSchedule(cinemas_list)
     genGiftCards(card_count)
     genCustomers(cards_list)
+    f = open("../../../managerreport.txt", "w")
+    f.close()
+
 except Exception as e:
     print(traceback.format_exc())
     print(
