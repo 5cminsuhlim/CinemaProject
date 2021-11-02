@@ -418,4 +418,11 @@ class CinemaTest {
 
         u.addMovieData(movies);
     }
+
+    @Test
+    public void userCardInit(){
+        String input = "resources/creditcards.txt"
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+    }
 }
