@@ -452,6 +452,7 @@ class CinemaTest {
         String input = "";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
+        u.writeError("Bobby brown", "No more popcorn left");
         u.readManagerReport("bob");
         u.readManagerReport(filename);
     }
