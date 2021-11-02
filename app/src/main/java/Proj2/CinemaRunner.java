@@ -961,6 +961,10 @@ public class CinemaRunner {
         u.customerSave(validCustomers);
         u.cinemaSave(validCinemas);
         u.movieSave(validMovies);
-        u.saveManagerReport("../managerreport.txt");
+        try {
+            u.saveManagerReport("../managerreport.txt");
+        } catch (Exception e) {
+            System.out.println("Failure to save Manager Report!!");
+        }
     }
 }

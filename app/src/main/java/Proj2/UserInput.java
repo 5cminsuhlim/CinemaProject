@@ -23,19 +23,15 @@ public class UserInput {
         cancelledTransactions.clear();
     }
 
-    public void saveManagerReport(String filename){
+    public void saveManagerReport(String filename) throws Exception{
         File f = new File(filename);
         if(f.exists() && !f.isDirectory()) {
             f.delete();
-            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(filename), StandardCharsets.UTF_8))) {
+            Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8));
                 for (String s : this.cancelledTransactions) {
                     writer.write(s + "\n");
-                }
-            } catch (Exception e) {
-                printStream.println("Error saving the manager report.");
+                }   
             }
-        }
     }
 
     public void readManagerReport(String filename) {

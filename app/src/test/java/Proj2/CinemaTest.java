@@ -439,14 +439,14 @@ class CinemaTest {
     }
 
     @Test
-    public void testSaveManagerReport(){
+    public void testSaveManagerReport() throws Exception {
         String input = "";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
+        u.saveManagerReport("");
         u.saveManagerReport("resources/test_managerreport.txt");
         u.writeError("Bobby brown", "No more popcorn left");
         u.saveManagerReport("resources/test_managerreport.txt");
-        u.saveManagerReport("");
     }
 
     @Test
@@ -459,6 +459,14 @@ class CinemaTest {
         u.getManagerReport();
         u.readManagerReport("bob");
         u.readManagerReport(filename);
+    }
+
+    @Test
+    public void testGetPassword(){
+        String input = "Jeff";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        assertEquals(u.getPassword(), input, "Invalid Password");
     }
 
 }
