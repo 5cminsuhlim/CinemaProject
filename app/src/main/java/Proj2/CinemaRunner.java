@@ -861,7 +861,7 @@ public class CinemaRunner {
 
                             MovieInstance newShowing = new MovieInstance(m_id, c_id, parent, fseat, mseat, rseat, day, colonTime, ss, price);
                             wantedCinema.addSchedule(newShowing);
-
+                            wantedCinema.sort();
                             break;
 
                         case "5":
