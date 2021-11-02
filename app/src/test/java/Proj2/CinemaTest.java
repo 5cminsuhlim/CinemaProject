@@ -1622,4 +1622,33 @@ class CinemaTest {
 
         assertEquals(testCinema.getSchedule(), movInst.getName() + ": " + movInst.getSchedule());
     }
+
+    @Test
+    public void customerTestSave() {
+        ArrayList<Customer> customers = new ArrayList<>();
+        Customer g = new Customer("Broskin", "YOYO", null,null);
+        customers.add(g);
+        ArrayList<Customer> empty = new ArrayList<>();
+        Customer.saveCustomers("resources/test_customers", customers);
+        Customer.saveCustomers("resources/test_customers.txt", customers);
+        Customer.saveCustomers("resources/test_customers.txt", empty);
+    }
+
+    @Test
+    public void customerTestRead() {
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "Charles";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.add(testCard1);
+        cards.add(testCard2);
+
+        ArrayList<Card> empty = new ArrayList<>();
+        Customer.readCustomers("resources/test_customers", empty);
+        Customer.readCustomers("resources/test_customers.txt", cards);
+        Customer.readCustomers("resources/test_customers.txt", empty);
+    }
 }
