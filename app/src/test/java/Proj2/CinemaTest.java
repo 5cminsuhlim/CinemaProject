@@ -436,12 +436,6 @@ class CinemaTest {
     }
 
     @Test
-    public void testGetManagerReport(){
-        UserInput u = new UserInput(System.in, System.out);
-        u.getManagerReport();
-    }
-
-    @Test
     public void testSaveManagerReport(){
 
     }
@@ -453,6 +447,7 @@ class CinemaTest {
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
         u.writeError("Bobby brown", "No more popcorn left");
+        u.getManagerReport();
         u.readManagerReport("bob");
         u.readManagerReport(filename);
     }
