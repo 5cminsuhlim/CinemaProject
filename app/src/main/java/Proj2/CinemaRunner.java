@@ -722,15 +722,17 @@ public class CinemaRunner {
 
                             //get time
                             input = u.promptScreeningTime(day);
+                            int hours = Integer.parseInt(input.substring(0, 2));
+                            int mins = Integer.parseInt(input.substring(3));
 
                             //convert string time to time obj
-                            LocalTime test = LocalTime.parse(input);
+                            LocalTime colonTime = LocalTime.of(hours, mins);
 
                             String timeStr = "";
 
                             //try merging time and day
                             try {
-                                timeStr = day + test.format(DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH));
+                                timeStr = day + colonTime.format(DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH));
                             }
                             catch (Exception e) {
                                 System.out.println("Invalid Input, please try again.\n");
