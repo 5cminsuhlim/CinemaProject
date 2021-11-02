@@ -1489,6 +1489,7 @@ class CinemaTest {
         cinemas.add(testCinema);
 
         Cinema.saveCinemas("resources/test_cinemas", cinemas);
+        Cinema.saveCinemas("resources/test_cinemas.txt", cinemas);
     }
 
     @Test
@@ -1553,8 +1554,8 @@ class CinemaTest {
         testTickets.add(testTicket2);
 
         Cinema testCinema = new Cinema(c_id, c_name, location, movies, moviesParent);
-
         Cinema.readCinemas("resources/test_cinemas", moviesParent);
+        Cinema.readCinemas("resources/test_cinemas.txt", moviesParent);
     }
 
     @Test
