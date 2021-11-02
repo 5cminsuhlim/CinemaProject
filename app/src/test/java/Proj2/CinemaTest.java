@@ -389,6 +389,7 @@ class CinemaTest {
 
         assertEquals(testCinema.getMovieParents(), moviesParent, "Incorrect parent array");
         assertEquals(testCinema.getId(), c_id, "Incorrect ID");
+        assertEquals(testCinema.getLocation(), location, "Incorrect location");
 
     }
 }
