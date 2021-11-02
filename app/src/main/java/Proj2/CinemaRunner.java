@@ -338,6 +338,7 @@ public class CinemaRunner {
                             }
 
                             if(!isValid) {
+                                //CUSTOMER CANCELS
                                 break;
                             }
 
@@ -411,41 +412,134 @@ public class CinemaRunner {
                         case "3":
                             //prompt guest to look up screen size
                             input = u.findScreen();
-                            found = false;
+
 
                             if(input.length() == 0){
                                 System.out.println("Invalid screen size\n");
                                 break;
                             }
+                            found = false;
+                            boolean screensizefound = false;
+                            count = 0;
+                            foundMovieInstance = new ArrayList<MovieInstance>();
+                            foundMCInstance = new HashMap<>();
 
                             for (Cinema c : validCinemas) {
-                                ArrayList<String> seen = new ArrayList<String>();
-                                String curr = "";
-
-                                //print cinema name + location
+                                cinemaFound = false;
+                                System.out.println("-------------------------------------------------------");
                                 System.out.println("Cinema Name: " + c.getName() + "\nLocation: " + c.getLocation());
+                                System.out.println("-------------------------------------------------------");
 
                                 for (MovieInstance m : c.getMovies()) {
-                                    //if screen size is found
-                                    if (m.getScreenSize().equalsIgnoreCase(input)) {
+                                    //if movie is found
+                                    if (m.getScreenSize().equalsIgnoreCase(input)){
+                                        count++;
                                         found = true;
-
-                                        //print movie name
-                                        curr = m.getName();
-
-                                        if(!seen.contains(curr)){
-                                            System.out.println(curr);
-
-                                            seen.add(curr);
-                                        }
+                                        screensizefound = true;
+                                        foundMCInstance.put(m, c);
+                                        foundMovieInstance.add(m);
+                                        System.out.println("Option " + count + ":");
+                                        System.out.println(m.getSchedule() + ", " + m.getScreenSize() + "\n");
                                     }
+                                }
+                                if (!screensizefound) {
+                                    System.out.println("No movies with desired screen size at this cinema.\n");
                                 }
                             }
                             if (!found) {
-                                System.out.println("Invalid screen size\n");
+                                System.out.println("Invalid input, please try another screen size.\n");
+                                break;
+                            }
+
+                            isValid = false;
+
+                            while(!isValid) {
+                                input = u.promptChoice();
+
+                                if(input.length() == 0){
+                                    System.out.println("Invalid Input, please try again.\n");
+                                    break;
+                                }
+
+                                if (input.equalsIgnoreCase("cancel")) {
+                                    break;
+                                }
+                                else if (Integer.valueOf(input) < 1 || Integer.valueOf(input) > foundMovieInstance.size()) {
+                                    System.out.println("Invalid input, please try again.\n");
+                                }
+                                else {
+                                    isValid = true;
+                                }
+                            }
+
+                            if(!isValid) {
+                                //CUSTOMER CANCELS
+                                break;
+                            }
+
+                            wantedMov = foundMovieInstance.get(Integer.valueOf(input) - 1);
+
+                            if(foundMovieInstance.size() > 0) {
+                                System.out.println(wantedMov.getMovieDetails() + "\n");
+                            }
+
+                            if (isCustomer) {
+                                u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, customer);
+                            }
+                            else {
+                                System.out.println("-------------------------------------------------------");
+                                System.out.println("Cinema Name: " + foundMCInstance.get(wantedMov).getName() +
+                                        "\nLocation: " + foundMCInstance.get(wantedMov).getLocation());
+                                System.out.println("-------------------------------------------------------");
+                                System.out.println(wantedMov.getSchedule() + ", " + wantedMov.getScreenSize() + "\n");
+
+                                input = u.bookMovie();
+
+                                switch (input) {
+                                    case "1":
+                                        //prompt guest to make an account
+                                        System.out.println("To proceed with booking, please make an account.\n");
+                                        input = u.promptAccount();
+                                        switch (input) {
+                                            case "1":
+                                                boolean signedUp = false;
+                                                //prompt guest to make a new account
+                                                while (!signedUp) {
+                                                    input = u.enterUsernameGuest(validCustomers);
+
+                                                    if (input.equalsIgnoreCase("cancel")) {
+                                                        break;
+                                                    }
+                                                    else {
+                                                        String username = input;
+
+                                                        input = u.enterPasswordGuest();
+
+                                                        Customer newCustomer = new Customer(username, input, null, null);
+                                                        validCustomers.add(newCustomer);
+                                                        signedUp = true;
+                                                        isCustomer = true;
+
+                                                        u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, newCustomer);
+                                                    }
+                                                }
+                                                break;
+                                            case "2":
+                                                //return guest to default page
+                                                break;
+                                            default:
+                                                System.out.println("Invalid Input, please try again.\n");
+                                        }
+                                        break;
+                                    case "2":
+                                        //don't book
+                                        break;
+                                    default:
+                                        System.out.println("Invalid Input, please try again.\n");
+                                }
+
                             }
                             break;
-
                         case "4":
                             //return to default page
                             notQuit = false;
