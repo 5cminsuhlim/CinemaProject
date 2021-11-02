@@ -23,12 +23,12 @@ public class UserInput {
         cancelledTransactions.clear();
     }
 
-    public void saveManagerReport(){
-        File f = new File("../managerreport.txt");
+    public void saveManagerReport(String filename){
+        File f = new File(filename);
         if(f.exists() && !f.isDirectory()) {
             f.delete();
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("../managerreport.txt"), StandardCharsets.UTF_8))) {
+                    new FileOutputStream(filename), StandardCharsets.UTF_8))) {
                 for (String s : this.cancelledTransactions) {
                     writer.write(s + "\n");
                 }

@@ -443,15 +443,15 @@ class CinemaTest {
         String input = "";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
-        u.saveManagerReport();
-        File test_file = new File("../managerreport.txt");
-        u.saveManagerReport();
-        test_file.delete();
+        u.saveManagerReport("resources/test_managerreport.txt");
+        u.writeError("Bobby brown", "No more popcorn left");
+        u.saveManagerReport("resources/test_managerreport.txt");
+        u.saveManagerReport("");
     }
 
     @Test
     public void testReadManReport(){
-        String filename = "resources/test_mangerreport.txt";
+        String filename = "resources/test_managerreport.txt";
         String input = "";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
