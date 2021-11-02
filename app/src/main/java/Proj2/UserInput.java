@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class UserInput {
@@ -833,6 +834,78 @@ public class UserInput {
             }
         }
         return change;
+    }
+
+    public String findMovieScreenings(ArrayList<Cinema> cinemas){
+        boolean isValid = false;
+        String movie = "";
+
+        while(!isValid){
+            printStream.println("Please enter the movie title for which you want to add showings ('cancel' to exit):");
+            movie = scanner.nextLine();
+
+            if(movie.length() == 0){
+                printStream.println("Invalid input, please try again.");
+            }
+            else if(movie.equalsIgnoreCase("cancel")){
+                return "cancel";
+            }
+
+            for(Cinema c : cinemas){
+                //finds cinema with matching name
+                for(MovieInstance m : c.getMovies()){
+                    if(movie.equalsIgnoreCase(m.getName())){
+                        isValid = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return movie;
+    }
+
+    public String promptScreeningDay(){
+        boolean isValid = false;
+        String day = "";
+        List<String> days = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+
+        while(!isValid){
+            printStream.println("Please enter the new showing day [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday] ('cancel' to exit):");
+            day = scanner.nextLine();
+
+            if(day.length() == 0 || !days.contains(day)){
+                printStream.println("Invalid input, please try again.");
+            }
+            else if(day.equalsIgnoreCase("cancel")){
+                return "cancel";
+            }
+            else{
+                isValid = true;
+            }
+        }
+        return day;
+    }
+
+    public String promptScreeningTime(String day){
+        boolean isValid = false;
+        String time = "";
+
+        while(!isValid){
+            printStream.println("Please enter the screening time for " + day + " ('cancel' to exit):");
+            time = scanner.nextLine();
+
+            if(time.length() == 0){
+                printStream.println("Invalid input, please try again.");
+            }
+            else if(time.equalsIgnoreCase("cancel")){
+                return "cancel";
+            }
+            else{
+                isValid = true;
+                break;
+            }
+        }
+        return time;
     }
 
     public String promptGiftCard(ArrayList<GiftCard> giftCards){
