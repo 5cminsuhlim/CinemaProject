@@ -1096,11 +1096,10 @@ public class UserInput {
             }
         }
 
-        for(int i = 1; i <= 99; i++){
-            if(movies.get(i).getId() != i){
+        for(int i = 0; i <= 99; i++){
+            if(movies.get(i).getId() != i+1){
                 Movie newMovie = new Movie(i, name, synopsis, rating, date, castList);
-                movies.add(i, newMovie);
-                break;
+                movies.add(newMovie);
             }
         }
         return movies;
