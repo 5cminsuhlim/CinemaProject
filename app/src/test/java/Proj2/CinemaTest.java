@@ -424,5 +424,6 @@ class CinemaTest {
         String input = "resources/test_cards.txt";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
+        u.cardInit();
     }
 }
