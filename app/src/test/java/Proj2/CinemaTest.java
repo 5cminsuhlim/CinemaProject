@@ -437,7 +437,10 @@ class CinemaTest {
 
     @Test
     public void testSaveManagerReport(){
-
+        String input = "";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        u.saveManagerReport();
     }
 
     @Test
