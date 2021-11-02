@@ -43,3 +43,4 @@ Eric Lim, Lachlan Murphy, Sean Kunkler
 **Note: All members had equal contribution due to the nature of the project (University Assignment)**
 
 If you would like to contribute to the assignment, please contact us at realemail@gmail.com, where we can discuss your role in the project and potentially add you as a contributor on our GitHub repo.
+
