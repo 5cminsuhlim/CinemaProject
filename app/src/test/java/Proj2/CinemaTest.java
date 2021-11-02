@@ -1309,4 +1309,44 @@ class CinemaTest {
         assertEquals(movInst.getM_seatsOpen(), 25);
         assertEquals(movInst.getR_seatsOpen(), 15);
     }
+
+    @Test
+    public void testGetTicketPriceInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(0, movInst.getTicketPrice().compareTo(new BigDecimal("32")));
+        movInst.setScreenSize("silver");
+        assertEquals(0, movInst.getTicketPrice().compareTo(new BigDecimal("24")));
+        movInst.setScreenSize("bronze");
+        assertEquals(0, movInst.getTicketPrice().compareTo(new BigDecimal("16")));
+    }
 }
