@@ -24,27 +24,23 @@ public class UserInput {
     }
 
     public void saveManagerReport(){
-        try {
-            File f = new File("../managerreport.txt");
-            if(f.exists() && !f.isDirectory()) {
-                f.delete();
-                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                        new FileOutputStream("../managerreport.txt"), StandardCharsets.UTF_8))) {
-                    for (String s : this.cancelledTransactions) {
-                        writer.write(s + "\n");
-                    }
-                } catch (Exception e) {
-                    printStream.println("Error saving the manager report.");
+        File f = new File("../managerreport.txt");
+        if(f.exists() && !f.isDirectory()) {
+            f.delete();
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("../managerreport.txt"), StandardCharsets.UTF_8))) {
+                for (String s : this.cancelledTransactions) {
+                    writer.write(s + "\n");
                 }
+            } catch (Exception e) {
+                printStream.println("Error saving the manager report.");
             }
-        } catch (Exception e){
-            printStream.println("Error saving the manager report.");
         }
     }
 
-    public void readManagerReport() {
+    public void readManagerReport(String filename) {
         try {
-            File file = new File("../managerreport.txt");
+            File file = new File(filename);
             Scanner input = new Scanner(file);
             while (input.hasNextLine()) { //reads all lines of the file
                 try {

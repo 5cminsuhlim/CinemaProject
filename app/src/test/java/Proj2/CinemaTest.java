@@ -416,7 +416,6 @@ class CinemaTest {
         ArrayList<Movie> movies = new ArrayList<Movie>();
         movies.add(newMovie);
         movies.add(newMovie2);
-
         u.addMovieData(movies);
     }
 
@@ -435,4 +434,26 @@ class CinemaTest {
         UserInput u = new UserInput(is, System.out);
         assertEquals(u.getUsername(), input, "Invalid Username");
     }
+
+    @Test
+    public void testGetManagerReport(){
+        UserInput u = new UserInput(System.in, System.out);
+        u.getManagerReport();
+    }
+
+    @Test
+    public void testSaveManagerReport(){
+
+    }
+
+    @Test
+    public void testReadManReport(){
+        String filename = "resources/managerreport.txt";
+        String input = "";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        u.readManagerReport("bob");
+        u.readManagerReport(filename);
+    }
+
 }
