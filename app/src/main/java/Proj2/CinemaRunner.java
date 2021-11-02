@@ -238,7 +238,7 @@ public class CinemaRunner {
                                                         signedUp = true;
                                                         isCustomer = true;
 
-                                                        savedCard = u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, customer, savedCard);
+                                                        savedCard = u.book(wantedMov, foundMCInstance.get(wantedMov), validCards, validGiftCards, newCustomer, savedCard);
                                                     }
                                                 }
                                             }

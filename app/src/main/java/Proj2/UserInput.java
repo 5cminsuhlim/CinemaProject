@@ -398,7 +398,6 @@ public class UserInput {
                     case "3" ->{
                         if(savedCard == null){
                             System.out.println("No saved card from this session. Exiting payment...\n");
-                            this.writeError(customer.getUsername(), "invalid card");
                         }
                         else{
                             wantedMov.bookCustomerCard(customer, cinema, savedCard, numPeople, numF, numM, numR);
