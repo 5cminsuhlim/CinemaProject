@@ -13,7 +13,7 @@ public class CinemaRunner {
     public static void main(String[] args) {
         UserInput u = new UserInput(System.in, System.out);
         System.out.println("Initialising Cinema System...");
-        u.readManagerReport();
+        u.readManagerReport("../managerreport.txt");
         //Hardcoded boy
         customers.put("Feedback","Assign1?");
         //reads in all movies
@@ -961,6 +961,10 @@ public class CinemaRunner {
         u.customerSave(validCustomers);
         u.cinemaSave(validCinemas);
         u.movieSave(validMovies);
-        u.saveManagerReport();
+        try {
+            u.saveManagerReport("../managerreport.txt");
+        } catch (Exception e) {
+            System.out.println("Failure to save Manager Report!!");
+        }
     }
 }

@@ -18,6 +18,9 @@ import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 import java.time.*;
 
+import java.io.File;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CinemaTest {
@@ -119,10 +122,10 @@ class CinemaTest {
         ArrayList<Customer> customers = new ArrayList<Customer>();
         Customer g = new Customer("Broskin", "YOYO", null,null);
         customers.add(g);
-
         assertTrue(u.promptLogin("Broskin","YOYO",customers));
-
-    }
+        u.promptLogin("JohnJohn", "Doe", customers);
+        u.promptLogin("Broskin", "Doe", customers);
+        }
 
     @Test
     public void movieTest(){
@@ -224,7 +227,6 @@ class CinemaTest {
     @Test
     public void cinemaTest(){
         int c_id = 1;
-
         int m_id = 1;
         String name = "Movie";
         String synopsis = "Synopsis";
@@ -265,12 +267,13 @@ class CinemaTest {
         String password = "password";
 
         String cardNumber1 = "40691";
-        String cardHolderName1 = "Charles";
+        String cardHolderName1 = "username";
         String cardNumber2 = "42689";
         String cardHolderName2 = "Sergio";
         Card testCard1 = new Card(cardNumber1, cardHolderName1);
         Card testCard2 = new Card(cardNumber2, cardHolderName2);
         ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
         testCards.add(testCard1);
         testCards.add(testCard2);
         String testTicket1 = "Ticket1";
@@ -330,8 +333,11 @@ class CinemaTest {
         assertEquals(testCinema.getMovies(), movies1, "Movies list returned is incorrect");
 
         assertEquals(testCinema.getId(), c_id, "Cinema ID returned is incorrect");
-
-
+        
+        // String input = "1\n" + "1\n" + "1\n" + "1\n" + "1\n" + "1\n"+ "1\n"+ "1\n"+ "1\n" + "";
+        // InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        // UserInput u = new UserInput(is, System.out);
+        // u.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
     }
 
     @Test
@@ -416,8 +422,6 @@ class CinemaTest {
         ArrayList<Movie> movies = new ArrayList<Movie>();
         movies.add(newMovie);
         movies.add(newMovie2);
-
-        u.addMovieData(movies);
     }
 
     @Test
@@ -427,12 +431,41 @@ class CinemaTest {
         UserInput u = new UserInput(is, System.out);
         u.cardInit();
     }
-
     @Test
     public void testGetUsername(){
         String input = "Jeff";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
         assertEquals(u.getUsername(), input, "Invalid Username");
+    }
+
+    @Test
+    public void testSaveManagerReport() throws Exception {
+        String input = "";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        u.saveManagerReport("");
+        u.saveManagerReport("resources/test_managerreport.txt");
+        u.writeError("Bobby brown", "No more popcorn left");
+        u.saveManagerReport("resources/test_managerreport.txt");
+    }
+
+    @Test
+    public void testReadManReport() throws Exception{
+        String filename = "resources/test_managerreport.txt";
+        UserInput u = new UserInput(System.in, System.out);
+        u.writeError("Bobby brown", "No more popcorn left");
+        u.getManagerReport();
+        u.readManagerReport("bob");
+        u.saveManagerReport("resources/test_managerreport.txt");
+        u.readManagerReport(filename);
+    }
+
+    @Test
+    public void testGetPassword(){
+        String input = "Jeff";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        assertEquals(u.getPassword(), input, "Invalid Password");
     }
 }
