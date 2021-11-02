@@ -1488,8 +1488,11 @@ class CinemaTest {
         ArrayList<Cinema> cinemas = new ArrayList<>();
         cinemas.add(testCinema);
 
+        ArrayList<Cinema> empty = new ArrayList<>();
+
         Cinema.saveCinemas("resources/test_cinemas", cinemas);
         Cinema.saveCinemas("resources/test_cinemas.txt", cinemas);
+        Cinema.saveCinemas("resources/test_cinemas.txt", empty);
     }
 
     @Test
@@ -1554,8 +1557,10 @@ class CinemaTest {
         testTickets.add(testTicket2);
 
         Cinema testCinema = new Cinema(c_id, c_name, location, movies, moviesParent);
+        ArrayList<Movie> empty = new ArrayList<>();
         Cinema.readCinemas("resources/test_cinemas", moviesParent);
         Cinema.readCinemas("resources/test_cinemas.txt", moviesParent);
+        Cinema.readCinemas("resources/test_cinemas.txt", empty);
     }
 
     @Test
