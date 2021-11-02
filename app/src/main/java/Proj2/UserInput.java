@@ -1077,7 +1077,8 @@ public class UserInput {
         String date = scanner.nextLine();
         while(!success){
             try {
-                LocalDate.parse(date);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate.parse(date, formatter);
                 success = true;
             } catch(Exception e){
                 printStream.println("Invalid date");
