@@ -422,6 +422,7 @@ class CinemaTest {
         ArrayList<Movie> movies = new ArrayList<Movie>();
         movies.add(newMovie);
         movies.add(newMovie2);
+        u.addMovieData(movies);
     }
 
     @Test
