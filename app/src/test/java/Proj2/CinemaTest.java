@@ -432,6 +432,6 @@ class CinemaTest {
         String input = "Jeff";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
-        u.getUsername();
+        assertEquals(u.getUsername(), input, "Invalid Username");
     }
 }
