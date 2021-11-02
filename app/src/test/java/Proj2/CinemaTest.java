@@ -689,7 +689,7 @@ class CinemaTest {
 
         MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
                 day, time, screenSize, basePrice);
-        assertEquals(movInst.getF_seatsOpen(), 40);
+        assertEquals(movInst.getF_seatsOpen(), 50);
     }
 
     @Test
@@ -763,7 +763,7 @@ class CinemaTest {
 
         MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
                 day, time, screenSize, basePrice);
-        assertEquals(movInst.getM_seatsOpen(), 40);
+        assertEquals(movInst.getM_seatsOpen(), 50);
     }
 
     @Test
@@ -837,7 +837,7 @@ class CinemaTest {
 
         MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
                 day, time, screenSize, basePrice);
-        assertEquals(movInst.getR_seatsOpen(), 40);
+        assertEquals(movInst.getR_seatsOpen(), 50);
     }
 
     @Test
