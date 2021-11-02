@@ -334,16 +334,10 @@ class CinemaTest {
 
         assertEquals(testCinema.getId(), c_id, "Cinema ID returned is incorrect");
         
-        String input = "1\n" + "1\n" + "1\n" + "1\n" + "1\n" + "1\n"+ "1\n"+ "1\n"+ "1\n" + "";
-        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
-        UserInput u = new UserInput(is, System.out);
-        u.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
-
-        String input2 = "2\n" + "2\n" + "2\n" + "2\n" + "2\n" + "2\n" + "2\n" + "2\n" + "2\n" + "";
-        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
-        UserInput u2 = new UserInput(is2, System.out);
-        u2.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
-
+        // String input = "1\n" + "1\n" + "1\n" + "1\n" + "1\n" + "1\n"+ "1\n"+ "1\n"+ "1\n" + "";
+        // InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        // UserInput u = new UserInput(is, System.out);
+        // u.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
     }
 
     @Test
