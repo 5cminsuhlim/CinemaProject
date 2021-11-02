@@ -444,13 +444,9 @@ class CinemaTest {
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
         u.saveManagerReport();
-        try {
-            File test_file = new File("../managerreport.txt");
-            u.saveManagerReport();
-            test_file.delete();
-        } catch (IOException e) {
-            return;
-        }
+        File test_file = new File("../managerreport.txt");
+        u.saveManagerReport();
+        test_file.delete();
     }
 
     @Test
