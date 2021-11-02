@@ -442,7 +442,7 @@ class CinemaTest {
 
     @Test
     public void testReadManReport(){
-        String filename = "resources/managerreport.txt";
+        String filename = "resources/test_mangerreport.txt";
         String input = "";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
