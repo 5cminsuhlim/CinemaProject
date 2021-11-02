@@ -342,4 +342,28 @@ class CinemaTest {
         assertEquals(testCard1.getCardHolderName(), "jeff", "Name not changed");
 
     }
+
+    @Test
+    public void testCardsRead(){
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "Charles";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> cardList = new ArrayList<>();
+        cardList.add(testCard1);
+        cardList.add(testCard2);
+        ArrayList<Card> readCardList = testCard1.readCards("resources/test_cards.txt");
+        boolean flag = false;
+        for(int i=0; i<2; i++) {
+            if(((cardList.get(i)).getCardNumber()).equals(((readCardList.get(i)).getCardNumber())) == false) {
+                flag = true;
+            }
+            if(((cardList.get(i)).getCardHolderName()).equals(((readCardList.get(i)).getCardHolderName())) == false) {
+                flag = true;
+            }
+        }
+        assertFalse(flag, "Values don't match");
+    }
 }
