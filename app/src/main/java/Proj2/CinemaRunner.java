@@ -490,7 +490,8 @@ public class CinemaRunner {
                             if(moviesWithNewMovie != null){
                                 validMovies = moviesWithNewMovie;
                             } else {
-                                System.out.println("ERROR");
+                                System.out.println("Invalid Input, please try again.\n");
+                                break;
                             }
                         case "2":
 

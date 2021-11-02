@@ -674,7 +674,7 @@ public class UserInput {
                     }
                 }
             } catch (Exception e){
-                printStream.println("Invalid Input.");
+                printStream.println("Invalid Input, please try again.\n");
             }
         }
     }
