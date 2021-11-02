@@ -450,7 +450,7 @@ class CinemaTest {
     }
 
     @Test
-    public void testReadManReport(){
+    public void testReadManReport() throws Exception{
         String filename = "resources/test_managerreport.txt";
         String input = "";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
