@@ -446,10 +446,11 @@ class CinemaTest {
         u.saveManagerReport();
         try {
             File test_file = new File("../managerreport.txt");
+            u.saveManagerReport();
+            test_file.delete();
         } catch (IOException e) {
-            break;
+            return;
         }
-        u.saveManagerReport();
     }
 
     @Test
