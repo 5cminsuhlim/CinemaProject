@@ -18,6 +18,9 @@ import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 import java.time.*;
 
+import java.io.File;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CinemaTest {
@@ -440,6 +443,12 @@ class CinemaTest {
         String input = "";
         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         UserInput u = new UserInput(is, System.out);
+        u.saveManagerReport();
+        try {
+            File test_file = new File("../managerreport.txt");
+        } catch (IOException e) {
+            break;
+        }
         u.saveManagerReport();
     }
 
