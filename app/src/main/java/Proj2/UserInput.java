@@ -674,7 +674,7 @@ public class UserInput {
                     }
                 }
             } catch (Exception e){
-                printStream.println("Invalid Input.");
+                printStream.println("Invalid Input, please try again.\n");
             }
         }
     }
@@ -701,11 +701,11 @@ public class UserInput {
             printStream.println("Please enter the new movie name ('cancel' to exit):");
             change = scanner.nextLine();
 
-            if(change.length() == 0){
-                printStream.println("Invalid input, please try again.");
-            }
-            else if(change.equalsIgnoreCase("cancel")){
+            if(change.equalsIgnoreCase("cancel")){
                 return "cancel";
+            }
+            else if(change.length() == 0){
+                printStream.println("Invalid input, please try again.");
             }
             else{
                 isValid = true;
@@ -722,11 +722,11 @@ public class UserInput {
             printStream.println("Please enter the new movie synopsis ('cancel' to exit):");
             change = scanner.nextLine();
 
-            if(change.length() == 0){
-                printStream.println("Invalid input, please try again.");
-            }
-            else if(change.equalsIgnoreCase("cancel")){
+            if(change.equalsIgnoreCase("cancel")){
                 return "cancel";
+            }
+            else if(change.length() == 0){
+                printStream.println("Invalid input, please try again.");
             }
             else{
                 isValid = true;
@@ -744,11 +744,11 @@ public class UserInput {
             printStream.println("Please enter the new movie rating from the following list [G, PG, M, MA15+, R18+] ('cancel' to exit):");
             change = scanner.nextLine();
 
-            if(change.length() == 0 || !ratings.contains(change)){
-                printStream.println("Invalid input, please try again.");
-            }
-            else if(change.equalsIgnoreCase("cancel")){
+            if(change.equalsIgnoreCase("cancel")){
                 return "cancel";
+            }
+            else if(change.length() == 0 || !ratings.contains(change)) {
+                printStream.println("Invalid input, please try again.");
             }
             else{
                 isValid = true;
@@ -765,11 +765,11 @@ public class UserInput {
             printStream.println("Please enter the new movie release date [DD/MM/YYYY] ('cancel' to exit):");
             change = scanner.nextLine();
 
-            if(change.length() == 0){
-                printStream.println("Invalid input, please try again.");
-            }
-            else if(change.equalsIgnoreCase("cancel")){
+            if(change.equalsIgnoreCase("cancel")){
                 return "cancel";
+            }
+            else if(change.length() == 0){
+                printStream.println("Invalid input, please try again.");
             }
             else{
                 try {
@@ -809,11 +809,11 @@ public class UserInput {
             printStream.println("Please enter the new movie screen size ('cancel' to exit):");
             change = scanner.nextLine();
 
-            if(change.length() == 0){
-                printStream.println("Invalid input, please try again.");
-            }
-            else if(change.equalsIgnoreCase("cancel")){
+            if(change.equalsIgnoreCase("cancel")){
                 return "cancel";
+            }
+            else if(change.length() == 0){
+                printStream.println("Invalid input, please try again.");
             }
             else{
                 isValid = true;
@@ -830,11 +830,11 @@ public class UserInput {
             printStream.println("Please select the cinema in which the selected movie's screen size should be changed ('cancel' to exit):");
             cinema = scanner.nextLine();
 
-            if(cinema.length() == 0){
-                printStream.println("Invalid input, please try again.");
-            }
-            else if(cinema.equalsIgnoreCase("cancel")){
+            if(cinema.equalsIgnoreCase("cancel")){
                 return "cancel";
+            }
+            else if(cinema.length() == 0){
+                printStream.println("Invalid input, please try again.");
             }
 
             for(Cinema c : cinemas){
@@ -856,11 +856,11 @@ public class UserInput {
             printStream.println("Please enter the new movie ticket price ('cancel' to exit):");
             change = scanner.nextLine();
 
-            if(change.length() == 0){
-                printStream.println("Invalid input, please try again.");
-            }
-            else if(change.equalsIgnoreCase("cancel")){
+            if(change.equalsIgnoreCase("cancel")){
                 return "cancel";
+            }
+            else if(change.length() == 0){
+                printStream.println("Invalid input, please try again.");
             }
             else{
                 isValid = true;
@@ -877,11 +877,11 @@ public class UserInput {
             printStream.println("Please enter the movie title for which you want to add showings ('cancel' to exit):");
             movie = scanner.nextLine();
 
-            if(movie.length() == 0){
-                printStream.println("Invalid input, please try again.");
-            }
-            else if(movie.equalsIgnoreCase("cancel")){
+            if(movie.equalsIgnoreCase("cancel")){
                 return "cancel";
+            }
+            else if(movie.length() == 0){
+                printStream.println("Invalid input, please try again.");
             }
 
             for(Cinema c : cinemas){
@@ -906,11 +906,11 @@ public class UserInput {
             printStream.println("Please enter the new showing day [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday] ('cancel' to exit):");
             day = scanner.nextLine();
 
-            if(day.length() == 0 || !days.contains(day)){
-                printStream.println("Invalid input, please try again.");
-            }
-            else if(day.equalsIgnoreCase("cancel")){
+            if(day.equalsIgnoreCase("cancel")){
                 return "cancel";
+            }
+            else if(day.length() == 0 || !days.contains(day)){
+                printStream.println("Invalid input, please try again.");
             }
             else{
                 isValid = true;
@@ -924,14 +924,14 @@ public class UserInput {
         String time = "";
 
         while(!isValid){
-            printStream.println("Please enter the screening time for " + day + " ('cancel' to exit):");
+            printStream.println("Please enter the screening time for " + day + " [HH:MM] ('cancel' to exit):");
             time = scanner.nextLine();
 
-            if(time.length() == 0){
-                printStream.println("Invalid input, please try again.");
-            }
-            else if(time.equalsIgnoreCase("cancel")){
+            if(time.equalsIgnoreCase("cancel")){
                 return "cancel";
+            }
+            else if(time.length() == 0 || time.length() != 5){
+                printStream.println("Invalid input, please try again.");
             }
             else{
                 isValid = true;
