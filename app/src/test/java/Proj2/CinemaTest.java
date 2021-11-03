@@ -2112,6 +2112,9 @@ class CinemaTest {
         GiftCard testGiftCard = new GiftCard(giftCardNumber, redeemed);
         testGiftCard.readGiftCards("resources/test_giftcards.txt");
         testGiftCard.readGiftCards("");
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        validGiftCards.add(testGiftCard);
+        testGiftCard.saveGiftCards("resources/test_giftcards.txt", validGiftCards); 
     } 
 
 }
