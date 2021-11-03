@@ -2106,8 +2106,12 @@ class CinemaTest {
     }
 
     @Test
-    public void setTicketPriceTest() {
-
+    public void giftCardTest() {
+        String giftCardNumber = "1875890093350513";
+        boolean redeemed = false;
+        GiftCard testGiftCard = new GiftCard(giftCardNumber, redeemed);
+        testGiftCard.readGiftCards("resources/test_giftcards.txt");
+        testGiftCard.readGiftCards("")
     } 
 
 }
