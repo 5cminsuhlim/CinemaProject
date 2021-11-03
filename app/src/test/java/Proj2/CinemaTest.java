@@ -2111,7 +2111,7 @@ class CinemaTest {
         boolean redeemed = false;
         GiftCard testGiftCard = new GiftCard(giftCardNumber, redeemed);
         testGiftCard.readGiftCards("resources/test_giftcards.txt");
-        testGiftCard.readGiftCards("")
+        testGiftCard.readGiftCards("");
     } 
 
 }
