@@ -2298,4 +2298,15 @@ class CinemaTest {
         plsman.saveMovies("resources/test_movies.txt", movv);
         plsman.saveMovies("", movv);
     }
+
+    @Test
+    public void saveGiftCardTest() {
+        String giftCardNumber = "1875890093350513";
+        boolean redeemed = false;
+        GiftCard testGiftCard = new GiftCard(giftCardNumber, redeemed);
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        validGiftCards.add(testGiftCard);
+        testGiftCard.saveGiftCards("resources/test_giftcards.txt", validGiftCards);
+        testGiftCard.saveGiftCards("", validGiftCards);
+    }
 }
