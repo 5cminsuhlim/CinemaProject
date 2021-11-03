@@ -2278,7 +2278,7 @@ class CinemaTest {
         ArrayList<Movie> movv = new ArrayList<>();
         movv.add(plsman);
         Movie foundmov = Cinema.searchMovie("Steve Buscemi 10 Hour Compilation",movv);
-        plsman.readMovies("test_movies.txt");
+        plsman.readMovies("resources/test_movies.txt");
         plsman.readMovies("");
     }
 }
