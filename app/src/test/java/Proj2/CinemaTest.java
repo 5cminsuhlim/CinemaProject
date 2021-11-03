@@ -3,10 +3,12 @@
  */
 package Proj2;
 
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -274,6 +276,8 @@ class CinemaTest {
         Card testCard2 = new Card(cardNumber2, cardHolderName2);
         ArrayList<Card> testCards = new ArrayList<Card>();
         ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        validGiftCards.add(new GiftCard("1234567891123456GC", false));
+        validGiftCards.add(new GiftCard("1234567891123457GC", true));
         testCards.add(testCard1);
         testCards.add(testCard2);
         String testTicket1 = "Ticket1";
@@ -333,11 +337,46 @@ class CinemaTest {
         assertEquals(testCinema.getMovies(), movies1, "Movies list returned is incorrect");
 
         assertEquals(testCinema.getId(), c_id, "Cinema ID returned is incorrect");
-        
-        // String input = "1\n" + "1\n" + "1\n" + "1\n" + "1\n" + "1\n"+ "1\n"+ "1\n"+ "1\n" + "";
-        // InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
-        // UserInput u = new UserInput(is, System.out);
-        // u.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+
+         String input = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "2\n" + "1234567891123456GC\n";
+         InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+         UserInput u = new UserInput(is, System.out);
+         u.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+
+        String input2 = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "2\n" + "1234567891123457GC\n";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        u2.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+
+        String input3 = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "2\n" + "1234567891123458GC\n";
+        InputStream is3 = new ByteArrayInputStream(input3.getBytes(StandardCharsets.UTF_8));
+        UserInput u3 = new UserInput(is3, System.out);
+        u3.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+
+        String input4 = "3\n0\n0\n0\n" + "cancel\n";
+        InputStream is4 = new ByteArrayInputStream(input4.getBytes(StandardCharsets.UTF_8));
+        UserInput u4 = new UserInput(is4, System.out);
+        u4.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+
+        String input5 = "3\n0\n0\n0\n" + "1\n" + "cancel\n";
+        InputStream is5 = new ByteArrayInputStream(input5.getBytes(StandardCharsets.UTF_8));
+        UserInput u5 = new UserInput(is5, System.out);
+        u5.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+
+        String input6 = "3\n0\n0\n0\n" + "1\n" + "1\n" + "cancel\n";
+        InputStream is6 = new ByteArrayInputStream(input6.getBytes(StandardCharsets.UTF_8));
+        UserInput u6 = new UserInput(is6, System.out);
+        u6.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+
+        String input7 = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "2\n" + "cancel\n";
+        InputStream is7 = new ByteArrayInputStream(input7.getBytes(StandardCharsets.UTF_8));
+        UserInput u7 = new UserInput(is7, System.out);
+        u7.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+
+        String input8 = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "cancel\n";
+        InputStream is8 = new ByteArrayInputStream(input8.getBytes(StandardCharsets.UTF_8));
+        UserInput u8 = new UserInput(is8, System.out);
+        u8.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
     }
 
     @Test
@@ -469,4 +508,1586 @@ class CinemaTest {
         UserInput u = new UserInput(is, System.out);
         assertEquals(u.getPassword(), input, "Invalid Password");
     }
+
+    @Test
+    public void testGetBasePriceInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getBasePrice(), "20");
+    }
+
+    @Test
+    public void testGetCIdInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getC_id(), 1);
+    }
+
+    @Test
+    public void testGetMIdInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getM_id(), 1);
+    }
+
+    @Test
+    public void testGetDayInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getDay(), "Monday");
+    }
+
+    @Test
+    public void testGetFCapacityInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getF_seatsCapacity(), 50);
+    }
+
+    @Test
+    public void testGetFOpenInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getF_seatsOpen(), 50);
+    }
+
+    @Test
+    public void testGetMCapacityInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getM_seatsCapacity(), 50);
+    }
+
+    @Test
+    public void testGetMOpenInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getM_seatsOpen(), 50);
+    }
+
+    @Test
+    public void testGetRCapacityInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getR_seatsCapacity(), 50);
+    }
+
+    @Test
+    public void testGetROpenInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getR_seatsOpen(), 50);
+    }
+
+    @Test
+    public void testGetNameInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getName(), "Movie");
+    }
+
+    @Test
+    public void testGetScreenSizeInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(movInst.getScreenSize(), "Gold");
+    }
+
+    @Test
+    public void testGetTimeInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        LocalTime time2 = LocalTime.parse("11:30:00");
+        assertEquals(0, movInst.getTime().compareTo(time2));
+    }
+
+    @Test
+    public void testSetDayInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        movInst.setDay("Tuesday");
+        assertEquals(movInst.getDay(), "Tuesday");
+        movInst.setDay("Not a real day");
+        assertEquals(movInst.getDay(), "Tuesday");
+    }
+
+    @Test
+    public void testSetFOpenInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        movInst.setF_seatsOpen(30);
+        assertEquals(movInst.getF_seatsOpen(), 30);
+        movInst.setF_seatsOpen(1000);
+        assertEquals(movInst.getF_seatsOpen(), 30);
+    }
+
+    @Test
+    public void testSetROpenInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        movInst.setR_seatsOpen(30);
+        assertEquals(movInst.getR_seatsOpen(), 30);
+        movInst.setR_seatsOpen(1000);
+        assertEquals(movInst.getR_seatsOpen(), 30);
+    }
+
+    @Test
+    public void testSetMOpenInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        movInst.setM_seatsOpen(30);
+        assertEquals(movInst.getM_seatsOpen(), 30);
+        movInst.setM_seatsOpen(1000);
+        assertEquals(movInst.getM_seatsOpen(), 30);
+    }
+
+    @Test
+    public void testSetScreenSizeInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        movInst.setScreenSize("Bronze");
+        assertEquals(movInst.getScreenSize(), "Bronze");
+    }
+
+    @Test
+    public void testSetFCapacityInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        movInst.setF_seatsCapacity(100);
+        assertEquals(movInst.getF_seatsCapacity(), 100);
+        movInst.setF_seatsCapacity(-100);
+        assertEquals(movInst.getF_seatsCapacity(), 100);
+    }
+
+    @Test
+    public void testSetMCapacityInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        movInst.setM_seatsCapacity(100);
+        assertEquals(movInst.getM_seatsCapacity(), 100);
+        movInst.setM_seatsCapacity(-100);
+        assertEquals(movInst.getM_seatsCapacity(), 100);
+    }
+
+    @Test
+    public void testSetRCapacityInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        movInst.setR_seatsCapacity(100);
+        assertEquals(movInst.getR_seatsCapacity(), 100);
+        movInst.setR_seatsCapacity(-100);
+        assertEquals(movInst.getR_seatsCapacity(), 100);
+    }
+
+    @Test
+    public void testUpdateSeatsOpenInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+        BigDecimal ticketPrice = new BigDecimal("1.6");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        movInst.updateSeatsOpen(15,25,35);
+        assertEquals(movInst.getF_seatsOpen(), 35);
+        assertEquals(movInst.getM_seatsOpen(), 25);
+        assertEquals(movInst.getR_seatsOpen(), 15);
+    }
+
+    @Test
+    public void testGetTicketPriceInstance(){
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsOpen = 40;
+        int f_seatsCapacity = 50;
+        int m_seatsOpen = 40;
+        int m_seatsCapacity = 50;
+        int r_seatsOpen = 40;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        LocalTime time = LocalTime.of(11, 30, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        assertEquals(0, movInst.getTicketPrice().compareTo(new BigDecimal("32")));
+        movInst.setScreenSize("silver");
+        assertEquals(0, movInst.getTicketPrice().compareTo(new BigDecimal("24")));
+        movInst.setScreenSize("bronze");
+        assertEquals(0, movInst.getTicketPrice().compareTo(new BigDecimal("16")));
+        movInst.setScreenSize("invalid!");
+        assertEquals(0, movInst.getTicketPrice().compareTo(new BigDecimal("0")));
+    }
+
+    @Test
+    public void cinemaTestSort() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        MovieInstance movInst2 = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time2, screenSize, basePrice);
+        MovieInstance movInst3 = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day2, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst3);
+        movies.add(movInst2);
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Cinema testCinema = new Cinema(c_id, c_name, location, movies, moviesParent);
+
+        testCinema.sort();
+
+        assertEquals(testCinema.getMovies().get(0), movInst2);
+        assertEquals(testCinema.getMovies().get(1), movInst);
+        assertEquals(testCinema.getMovies().get(2), movInst3);
+    }
+
+    @Test
+    public void cinemaTestSave() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        MovieInstance movInst2 = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time2, screenSize, basePrice);
+        MovieInstance movInst3 = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day2, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst3);
+        movies.add(movInst2);
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Cinema testCinema = new Cinema(c_id, c_name, location, movies, moviesParent);
+        ArrayList<Cinema> cinemas = new ArrayList<>();
+        cinemas.add(testCinema);
+
+        ArrayList<Cinema> empty = new ArrayList<>();
+
+        Cinema.saveCinemas("resources/test_cinemas", cinemas);
+        Cinema.saveCinemas("resources/test_cinemas.txt", cinemas);
+        Cinema.saveCinemas("resources/test_cinemas.txt", empty);
+    }
+
+    @Test
+    public void cinemaTestRead() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+        MovieInstance movInst2 = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time2, screenSize, basePrice);
+        MovieInstance movInst3 = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day2, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst3);
+        movies.add(movInst2);
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Cinema testCinema = new Cinema(c_id, c_name, location, movies, moviesParent);
+        ArrayList<Movie> empty = new ArrayList<>();
+        Cinema.readCinemas("resources/test_cinemas", moviesParent);
+        Cinema.readCinemas("resources/test_cinemas.txt", moviesParent);
+        Cinema.readCinemas("resources/test_cinemas.txt", empty);
+    }
+
+    @Test
+    public void cinemaTestGetSchedule() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Cinema testCinema = new Cinema(c_id, c_name, location, movies, moviesParent);
+
+        assertEquals(testCinema.getSchedule(), movInst.getName() + ": " + movInst.getSchedule());
+    }
+
+    @Test
+    public void customerTestSave() {
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "Charles";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.add(testCard1);
+        cards.add(testCard2);
+        ArrayList<Customer> customers = new ArrayList<>();
+        Customer g = new Customer("Broskin", "YOYO", cards,testTickets);
+        customers.add(g);
+        ArrayList<Customer> empty = new ArrayList<>();
+        Customer.saveCustomers("resources/test_customers", customers);
+        Customer.saveCustomers("resources/test_customers.txt", customers);
+        Customer.saveCustomers("resources/test_customers.txt", empty);
+    }
+
+    @Test
+    public void customerTestRead() {
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "Charles";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.add(testCard1);
+        cards.add(testCard2);
+
+        ArrayList<Card> empty = new ArrayList<>();
+        Customer.readCustomers("resources/test_customers", empty);
+        Customer.readCustomers("resources/test_customers.txt", cards);
+        Customer.readCustomers("resources/test_customers.txt", empty);
+    }
+
+    @Test
+    public void userInputTestSingleInstanceDelete() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Cinema testCinema2 = new Cinema(2, "swag cinema", "Swag Lake", movies, moviesParent);
+        ArrayList<Cinema> cinemas = new ArrayList<>();
+        cinemas.add(testCinema2);
+        ArrayList<Cinema> cinemas2 = new ArrayList<>();
+        cinemas2.add(testCinema2);
+//[cinema_location]:[movie_name]:[day]:[time_HH] or 'cancel':\n"
+        String input = "Swag Lake:Movie:Monday:12\n";
+        // LocalDate.parse("11-11-2001");
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        ArrayList<Cinema> skux = u.promptSingleInstanceToDelete(cinemas);
+        assertEquals(skux.size(), 1);
+    }
+
+    @Test
+    public void userInputTestScreeningDay() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Cinema testCinema2 = new Cinema(2, "swag cinema", "Swag Lake", movies, moviesParent);
+        ArrayList<Cinema> cinemas = new ArrayList<>();
+        cinemas.add(testCinema2);
+        ArrayList<Cinema> cinemas2 = new ArrayList<>();
+        cinemas2.add(testCinema2);
+        String input = "Tuesday\n";
+        // LocalDate.parse("11-11-2001");
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String input2 = "cancel\n";
+        // LocalDate.parse("11-11-2001");
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output1 = u.promptScreeningDay();
+        String output2 = u2.promptScreeningDay();
+
+        assertEquals(output1, "Tuesday");
+        assertEquals(output2, "cancel");
+    }
+
+    @Test
+    public void userInputTestScreeningTime() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+
+        Cinema testCinema2 = new Cinema(2, "swag cinema", "Swag Lake", movies, moviesParent);
+        ArrayList<Cinema> cinemas = new ArrayList<>();
+        cinemas.add(testCinema2);
+        ArrayList<Cinema> cinemas2 = new ArrayList<>();
+        cinemas2.add(testCinema2);
+        String input = "11:30\n";
+        // LocalDate.parse("11-11-2001");
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String input2 = "cancel\n";
+        // LocalDate.parse("11-11-2001");
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output1 = u.promptScreeningTime("Monday");
+        String output2 = u2.promptScreeningTime("Monday");
+
+        assertEquals(output1, "11:30");
+        assertEquals(output2, "cancel");
+    }
+
+    @Test
+    public void userInputTestFireStaff() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+        ArrayList<Customer> customers = new ArrayList<Customer>();
+        Customer g = new Customer("Staff1", "defstaffnotsus", null,null);
+        customers.add(g);
+
+        Cinema testCinema2 = new Cinema(2, "swag cinema", "Swag Lake", movies, moviesParent);
+        ArrayList<Cinema> cinemas = new ArrayList<>();
+        cinemas.add(testCinema2);
+        ArrayList<Cinema> cinemas2 = new ArrayList<>();
+        cinemas2.add(testCinema2);
+        String input = "Staff1\n";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output1 = u.promptRemoveStaff(customers);
+
+        assertEquals(output1, "Staff1");
+    }
+
+    @Test
+    public void userInputTestAddGiftCard() {
+        GiftCard card = new GiftCard("1234567891123456GC", false);
+        ArrayList<GiftCard> cards = new ArrayList<>();
+        cards.add(card);
+
+        String input = "1234567891123456GC\n";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output1 = u.promptGiftCard(cards);
+
+        assertEquals(output1, "1234567891123456GC");
+
+        String input2 = "90123913\n1234567891123456GC";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output2 = u2.promptGiftCard(cards);
+
+        assertEquals(output2, "1234567891123456GC");
+    }
+
+    @Test
+    public void userInputTestLocation() {
+        int c_id = 1;
+        int m_id = 1;
+        String name = "Movie";
+        String synopsis = "Synopsis";
+        String rating = "G";
+        String releaseDate = "10/10/2010";
+        String actor1 = "Matt Damon";
+        String actor2 = "Maaaaaatt Daaaaaamon";
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add(actor1);
+        cast.add(actor2);
+        Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
+        ArrayList<Movie> moviesParent = new ArrayList<Movie>();
+        moviesParent.add(testMovie);
+
+        String c_name = "Event";
+        String location = "Bondi Junction";
+
+        int f_seatsCapacity = 50;
+        int m_seatsCapacity = 50;
+        int r_seatsCapacity = 50;
+        String day = "Monday";
+        String day2 = "Friday";
+        LocalTime time = LocalTime.of(12, 00, 00, 00);
+        LocalTime time2 = LocalTime.of(10, 00, 00, 00);
+        String screenSize = "Gold";
+        BigDecimal basePrice = new BigDecimal("20");
+
+        MovieInstance movInst = new MovieInstance(m_id, c_id, testMovie, f_seatsCapacity, m_seatsCapacity, r_seatsCapacity,
+                day, time, screenSize, basePrice);
+
+        ArrayList<MovieInstance> movies = new ArrayList<>();
+        movies.add(movInst);
+
+        String username = "username";
+        String password = "password";
+
+        String cardNumber1 = "40691";
+        String cardHolderName1 = "username";
+        String cardNumber2 = "42689";
+        String cardHolderName2 = "Sergio";
+        Card testCard1 = new Card(cardNumber1, cardHolderName1);
+        Card testCard2 = new Card(cardNumber2, cardHolderName2);
+        ArrayList<Card> testCards = new ArrayList<Card>();
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        String testTicket1 = "Ticket1";
+        String testTicket2 = "Ticket2";
+        ArrayList<String> testTickets = new ArrayList<String>();
+        testTickets.add(testTicket1);
+        testTickets.add(testTicket2);
+        ArrayList<Customer> customers = new ArrayList<Customer>();
+        Customer g = new Customer("Staff1", "defstaffnotsus", null,null);
+        customers.add(g);
+
+        Cinema testCinema2 = new Cinema(2, "swag cinema", "Swag Lake", movies, moviesParent);
+        ArrayList<Cinema> cinemas2 = new ArrayList<>();
+        cinemas2.add(testCinema2);
+        String input = "invalid\nSwag Lake\n";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output1 = u.promptLocation(cinemas2);
+
+        String input2 = "invalid\ncancel\n";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output2 = u2.promptLocation(cinemas2);
+
+        assertEquals(output1, "Swag Lake");
+        assertEquals(output2, "cancel");
+    }
+
 }

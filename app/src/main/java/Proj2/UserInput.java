@@ -419,21 +419,26 @@ public class UserInput {
             case "2":
                 //pay by gc
                 input = this.getGiftCard();
-                boolean giftCardFound;
+                boolean giftCardFound = false;
+
                 for (GiftCard g : validGiftCards) {
-                    //if found and not redeemed
                     if (g.getGiftCardNumber().equalsIgnoreCase(input) && !g.isRedeemed()) {
                         wantedMov.bookCustomerGiftCard(customer, cinema, g, numPeople, numF, numM, numR);
+                        System.out.println("Successfully booked movie using gift card!\n");
+                        giftCardFound = true;
                         break;
 
                     } else if (g.getGiftCardNumber().equalsIgnoreCase(input) && g.isRedeemed()) {
                         System.out.println("This gift card has already been redeemed. Exiting payment...\n");
                         this.writeError(customer.getUsername(), "already redeemed giftcard");
+                        giftCardFound = true;
                         break;
                     }
                 }
-                System.out.println("Gift Card not found. Exiting payment...\n");
-                this.writeError(customer.getUsername(), "invalid giftcard");
+                if(!giftCardFound) {
+                    System.out.println("Gift Card not found. Exiting payment...\n");
+                    this.writeError(customer.getUsername(), "invalid giftcard");
+                }
                 break;
 
             case "cancel":
