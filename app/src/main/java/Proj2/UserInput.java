@@ -621,6 +621,7 @@ public class UserInput {
             printStream.println("Please enter your desired username (enter 'cancel' to exit):\n");
 
             desiredUsername = scanner.nextLine();
+            System.out.println("\nPress enter again to confirm.");
 
             for(Customer c : customers){
                 if(c.getUsername().equalsIgnoreCase(desiredUsername)){
@@ -642,10 +643,23 @@ public class UserInput {
     public String enterPasswordGuest(){ //need to somehow hide password with *****
         boolean isValid = false;
         String pw = "";
+        String prompt = "Please enter your desired password (at least 6 characters):\n";
 
         while(!isValid){
-            printStream.println("Please enter your desired password (at least 6 characters):\n");
             pw = scanner.nextLine();
+
+            EraserThread et = new EraserThread(prompt);
+            Thread mask = new Thread(et);
+            mask.start();
+
+            try {
+                pw = scanner.nextLine();
+            } catch (Exception ioe) {
+                ioe.printStackTrace();
+            }
+            // stop masking
+            et.stopMasking();
+            printStream.print(" Input Accepted *\n\n");
 
             if(pw.length() < 6){
                 printStream.println("Insufficient password length. Please try again.");
@@ -847,7 +861,7 @@ public class UserInput {
         String change = "";
 
         while(!isValid){
-            printStream.println("Please enter the new movie release date [DD/MM/YYYY] ('cancel' to exit):");
+            printStream.println("Please enter the new movie release date [YYYY-MM-DD] ('cancel' to exit):");
             change = scanner.nextLine();
 
             if(change.equalsIgnoreCase("cancel")){
@@ -880,6 +894,7 @@ public class UserInput {
                 break;
             } else{
                 castList.add(cast);
+                break;
             }
         }
 
@@ -1179,6 +1194,7 @@ public class UserInput {
                 break;
             } else{
                 castList.add(cast);
+                break;
             }
         }
 

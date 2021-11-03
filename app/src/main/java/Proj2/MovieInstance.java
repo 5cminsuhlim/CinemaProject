@@ -1,12 +1,9 @@
 package Proj2;
 
-import java.io.File;
 import java.math.RoundingMode;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Scanner;
 import java.math.BigDecimal;
 import java.time.*;
 
@@ -173,10 +170,11 @@ public class MovieInstance{
     public void bookCustomerCard(Customer customer, Cinema cinema, Card card, int numPeople, int numF, int numM, int numR){
 
         this.updateSeatsOpen(numF, numM, numR);
-
+        String ticketReceipt = cinema.getTicketReceipt();
         //getTicketReceipt == cinemaID, transactionNo
-        customer.addTicket(cinema.getTicketReceipt() +
-                "Price: $" + ticketPrice.multiply(BigDecimal.valueOf(numF + numM + numR)).setScale(2, RoundingMode.UP) +
+        customer.addTicket(ticketReceipt);
+        System.out.println(ticketReceipt +
+                "Price: $" + ticketPrice.multiply(BigDecimal.valueOf(numPeople)).setScale(2, RoundingMode.UP) +
                 "\nPeople: " + numPeople +
                 "\nFront Seats Booked: " + numF +
                 "\nMiddle Seats Booked: " + numM +
@@ -188,7 +186,9 @@ public class MovieInstance{
         this.updateSeatsOpen(numF, numM, numR);
 
         //getTicketReceipt == cinemaID, transactionNo
-        customer.addTicket(cinema.getTicketReceipt() +
+        String ticketReceipt = cinema.getTicketReceipt();
+        customer.addTicket(ticketReceipt);
+        System.out.println(ticketReceipt +
                 "Price: $" + ticketPrice.multiply(BigDecimal.valueOf(numPeople)).setScale(2, RoundingMode.UP) +
                 "\nPeople: " + numPeople +
                 "\nFront Seats Booked: " + numF +
