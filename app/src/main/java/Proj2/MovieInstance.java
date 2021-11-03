@@ -94,7 +94,9 @@ public class MovieInstance{
     }
 
     public void setF_seatsOpen(int f_seatsOpen) {
-        this.f_seatsOpen = f_seatsOpen;
+        if(f_seatsOpen >= 0 && f_seatsOpen <= this.getF_seatsCapacity()){
+            this.f_seatsOpen = f_seatsOpen;
+        }
     }
 
     public int getF_seatsCapacity() {
@@ -102,7 +104,9 @@ public class MovieInstance{
     }
 
     public void setF_seatsCapacity(int f_seatsCapacity) {
-        this.f_seatsCapacity = f_seatsCapacity;
+        if(f_seatsCapacity >= 0){
+            this.f_seatsCapacity = f_seatsCapacity;
+        }
     }
 
     public int getM_seatsOpen() {
@@ -110,7 +114,9 @@ public class MovieInstance{
     }
 
     public void setM_seatsOpen(int m_seatsOpen) {
-        this.m_seatsOpen = m_seatsOpen;
+        if(m_seatsOpen >= 0 && m_seatsOpen <= this.getM_seatsCapacity()){
+            this.m_seatsOpen = m_seatsOpen;
+        }
     }
 
     public int getM_seatsCapacity() {
@@ -118,7 +124,9 @@ public class MovieInstance{
     }
 
     public void setM_seatsCapacity(int m_seatsCapacity) {
-        this.m_seatsCapacity = m_seatsCapacity;
+        if(m_seatsCapacity >= 0) {
+            this.m_seatsCapacity = m_seatsCapacity;
+        }
     }
 
     public int getR_seatsOpen() {
@@ -126,7 +134,9 @@ public class MovieInstance{
     }
 
     public void setR_seatsOpen(int r_seatsOpen) {
-        this.r_seatsOpen = r_seatsOpen;
+        if(r_seatsOpen >= 0 && r_seatsOpen <= this.getR_seatsCapacity()){
+            this.r_seatsOpen = r_seatsOpen;
+        }
     }
 
     public int getR_seatsCapacity() {
@@ -134,7 +144,9 @@ public class MovieInstance{
     }
 
     public void setR_seatsCapacity(int r_seatsCapacity) {
-        this.r_seatsCapacity = r_seatsCapacity;
+        if(r_seatsCapacity >= 0) {
+            this.r_seatsCapacity = r_seatsCapacity;
+        }
     }
 
     public String getDay() {
@@ -142,7 +154,10 @@ public class MovieInstance{
     }
 
     public void setDay(String day) {
-        this.day = day;
+        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        if(Arrays.asList(days).contains(day)){
+            this.day = day;
+        }
     }
 
     public LocalTime getTime() {

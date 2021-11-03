@@ -346,9 +346,12 @@ public class UserInput {
                 switch (input) {
                     case "1" -> {
                         //pay with existing card
+                        //pay by card
                         input = this.getCard();
                         String cardNo = input;
+
                         boolean cardFound = false;
+
                         for (Card card : validCards) {
                             if (card.getCardNumber().equalsIgnoreCase(input)) {
                                 cardFound = true;
@@ -413,16 +416,20 @@ public class UserInput {
             case "2" -> {
                 //pay by gc
                 input = this.getGiftCard();
-                boolean giftCardFound;
+                boolean giftCardFound = false;
+
                 for (GiftCard g : validGiftCards) {
                     //if found and not redeemed
                     if (g.getGiftCardNumber().equalsIgnoreCase(input) && !g.isRedeemed()) {
                         wantedMov.bookCustomerGiftCard(customer, cinema, g, numPeople, numF, numM, numR);
+                        System.out.println("Successfully booked movie using gift card!\n");
+                        giftCardFound = true;
                         break;
 
                     } else if (g.getGiftCardNumber().equalsIgnoreCase(input) && g.isRedeemed()) {
                         System.out.println("This gift card has already been redeemed. Exiting payment...\n");
                         this.writeError(customer.getUsername(), "already redeemed giftcard");
+                        giftCardFound = true;
                         break;
                     }
                 }
@@ -560,8 +567,7 @@ public class UserInput {
     public String promptCardPayment(){
         printStream.println("Please select a card payment option (enter 'cancel' to exit):\n" +
                 "1: Pay with Existing Card\n" +
-                "2: Pay with New Card\n" +
-                "3: Pay with Saved Card\n");
+                "2: Pay with New Card\n");
         return scanner.nextLine();
     }
 
@@ -873,7 +879,6 @@ public class UserInput {
                 break;
             } else{
                 castList.add(cast);
-                break;
             }
         }
 
@@ -1173,7 +1178,6 @@ public class UserInput {
                 break;
             } else{
                 castList.add(cast);
-                break;
             }
         }
 
