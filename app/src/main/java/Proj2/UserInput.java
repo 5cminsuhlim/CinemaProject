@@ -873,6 +873,7 @@ public class UserInput {
                 break;
             } else{
                 castList.add(cast);
+                break;
             }
         }
 
@@ -1172,6 +1173,7 @@ public class UserInput {
                 break;
             } else{
                 castList.add(cast);
+                break;
             }
         }
 
