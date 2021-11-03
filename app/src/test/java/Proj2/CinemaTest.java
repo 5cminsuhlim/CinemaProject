@@ -2206,7 +2206,7 @@ class CinemaTest {
         UserInput u = new UserInput(is, System.out);
         String output = u.changeTicketPrice();
         assertEquals("50", output);
-        String input2 = "\ncancel\n";
+        String input2 = "cancel\n";
         InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
         UserInput u2 = new UserInput(is2, System.out);
         String output2 = u2.changeSynopsis();
