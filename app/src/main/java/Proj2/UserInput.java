@@ -567,7 +567,8 @@ public class UserInput {
     public String promptCardPayment(){
         printStream.println("Please select a card payment option (enter 'cancel' to exit):\n" +
                 "1: Pay with Existing Card\n" +
-                "2: Pay with New Card\n");
+                "2: Pay with New Card\n" +
+                "3: Pay with Saved Card\n");
         return scanner.nextLine();
     }
 
