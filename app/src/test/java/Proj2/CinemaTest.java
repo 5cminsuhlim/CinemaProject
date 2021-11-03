@@ -1535,7 +1535,7 @@ class CinemaTest {
         cinemas.add(testCinema);
 
         ArrayList<Cinema> empty = new ArrayList<>();
-        Cinema.addSchedule(movInst);
+        testCinema.addSchedule(movInst);
         Cinema.saveCinemas("resources/test_cinemas", cinemas);
         Cinema.saveCinemas("resources/test_cinemas.txt", cinemas);
         Cinema.saveCinemas("resources/test_cinemas.txt", empty);
