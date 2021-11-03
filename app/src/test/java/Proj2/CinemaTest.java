@@ -242,6 +242,7 @@ class CinemaTest {
         Movie testMovie = new Movie(m_id, name, synopsis, rating, releaseDate, cast);
         ArrayList<Movie> moviesParent = new ArrayList<Movie>();
         moviesParent.add(testMovie);
+        Card card = new Card("", "");
 
         String c_name = "Event";
         String location = "Bondi Junction";
@@ -341,42 +342,42 @@ class CinemaTest {
          String input = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "2\n" + "1234567891123456GC\n";
          InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
          UserInput u = new UserInput(is, System.out);
-         u.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+        card = u.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer, card);
 
         String input2 = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "2\n" + "1234567891123457GC\n";
         InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
         UserInput u2 = new UserInput(is2, System.out);
-        u2.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+        card = u2.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer, card);
 
         String input3 = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "2\n" + "1234567891123458GC\n";
         InputStream is3 = new ByteArrayInputStream(input3.getBytes(StandardCharsets.UTF_8));
         UserInput u3 = new UserInput(is3, System.out);
-        u3.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+        card = u3.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer, card);
 
         String input4 = "3\n0\n0\n0\n" + "cancel\n";
         InputStream is4 = new ByteArrayInputStream(input4.getBytes(StandardCharsets.UTF_8));
         UserInput u4 = new UserInput(is4, System.out);
-        u4.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+        card = u4.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer, card);
 
         String input5 = "3\n0\n0\n0\n" + "1\n" + "cancel\n";
         InputStream is5 = new ByteArrayInputStream(input5.getBytes(StandardCharsets.UTF_8));
         UserInput u5 = new UserInput(is5, System.out);
-        u5.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+        card = u5.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer, card);
 
         String input6 = "3\n0\n0\n0\n" + "1\n" + "1\n" + "cancel\n";
         InputStream is6 = new ByteArrayInputStream(input6.getBytes(StandardCharsets.UTF_8));
         UserInput u6 = new UserInput(is6, System.out);
-        u6.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+        card = u6.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer, card);
 
         String input7 = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "2\n" + "cancel\n";
         InputStream is7 = new ByteArrayInputStream(input7.getBytes(StandardCharsets.UTF_8));
         UserInput u7 = new UserInput(is7, System.out);
-        u7.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+        card = u7.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer, card);
 
         String input8 = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "cancel\n";
         InputStream is8 = new ByteArrayInputStream(input8.getBytes(StandardCharsets.UTF_8));
         UserInput u8 = new UserInput(is8, System.out);
-        u8.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+        card = u8.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer, card);
     }
 
     @Test
