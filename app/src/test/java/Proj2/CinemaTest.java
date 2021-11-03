@@ -2129,4 +2129,133 @@ class CinemaTest {
         }
     }
 
+    @Test
+    public void changeScreenSizeTest(){
+        String input = "Gold";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output = u.changeScreenSize();
+        assertEquals("Gold", output);
+        String input2 = "\ncancel\n";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output2 = u2.changeScreenSize();
+        assertEquals("cancel", output2);
+    }
+
+    @Test
+    public void changeDateTest(){
+        String input = "2021-10-10";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output = u.changeDate();
+        assertEquals("2021-10-10", output);
+        String input2 = "\ncancel\n";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output2 = u2.changeDate();
+        assertEquals("cancel", output2);
+    }
+
+    @Test
+    public void changeNameTest(){
+        String input = "Finding Dory";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output = u.changeName();
+        assertEquals("Finding Dory", output);
+        String input2 = "\ncancel\n";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output2 = u2.changeName();
+        assertEquals("cancel", output2);
+    }
+
+    @Test
+    public void changeRatingTest(){
+        String input = "PG";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output = u.changeRating();
+        assertEquals("PG", output);
+        String input2 = "\ncancel\n";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output2 = u2.changeRating();
+        assertEquals("cancel", output2);
+    }
+
+    @Test
+    public void changeSynopsis(){
+        String input = "new synopsis";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output = u.changeSynopsis();
+        assertEquals("new synopsis", output);
+        String input2 = "\ncancel\n";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output2 = u2.changeSynopsis();
+        assertEquals("cancel", output2);
+    }
+
+    @Test
+    public void changeTicketPriceTest(){
+        String input = "50";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output = u.changeTicketPrice();
+        assertEquals("50", output);
+        String input2 = "\ncancel\n";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        String output2 = u2.changeSynopsis();
+        assertEquals("cancel", output2);
+    }
+
+    @Test
+    public void checkUserTest(){
+        String input = "1";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output = u.checkUser();
+        assertEquals("1", output);
+    }
+
+    @Test
+    public void promptUserTest(){
+        String input = "1";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output = u.promptUser();
+        assertEquals("1", output);
+    }
+
+    @Test
+    public void promptAccountTest(){
+        String input = "1";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output = u.promptAccount();
+        assertEquals("1", output);
+    }
+
+    @Test
+    public void findMovieTest(){
+        String input = "Nemo";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output = u.findMovie();
+        assertEquals("Nemo", output);
+    }
+
+    @Test
+    public void promptChoiceTest(){
+        String input = "1";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        String output = u.promptChoice();
+        assertEquals("1", output);
+    }
+
 }
