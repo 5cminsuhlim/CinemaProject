@@ -642,10 +642,23 @@ public class UserInput {
     public String enterPasswordGuest(){ //need to somehow hide password with *****
         boolean isValid = false;
         String pw = "";
+        String prompt = "Please enter your desired password (at least 6 characters):\n";
 
         while(!isValid){
-            printStream.println("Please enter your desired password (at least 6 characters):\n");
             pw = scanner.nextLine();
+
+            EraserThread et = new EraserThread(prompt);
+            Thread mask = new Thread(et);
+            mask.start();
+
+            try {
+                pw = scanner.nextLine();
+            } catch (Exception ioe) {
+                ioe.printStackTrace();
+            }
+            // stop masking
+            et.stopMasking();
+            printStream.print(" Input Accepted *\n\n");
 
             if(pw.length() < 6){
                 printStream.println("Insufficient password length. Please try again.");

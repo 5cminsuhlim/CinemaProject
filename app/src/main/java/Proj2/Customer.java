@@ -18,6 +18,9 @@ public class Customer {
         this.username = username;
         this.password = password;
         this.cards = cards;
+        if(tickets == null){
+            tickets = new ArrayList<String>();
+        }
         this.tickets = tickets;
     }
 
