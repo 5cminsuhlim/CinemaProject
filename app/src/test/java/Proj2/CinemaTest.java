@@ -223,7 +223,6 @@ class CinemaTest {
         testTicketsUpdated.add(testTicket4);
         testCustomer.addTicket(testTicket4);
         assertEquals(testCustomer.getTickets(), testTicketsUpdated, "Ticket list returned is incorrect");
-
     }
 
     @Test
@@ -385,6 +384,12 @@ class CinemaTest {
         Rating: G
         Release Date: 10/10/2010
         Cast: Leo Di Caprio, Ched""", "Invalid Response");
+
+        int total_people = 10;
+        int numF = 1;
+        int numM = 1;
+        int numR = 1;
+        movInst.bookCustomerCard(testCustomer, testCinema, card, total_people, numF, numM, numR);
     }
 
     @Test
@@ -2381,5 +2386,10 @@ class CinemaTest {
         UserInput u2 = new UserInput(is2, System.out);
         String output2 = u2.promptLocation(cinemas2);
         assertEquals("cancel", output2);
+    }
+
+    @Test
+    public void bookCustomerCardTest() {
+
     }
 }
