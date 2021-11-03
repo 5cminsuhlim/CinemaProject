@@ -3,8 +3,6 @@ package Proj2;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.math.BigDecimal;
-import java.util.stream.Collectors;
 
 public class Movie {
     private final int id;

@@ -25,10 +25,6 @@ public class Cinema {
         this.moviesParent = moviesParent;
     }
 
-    public void setInstances(ArrayList<MovieInstance> instances){
-        this.movies = instances;
-    }
-
     public void sort(){
         this.movies = sortInstances(getMovies());
     }

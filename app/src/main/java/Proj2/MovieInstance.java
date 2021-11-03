@@ -1,12 +1,9 @@
 package Proj2;
 
-import java.io.File;
 import java.math.RoundingMode;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Scanner;
 import java.math.BigDecimal;
 import java.time.*;
 
