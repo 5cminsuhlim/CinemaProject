@@ -1535,7 +1535,7 @@ class CinemaTest {
         cinemas.add(testCinema);
 
         ArrayList<Cinema> empty = new ArrayList<>();
-
+        testCinema.addSchedule(movInst);
         Cinema.saveCinemas("resources/test_cinemas", cinemas);
         Cinema.saveCinemas("resources/test_cinemas.txt", cinemas);
         Cinema.saveCinemas("resources/test_cinemas.txt", empty);
@@ -2106,8 +2106,15 @@ class CinemaTest {
     }
 
     @Test
-    public void setTicketPriceTest() {
-
+    public void giftCardTest() {
+        String giftCardNumber = "1875890093350513";
+        boolean redeemed = false;
+        GiftCard testGiftCard = new GiftCard(giftCardNumber, redeemed);
+        testGiftCard.readGiftCards("resources/test_giftcards.txt");
+        testGiftCard.readGiftCards("");
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        validGiftCards.add(testGiftCard);
+        testGiftCard.saveGiftCards("resources/test_giftcards.txt", validGiftCards);
     }
 
     @Test
@@ -2258,6 +2265,39 @@ class CinemaTest {
         assertEquals("1", output);
     }
 
+    @Test
+    public void testReadMovies(){
+        int id = 1;
+        String name = "Steve Buscemi 10 Hour Compilation";
+        String synopsis = "As above"; //plot
+        String rating = "10"; //rating
+        String releaseDate = "10/10/10"; //?
+        ArrayList<String> cast = new ArrayList<>(); //people
+        Movie plsman = new Movie(id, name, synopsis, rating, releaseDate, cast);
+
+        ArrayList<Movie> movv = new ArrayList<>();
+        movv.add(plsman);
+        Movie foundmov = Cinema.searchMovie("Steve Buscemi 10 Hour Compilation",movv);
+        plsman.readMovies("resources/test_movies.txt");
+        plsman.readMovies("");
+    }
+
+    @Test
+    public void testSaveMovies(){
+        int id = 1;
+        String name = "Steve Buscemi 10 Hour Compilation";
+        String synopsis = "As above"; //plot
+        String rating = "10"; //rating
+        String releaseDate = "10/10/10"; //?
+        ArrayList<String> cast = new ArrayList<>(); //people
+        Movie plsman = new Movie(id, name, synopsis, rating, releaseDate, cast);
+
+        ArrayList<Movie> movv = new ArrayList<>();
+        movv.add(plsman);
+        Movie foundmov = Cinema.searchMovie("Steve Buscemi 10 Hour Compilation",movv);
+        plsman.saveMovies("resources/test_movies.txt", movv);
+        plsman.saveMovies("", movv);
+    }
     @Test
     public void promptLocationTest(){
         int c_id = 1;
