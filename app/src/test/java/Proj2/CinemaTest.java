@@ -2106,9 +2106,16 @@ class CinemaTest {
     }
 
     @Test
-    public void setTicketPriceTest() {
-
-    }
+    public void giftCardTest() {
+        String giftCardNumber = "1875890093350513";
+        boolean redeemed = false;
+        GiftCard testGiftCard = new GiftCard(giftCardNumber, redeemed);
+        testGiftCard.readGiftCards("resources/test_giftcards.txt");
+        testGiftCard.readGiftCards("");
+        ArrayList<GiftCard> validGiftCards = new ArrayList<GiftCard>();
+        validGiftCards.add(testGiftCard);
+        testGiftCard.saveGiftCards("resources/test_giftcards.txt", validGiftCards); 
+    } 
 
     @Test
     public void changeCastTest(){
@@ -2257,5 +2264,4 @@ class CinemaTest {
         String output = u.promptChoice();
         assertEquals("1", output);
     }
-
 }
