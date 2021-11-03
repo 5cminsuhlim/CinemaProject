@@ -173,9 +173,15 @@ public class MovieInstance{
     public void bookCustomerCard(Customer customer, Cinema cinema, Card card, int numPeople, int numF, int numM, int numR){
 
         this.updateSeatsOpen(numF, numM, numR);
-
+        String ticketReceipt = cinema.getTicketReceipt();
         //getTicketReceipt == cinemaID, transactionNo
-        customer.addTicket(cinema.getTicketReceipt() +
+        customer.addTicket(ticketReceipt +
+                "Price: $" + ticketPrice.multiply(BigDecimal.valueOf(numPeople)).setScale(2, RoundingMode.UP) +
+                "\nPeople: " + numPeople +
+                "\nFront Seats Booked: " + numF +
+                "\nMiddle Seats Booked: " + numM +
+                "\nRear Seats Booked: " + numR);
+        System.out.println(ticketReceipt +
                 "Price: $" + ticketPrice.multiply(BigDecimal.valueOf(numPeople)).setScale(2, RoundingMode.UP) +
                 "\nPeople: " + numPeople +
                 "\nFront Seats Booked: " + numF +
@@ -188,7 +194,14 @@ public class MovieInstance{
         this.updateSeatsOpen(numF, numM, numR);
 
         //getTicketReceipt == cinemaID, transactionNo
-        customer.addTicket(cinema.getTicketReceipt() +
+        String ticketReceipt = cinema.getTicketReceipt();
+        customer.addTicket(ticketReceipt +
+                "Price: $" + ticketPrice.multiply(BigDecimal.valueOf(numPeople)).setScale(2, RoundingMode.UP) +
+                "\nPeople: " + numPeople +
+                "\nFront Seats Booked: " + numF +
+                "\nMiddle Seats Booked: " + numM +
+                "\nRear Seats Booked: " + numR);
+        System.out.println(ticketReceipt +
                 "Price: $" + ticketPrice.multiply(BigDecimal.valueOf(numPeople)).setScale(2, RoundingMode.UP) +
                 "\nPeople: " + numPeople +
                 "\nFront Seats Booked: " + numF +
