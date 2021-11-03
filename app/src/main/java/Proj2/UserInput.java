@@ -861,7 +861,7 @@ public class UserInput {
         String change = "";
 
         while(!isValid){
-            printStream.println("Please enter the new movie release date [DD/MM/YYYY] ('cancel' to exit):");
+            printStream.println("Please enter the new movie release date [YYYY-MM-DD] ('cancel' to exit):");
             change = scanner.nextLine();
 
             if(change.equalsIgnoreCase("cancel")){
