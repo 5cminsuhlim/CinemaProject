@@ -2096,6 +2096,14 @@ class CinemaTest {
 
         assertEquals(output1, "Swag Lake");
         assertEquals(output2, "cancel");
+
+        movInst.setTicketPrice("bronze");
+        movInst.setTicketPrice("silver");
     }
+
+    @Test
+    public void setTicketPriceTest() {
+
+    } 
 
 }
