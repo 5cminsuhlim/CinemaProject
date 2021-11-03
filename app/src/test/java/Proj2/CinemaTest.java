@@ -377,6 +377,14 @@ class CinemaTest {
         InputStream is8 = new ByteArrayInputStream(input8.getBytes(StandardCharsets.UTF_8));
         UserInput u8 = new UserInput(is8, System.out);
         u8.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer);
+
+        assertEquals(newMovInst.getMovieDetails(), """
+        
+        Movie
+        Synopsis: Synopsis
+        Rating: G
+        Release Date: 10/10/2010
+        Cast: Leo Di Caprio, Ched""", "Invalid Response");
     }
 
     @Test
