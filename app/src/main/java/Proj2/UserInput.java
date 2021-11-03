@@ -621,6 +621,7 @@ public class UserInput {
             printStream.println("Please enter your desired username (enter 'cancel' to exit):\n");
 
             desiredUsername = scanner.nextLine();
+            System.out.println("\nPress enter again to confirm.");
 
             for(Customer c : customers){
                 if(c.getUsername().equalsIgnoreCase(desiredUsername)){
