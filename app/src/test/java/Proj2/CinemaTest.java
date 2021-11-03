@@ -2108,6 +2108,25 @@ class CinemaTest {
     @Test
     public void setTicketPriceTest() {
 
-    } 
+    }
+
+    @Test
+    public void changeCastTest(){
+        String input = "Lachlan, Chad\n";
+        InputStream is = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        UserInput u = new UserInput(is, System.out);
+        ArrayList<String> output = u.changeCast();
+        assertEquals("Lachlan, Chad", output.get(0));
+        String input2 = "cancel\n";
+        InputStream is2 = new ByteArrayInputStream(input2.getBytes(StandardCharsets.UTF_8));
+        UserInput u2 = new UserInput(is2, System.out);
+        ArrayList<String> output2 = u2.changeCast();
+        try{
+            output2.get(0);
+            assertTrue(false, "Error should have been thrown");
+        }catch (Exception e){
+            assertTrue(true);
+        }
+    }
 
 }
