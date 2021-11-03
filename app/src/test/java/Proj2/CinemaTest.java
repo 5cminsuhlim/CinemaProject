@@ -377,7 +377,14 @@ class CinemaTest {
         String input8 = "3\n0\n0\n0\n" + "1\n" + "1\n" + "1\n" + "cancel\n";
         InputStream is8 = new ByteArrayInputStream(input8.getBytes(StandardCharsets.UTF_8));
         UserInput u8 = new UserInput(is8, System.out);
-        card = u8.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer, card);
+        u8.book(newMovInst,testCinema,testCards,validGiftCards,testCustomer,card);
+        assertEquals(newMovInst.getMovieDetails(), """
+        
+        Movie
+        Synopsis: Synopsis
+        Rating: G
+        Release Date: 10/10/2010
+        Cast: Leo Di Caprio, Ched""", "Invalid Response");
     }
 
     @Test
@@ -2089,6 +2096,18 @@ class CinemaTest {
 
         assertEquals(output1, "Swag Lake");
         assertEquals(output2, "cancel");
+
+        movInst.setTicketPrice("bronze");
+        movInst.setTicketPrice("silver");
+        BigDecimal basePrice2 = new BigDecimal("16");
+        movInst.setBasePrice(basePrice2);
+        movInst.getBookings();
+        movInst.getParent();
     }
+
+    @Test
+    public void setTicketPriceTest() {
+
+    } 
 
 }
