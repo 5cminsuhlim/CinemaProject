@@ -2099,8 +2099,8 @@ class CinemaTest {
 
         movInst.setTicketPrice("bronze");
         movInst.setTicketPrice("silver");
-        BigDecimal basePrice = new BigDecimal("20");
-        movInst.setBasePrice(basePrice);
+        BigDecimal basePrice2 = new BigDecimal("16");
+        movInst.setBasePrice(basePrice2);
     }
 
     @Test
