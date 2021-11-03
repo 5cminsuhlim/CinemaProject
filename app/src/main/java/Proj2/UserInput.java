@@ -305,7 +305,7 @@ public class UserInput {
     }
 
     // Add option to save card detail
-    public void book(MovieInstance wantedMov, Cinema cinema, ArrayList<Card> validCards, ArrayList<GiftCard> validGiftCards, Customer customer){
+    public Card book(MovieInstance wantedMov, Cinema cinema, ArrayList<Card> validCards, ArrayList<GiftCard> validGiftCards, Customer customer, Card savedCard){
         int numPeople = this.getNumPeople();
         int numF = -1;
         int numM = -1;
@@ -316,17 +316,17 @@ public class UserInput {
             numF = this.promptFSeats(wantedMov.getF_seatsOpen());
             if(numF == -2 ){
                 printStream.println("Cancelling Transaction \n");
-                return;
+                return null;
             }
             numM = this.promptMSeats(wantedMov.getM_seatsOpen());
             if(numM == -2 ){
                 printStream.println("Cancelling Transaction \n");
-                return;
+                return null;
             }
             numR = this.promptRSeats(wantedMov.getR_seatsOpen());
             if(numR == -2 ){
                 printStream.println("\n Cancelling Transaction \n");
-                return;
+                return null;
             }
 
             if((numF + numM + numR)!=numPeople){
@@ -341,11 +341,10 @@ public class UserInput {
         String input = this.promptPayment();
 
         switch (input) {
-            case "1":
+            case "1" -> {
                 input = this.promptCardPayment();
-
-                switch(input){
-                    case "1":
+                switch (input) {
+                    case "1" -> {
                         //pay with existing card
                         //pay by card
                         input = this.getCard();
@@ -366,8 +365,8 @@ public class UserInput {
 
                                 if (card.getCardHolderName().equalsIgnoreCase(name)) {
                                     wantedMov.bookCustomerCard(customer, cinema, paymentCard, numPeople, numF, numM, numR);
-                                }
-                                else {
+                                    return paymentCard;
+                                } else {
                                     System.out.println("Invalid name. Exiting payment...\n");
                                     this.writeError(customer.getUsername(), "invalid card");
                                     break;
@@ -375,53 +374,52 @@ public class UserInput {
 
                             }
 
-                            if (!cardFound) {
-                                System.out.println("Card not found. Exiting payment...\n");
-                                this.writeError(customer.getUsername(), "invalid card");
-                                break;
-                            }
                         }
-                        break;
 
-                    case "2":
+                        if (!cardFound) {
+                            System.out.println("Card not found. Exiting payment...\n");
+                            this.writeError(customer.getUsername(), "invalid card");
+                        }
+                    }
+                    case "2" -> {
                         //pay with new card
                         input = this.getCard();
-                        cardNo = input;
-
+                        String cardNo = input;
                         input = this.getName();
-
                         Card newCard = new Card(cardNo, input);
-
-                        if(!validCards.contains(newCard)){
+                        if (!validCards.contains(newCard)) {
                             validCards.add(newCard);
                             customer.addCard(newCard);
 
                             wantedMov.bookCustomerCard(customer, cinema, newCard, numPeople, numF, numM, numR);
-                        }
-                        else{
+                            return newCard;
+                        } else {
                             System.out.println("Card already exists. Exiting payment...\n");
                             this.writeError(customer.getUsername(), "invalid card");
-                            break;
                         }
-                        break;
-
-                    case "cancel":
-                        this.writeError(customer.getUsername(), "user cancelled");
-                        break;
-
-                    default:
+                    }
+                    case "3" ->{
+                        if(savedCard == null){
+                            System.out.println("No saved card from this session. Exiting payment...\n");
+                        }
+                        else{
+                            wantedMov.bookCustomerCard(customer, cinema, savedCard, numPeople, numF, numM, numR);
+                        }
+                    }
+                    case "cancel" -> this.writeError(customer.getUsername(), "user cancelled");
+                    default -> {
                         System.out.println("Invalid Input, please try again.\n");
                         this.writeError(customer.getUsername(), "invalid input");
-                        break;
+                    }
                 }
-                break;
-
-            case "2":
+            }
+            case "2" -> {
                 //pay by gc
                 input = this.getGiftCard();
                 boolean giftCardFound = false;
 
                 for (GiftCard g : validGiftCards) {
+                    //if found and not redeemed
                     if (g.getGiftCardNumber().equalsIgnoreCase(input) && !g.isRedeemed()) {
                         wantedMov.bookCustomerGiftCard(customer, cinema, g, numPeople, numF, numM, numR);
                         System.out.println("Successfully booked movie using gift card!\n");
@@ -435,21 +433,17 @@ public class UserInput {
                         break;
                     }
                 }
-                if(!giftCardFound) {
-                    System.out.println("Gift Card not found. Exiting payment...\n");
-                    this.writeError(customer.getUsername(), "invalid giftcard");
-                }
-                break;
-
-            case "cancel":
-                this.writeError(customer.getUsername(), "user cancelled");
-                break;
-
-            default:
+                System.out.println("Gift Card not found. Exiting payment...\n");
+                this.writeError(customer.getUsername(), "invalid giftcard");
+            }
+            case "cancel" -> this.writeError(customer.getUsername(), "user cancelled");
+            default -> {
                 System.out.println("Invalid Input, please try again.\n");
                 this.writeError(customer.getUsername(), "invalid input");
-                break;
+            }
         }
+
+        return null;
     }
 
     public int getNumPeople(){
