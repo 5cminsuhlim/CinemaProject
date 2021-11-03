@@ -385,6 +385,11 @@ class CinemaTest {
         Release Date: 10/10/2010
         Cast: Leo Di Caprio, Ched""", "Invalid Response");
 
+        String input9 = "1\n";
+        InputStream is9 = new ByteArrayInputStream(input8.getBytes(StandardCharsets.UTF_8));
+        UserInput u9 = new UserInput(is9, System.out);
+        u9.bookMovie();             
+                     
         int total_people = 10;
         int numF = 1;
         int numM = 1;
