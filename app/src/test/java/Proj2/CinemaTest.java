@@ -2102,6 +2102,7 @@ class CinemaTest {
         BigDecimal basePrice2 = new BigDecimal("16");
         movInst.setBasePrice(basePrice2);
         movInst.getBookings();
+        movInst.getParent();
     }
 
     @Test
